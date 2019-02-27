@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.filterswindowController">
+   <children>
+      <HBox fx:id="hbox" spacing="20.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="c11" mnemonicParsing="false" text="Action" />
+                  <CheckBox fx:id="c12" mnemonicParsing="false" text="Comedy" />
+                  <CheckBox fx:id="c13" mnemonicParsing="false" text="Fantasy" />
+                  <CheckBox fx:id="c14" mnemonicParsing="false" text="Kids" />
+                  <CheckBox fx:id="c15" mnemonicParsing="false" text="Military" />
+                  <CheckBox fx:id="c16" mnemonicParsing="false" text="Police" />
+                  <CheckBox fx:id="c17" mnemonicParsing="false" text="Seinen" />
+                  <CheckBox fx:id="c18" mnemonicParsing="false" text="Space" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="c21" mnemonicParsing="false" text="Adventure" />
+                  <CheckBox fx:id="c22" mnemonicParsing="false" text="Demons" />
+                  <CheckBox fx:id="c23" mnemonicParsing="false" text="Game" />
+                  <CheckBox fx:id="c24" mnemonicParsing="false" text="Love-Romance" />
+                  <CheckBox fx:id="c25" mnemonicParsing="false" text="Movie" />
+                  <CheckBox fx:id="c26" mnemonicParsing="false" text="Psychological" />
+                  <CheckBox fx:id="c27" mnemonicParsing="false" text="Shoujo" />
+                  <CheckBox fx:id="c28" mnemonicParsing="false" text="Sports" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="c31" mnemonicParsing="false" text="Animation" />
+                  <CheckBox fx:id="c32" mnemonicParsing="false" text="Drama" />
+                  <CheckBox fx:id="c33" mnemonicParsing="false" text="Harem" />
+                  <CheckBox fx:id="c34" mnemonicParsing="false" text="Magic" />
+                  <CheckBox fx:id="c35" mnemonicParsing="false" text="Music" />
+                  <CheckBox fx:id="c36" mnemonicParsing="false" text="Samurai" />
+                  <CheckBox fx:id="c37" mnemonicParsing="false" text="Shounen" />
+                  <CheckBox fx:id="c38" mnemonicParsing="false" text="Super Power" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="c41" mnemonicParsing="false" text="Bishounen" />
+                  <CheckBox fx:id="c42" mnemonicParsing="false" text="Ecchi" />
+                  <CheckBox fx:id="c43" mnemonicParsing="false" text="Historical" />
+                  <CheckBox fx:id="c44" mnemonicParsing="false" text="Martial Arts" />
+                  <CheckBox fx:id="c45" mnemonicParsing="false" text="Mystery" />
+                  <CheckBox fx:id="c46" mnemonicParsing="false" text="School" />
+                  <CheckBox fx:id="c47" mnemonicParsing="false" text="Shounen Ai" />
+                  <CheckBox fx:id="c48" mnemonicParsing="false" text="Supernatural" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="c51" mnemonicParsing="false" text="Cartoon" />
+                  <CheckBox fx:id="c52" mnemonicParsing="false" text="English" />
+                  <CheckBox fx:id="c53" mnemonicParsing="false" text="Horror" />
+                  <CheckBox fx:id="c54" mnemonicParsing="false" text="Mecha" />
+                  <CheckBox fx:id="c55" mnemonicParsing="false" text="Parody" />
+                  <CheckBox fx:id="c56" mnemonicParsing="false" text="Sci-Fi" />
+                  <CheckBox fx:id="c57" mnemonicParsing="false" text="Slice of Life" />
+                  <CheckBox fx:id="c58" mnemonicParsing="false" text="Vampire" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#addFiltersToList" stylesheets="@../assets/css/buttonview.css" text="Apply" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

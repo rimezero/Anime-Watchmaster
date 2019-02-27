@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.ConfigurationController">
+   <children>
+      <VBox HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label text="Server Ip:" />
+                  <TextField fx:id="tbServerIp" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label text="Global downloads path:" />
+                  <TextField fx:id="tbGlobalDownloadsPath" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="cbSpecificUpdaters" alignment="CENTER" mnemonicParsing="false" onAction="#enableSpecificUpdaters" text="Run specific updaters only" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <CheckBox fx:id="cbWatchlistUpdater" mnemonicParsing="false" onAction="#enableWatchnext" text="Watchlist Updater" />
+                              <CheckBox fx:id="cbDownloadsUpdater" layoutX="40.0" layoutY="20.0" mnemonicParsing="false" onAction="#enableWatchnext" text="Downloads Updater" />
+                              <CheckBox fx:id="cbDatabaseUpdater" layoutX="40.0" layoutY="20.0" mnemonicParsing="false" onAction="#enableWatchnext" text="Database Updater" />
+                              <CheckBox fx:id="cbSeasonsUpdater" mnemonicParsing="false" onAction="#enableBestQuality" text="Seasons Updater" />
+                              <CheckBox fx:id="cbTopanimeUpdater" layoutX="40.0" layoutY="84.0" mnemonicParsing="false" onAction="#enableBestQuality" text="Topanime Updater" />
+                              <CheckBox fx:id="cbHotanimeUpdater" layoutX="40.0" layoutY="116.0" mnemonicParsing="false" onAction="#enableBestQuality" text="Hotanime Updater" />
+                           </children>
+                           <padding>
+                              <Insets left="30.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <CheckBox fx:id="cbWatchlistUpdateMT" alignment="CENTER" layoutX="50.0" layoutY="10.0" mnemonicParsing="false" text="Enable multithreaded watchlist update" />
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#setDefaultValues" stylesheets="@../assets/css/buttonviewabc.css" text="Set Default Values">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="cbDownloads" alignment="CENTER" mnemonicParsing="false" onAction="#enableDownloads" text="Downloads" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <padding>
+                              <Insets left="30.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <CheckBox fx:id="cbWatchNextButtons" mnemonicParsing="false" onAction="#enableWatchnext" text="Watch next buttons" />
+                              <CheckBox fx:id="cbIncrementEpisodesWatched" layoutX="40.0" layoutY="20.0" mnemonicParsing="false" text="Increment episodes watched">
+                                 <VBox.margin>
+                                    <Insets left="30.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="cbAutocreate" layoutX="40.0" layoutY="20.0" mnemonicParsing="false" text="Autocreate folder on download if path is not set" />
+                              <CheckBox fx:id="cbDownloadsMT" layoutX="40.0" layoutY="64.0" mnemonicParsing="false" text="Enable multithreaded downloads update" />
+                              <CheckBox fx:id="cbChooseBestQuality" mnemonicParsing="false" onAction="#enableBestQuality" text="Choose best quality" />
+                              <ChoiceBox fx:id="cmbQuality" minWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#saveConfig" prefWidth="80.0" stylesheets="@../assets/css/buttonviewabc.css" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" stylesheets="@../assets/css/buttonviewabc.css" text="Cancel" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

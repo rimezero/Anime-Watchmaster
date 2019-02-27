@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.AllAnimeController">
+   <children>
+      <HBox spacing="30.0">
+         <children>
+            <Button fx:id="backButton" minWidth="75.0" mnemonicParsing="false" onAction="#setMainScene" stylesheets="@../assets/css/buttonviewabc.css" text="Back" />
+            <Label text="Anime from A-Z" textFill="#5806e4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="searchField" promptText="Search">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="filtersButton" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#popfilterWindow" stylesheets="@../assets/css/buttonviewabc.css" text="Filters" />
+            <Button fx:id="searchButton1" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#searchForTitle" stylesheets="@../assets/css/buttonviewabc.css" text="Apply filters and search" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableA" stylesheets="@../assets/css/buttonviewabc.css" text="A" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableB" stylesheets="@../assets/css/buttonviewabc.css" text="B" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableC" stylesheets="@../assets/css/buttonviewabc.css" text="C" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableD" stylesheets="@../assets/css/buttonviewabc.css" text="D" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableE" stylesheets="@../assets/css/buttonviewabc.css" text="E" />
+            <Button layoutX="218.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableF" stylesheets="@../assets/css/buttonviewabc.css" text="F" />
+            <Button layoutX="270.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableG" stylesheets="@../assets/css/buttonviewabc.css" text="G" />
+            <Button layoutX="322.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableH" stylesheets="@../assets/css/buttonviewabc.css" text="H" />
+            <Button layoutX="374.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableI" stylesheets="@../assets/css/buttonviewabc.css" text="I" />
+            <Button layoutX="426.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableJ" stylesheets="@../assets/css/buttonviewabc.css" text="J" />
+            <Button layoutX="478.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableK" stylesheets="@../assets/css/buttonviewabc.css" text="K" />
+            <Button layoutX="242.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableL" stylesheets="@../assets/css/buttonviewabc.css" text="L" />
+            <Button layoutX="265.0" layoutY="10.0" mnemonicParsing="false" onAction="#setAllAnimeTableM" stylesheets="@../assets/css/buttonviewabc.css" text="M" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableN" stylesheets="@../assets/css/buttonviewabc.css" text="N" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableO" stylesheets="@../assets/css/buttonviewabc.css" text="O" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableP" stylesheets="@../assets/css/buttonviewabc.css" text="P" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableQ" stylesheets="@../assets/css/buttonviewabc.css" text="Q" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableR" stylesheets="@../assets/css/buttonviewabc.css" text="R" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableS" stylesheets="@../assets/css/buttonviewabc.css" text="S" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableT" stylesheets="@../assets/css/buttonviewabc.css" text="T" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableU" stylesheets="@../assets/css/buttonviewabc.css" text="U" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableV" stylesheets="@../assets/css/buttonviewabc.css" text="V" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableW" stylesheets="@../assets/css/buttonviewabc.css" text="W" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableX" stylesheets="@../assets/css/buttonviewabc.css" text="X" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableY" stylesheets="@../assets/css/buttonviewabc.css" text="Y" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableZ" stylesheets="@../assets/css/buttonviewabc.css" text="Z" />
+            <Button mnemonicParsing="false" onAction="#setAllAnimeTableOther" stylesheets="@../assets/css/buttonviewabc.css" text="Other" />
+         </children>
+      </HBox>
+
+
+
+         <ListView fx:id="listview" layoutY="25.0" prefHeight="375.0" prefWidth="599.0" stylesheets="@../assets/css/listview.css" VBox.vgrow="ALWAYS">
+
+         </ListView>
+
+   </children>
+</VBox>

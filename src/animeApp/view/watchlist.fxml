@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.WatchlistController">
+   <children>
+      <HBox alignment="CENTER" spacing="100.0">
+         <children>
+            <Button fx:id="button_update" mnemonicParsing="false" onAction="#Update_watchlist" stylesheets="@../assets/css/buttonviewabc.css" text="Update watchlist" />
+            <Button fx:id="button_remove" mnemonicParsing="false" onAction="#Remove_selected_anime" stylesheets="@../assets/css/buttonviewabc.css" text="Remove selected anime" />
+            <Button fx:id="button_updatedl" mnemonicParsing="false" onAction="#Update_downloads" stylesheets="@../assets/css/buttonviewabc.css" text="Update downloads" />
+         </children>
+      </HBox>
+      <TableView fx:id="watchtable" editable="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+
+         <columns>
+            <TableColumn fx:id="buttoncol" editable="true" text="show">
+            </TableColumn>
+            <TableColumn fx:id="titlecol" editable="true" style="-fx-alignment: center;" text="title">
+            </TableColumn>
+            <TableColumn fx:id="episodeswatchedcol" editable="true" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Episodes watched">
+            </TableColumn>
+            <TableColumn fx:id="currentepisodecol" editable="true" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Current episode">
+            </TableColumn>
+            <TableColumn fx:id="newepisodescol" editable="true" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="New episodes">
+            </TableColumn>
+            <TableColumn fx:id="lastupdatedcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Last Updated" />
+            <TableColumn fx:id="downloadedcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Downloaded" />
+            <TableColumn fx:id="watchnextcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Watch Next" />
+            <TableColumn fx:id="dlnextcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Dl next" />
+            <TableColumn fx:id="updatecol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Update" />
+            <TableColumn fx:id="trprefixcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Torrent Name" />
+            <TableColumn fx:id="savepathcol" prefWidth="75.0" style="-fx-font-weight: bold; -fx-alignment: center; -fx-font-size: 14;" text="Save Path" />
+
+         </columns>
+
+      </TableView>
+
+
+
+   </children>
+</VBox>
