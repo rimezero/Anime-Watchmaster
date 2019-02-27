@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     static Scene mainscene, allanimescene;
     static Stage window;
+    
 
     @Override
     public void start(Stage primaryStage) throws Exception{
