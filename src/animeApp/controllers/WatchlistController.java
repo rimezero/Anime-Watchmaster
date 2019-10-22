@@ -748,6 +748,10 @@ public class WatchlistController implements Initializable {
                 	if(tempanime.getTrnameprefix()!=null && !tempanime.getTrnameprefix().equals("")) {
                 		tempanime.getUpdate().setOnAction(updateSpecificDownloads);
                 		tempanime.getUpdate().setId(String.valueOf(tempanime.getId()));
+                		if(tempanime.getDownloaded()>tempanime.getEpisodeswatched() && tempanime.getNewepisodes()>0 && !tempanime.getSavepath().trim().equals("")) {
+                			tempanime.getWatchnext().setOnAction(watchNext);
+                			tempanime.getWatchnext().setId(String.valueOf(tempanime.getId()));
+                		}
                 		if(tempanime.getAvailable()>0 && tempanime.getDownloaded()<tempanime.getAvailable()) {
                 			tempanime.getDlnext().setOnAction(downloadNext);
                 			tempanime.getDlnext().setId(String.valueOf(tempanime.getId()));
@@ -788,6 +792,10 @@ public class WatchlistController implements Initializable {
                 	if(tempanime.getTrnameprefix()!=null && !tempanime.getTrnameprefix().equals("")) {
                 		tempanime.getUpdate().setOnAction(updateSpecificDownloads);
                 		tempanime.getUpdate().setId(String.valueOf(tempanime.getId()));
+                		if(tempanime.getDownloaded()>tempanime.getEpisodeswatched() && tempanime.getNewepisodes()>0 && !tempanime.getSavepath().trim().equals("")) {
+                			tempanime.getWatchnext().setOnAction(watchNext);
+                			tempanime.getWatchnext().setId(String.valueOf(tempanime.getId()));
+                		}
                 		if(tempanime.getAvailable()>0 && tempanime.getDownloaded()<tempanime.getAvailable()) {
                 			tempanime.getDlnext().setOnAction(downloadNext);
                 			tempanime.getDlnext().setId(String.valueOf(tempanime.getId()));

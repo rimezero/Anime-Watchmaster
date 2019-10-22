@@ -23,7 +23,7 @@ public class JsoupToNyaa {
 		
         try {
         	for(int i=1; i<=numberOfPages; i++) {
-    			doc = Jsoup.connect(link+String.valueOf(i)).timeout(120 * 1000).get();
+    			doc = Jsoup.connect(link+String.valueOf(i)).userAgent("Mozilla/5.0").timeout(120 * 1000).get();
     			Elements tbodies = doc.getElementsByTag("tbody");
     			if(tbodies.size()==0) {
     				System.out.println("~Jsoup finished.");

@@ -22,7 +22,7 @@ public class JsoupToAnimefreak {
         System.out.println("~Jsoup starting...");
         try {
         	for(int i=1;i<11;i++) {
-        		documents.add(Jsoup.connect("https://www.animefreak.tv/home/latest-episodes/page/"+i).timeout(120 * 1000).get());
+        		documents.add(Jsoup.connect("https://www.animefreak.tv/home/latest-episodes/page/"+i).userAgent("Mozilla/5.0").timeout(120 * 1000).get());
         	}
         	
         } catch (IOException e) {
@@ -45,7 +45,7 @@ public class JsoupToAnimefreak {
                 @Override
                 public void run() {
                 	try {
-						documents.add(Jsoup.connect("https://www.animefreak.tv/home/latest-episodes/page/"+index).timeout(120 * 1000).get());
+						documents.add(Jsoup.connect("https://www.animefreak.tv/home/latest-episodes/page/"+index).userAgent("Mozilla/5.0").timeout(120 * 1000).get());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

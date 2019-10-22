@@ -5,3 +5,6 @@
 /config.ini
 
 /TorrentsFolder/
+/synchronize
+/synchronize.log.lck
+/synchronize.log
