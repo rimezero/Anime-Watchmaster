@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"animeApp"},{"l":"animeApp.assets.Dialogs"},{"l":"animeApp.controllers"},{"l":"animeApp.databaseUtils"},{"l":"animeApp.encryption"},{"l":"animeApp.model"}]
