@@ -32,7 +32,7 @@ public class StringUtils {
 			typeAr[0] = animeType;
 			typeAr[1] = "n/a";
  		}else {
- 			final String[] splitType = animeType.split("(");
+ 			final String[] splitType = animeType.split("\\(");
  			typeAr[0] = splitType[0].replace(" ", "");
  			typeAr[1] = splitType[1].replace("+", "").replace(" ep)", "").replace(" eps)", "");
  		}

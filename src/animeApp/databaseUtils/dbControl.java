@@ -285,6 +285,18 @@ public class dbControl {
                     +AP_ANIMEINFO_COLUMN_RATING+ " real)";
             stt = con.createStatement();
             stt.executeUpdate(command);
+            command = "delete from "+TABLE_WATCHLIST;
+            stt = con.createStatement();
+			stt.executeUpdate(command);
+			command = "delete from "+TABLE_WATCHLATER;
+            stt = con.createStatement();
+			stt.executeUpdate(command);
+			command = "delete from "+TABLE_WATCHED;
+            stt = con.createStatement();
+			stt.executeUpdate(command);
+			command = "delete from "+TABLE_DOWNLOADS;
+            stt = con.createStatement();
+			stt.executeUpdate(command);
 		default:
 			this.updateDBVersion(dbVersion, con);
 			break;
@@ -2303,12 +2315,12 @@ public class dbControl {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
-            state = con.prepareStatement("select W."+WATCHLIST_COLUMN_EPISODESWATCHED+",W."+WATCHLIST_COLUMN_CURRENTEPISODE+",W."+WATCHLIST_COLUMN_LASTUPDATED+",Info."+ANIMEINFO_COLUMN_TITLE+",COALESCE(Dls."+DOWNLOADS_COLUMN_DOWNLOADED+",-1) as "+DOWNLOADS_COLUMN_DOWNLOADED+",COALESCE(Dls."+DOWNLOADS_COLUMN_AVAILABLE+",-1) as "+DOWNLOADS_COLUMN_AVAILABLE+",Dls."+DOWNLOADS_COLUMN_SAVEPATH+",Dls."+DOWNLOADS_COLUMN_TRNAMEPREFIX+",Dls."+DOWNLOADS_COLUMN_LINKS+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" left join "+TABLE_DOWNLOADS+" Dls on W."+GENERAL_COLUMN_ID+"=Dls."+DOWNLOADS_COLUMN_WATCHLISTID+" where W."+GENERAL_COLUMN_ID+"=?");
+            state = con.prepareStatement("select W."+WATCHLIST_COLUMN_EPISODESWATCHED+",W."+WATCHLIST_COLUMN_CURRENTEPISODE+",W."+WATCHLIST_COLUMN_LASTUPDATED+",Info."+AP_ANIMEINFO_COLUMN_TITLE+",COALESCE(Dls."+DOWNLOADS_COLUMN_DOWNLOADED+",-1) as "+DOWNLOADS_COLUMN_DOWNLOADED+",COALESCE(Dls."+DOWNLOADS_COLUMN_AVAILABLE+",-1) as "+DOWNLOADS_COLUMN_AVAILABLE+",Dls."+DOWNLOADS_COLUMN_SAVEPATH+",Dls."+DOWNLOADS_COLUMN_TRNAMEPREFIX+",Dls."+DOWNLOADS_COLUMN_LINKS+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_AP_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" left join "+TABLE_DOWNLOADS+" Dls on W."+GENERAL_COLUMN_ID+"=Dls."+DOWNLOADS_COLUMN_WATCHLISTID+" where W."+GENERAL_COLUMN_ID+"=?");
             state.setInt(1, id);
             ResultSet rs = state.executeQuery();
             if(rs.next()){
             	//System.out.println(rs.getInt(GENERAL_COLUMN_ID)+" "+rs.getString(ANIMEINFO_COLUMN_TITLE)+" "+rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED)+" "+rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE)+" "+rs.getString(WATCHLIST_COLUMN_LASTUPDATED)+" "+rs.getString(DOWNLOADS_COLUMN_AVAILABLE));
-            	anime = new WatchlistAnime(id,rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED),rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE),rs.getString(WATCHLIST_COLUMN_LASTUPDATED));
+            	anime = new WatchlistAnime(id,rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED),rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE),rs.getString(WATCHLIST_COLUMN_LASTUPDATED));
             	anime.setDownloaded(rs.getInt(DOWNLOADS_COLUMN_DOWNLOADED));
             	anime.setAvailable(rs.getInt(DOWNLOADS_COLUMN_AVAILABLE));
             	anime.setSavepath(rs.getString(DOWNLOADS_COLUMN_SAVEPATH));
@@ -2343,10 +2355,10 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select W."+GENERAL_COLUMN_ID+",W."+WATCHLIST_COLUMN_EPISODESWATCHED+",W."+WATCHLIST_COLUMN_CURRENTEPISODE+",W."+WATCHLIST_COLUMN_LASTUPDATED+",Info."+ANIMEINFO_COLUMN_TITLE+",COALESCE(Dls."+DOWNLOADS_COLUMN_DOWNLOADED+",-1) as "+DOWNLOADS_COLUMN_DOWNLOADED+",COALESCE(Dls."+DOWNLOADS_COLUMN_AVAILABLE+",-1) as "+DOWNLOADS_COLUMN_AVAILABLE+",Dls."+DOWNLOADS_COLUMN_SAVEPATH+",Dls."+DOWNLOADS_COLUMN_TRNAMEPREFIX+",Dls."+DOWNLOADS_COLUMN_LINKS+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" left join "+TABLE_DOWNLOADS+" Dls on W."+GENERAL_COLUMN_ID+"=Dls."+DOWNLOADS_COLUMN_WATCHLISTID);
+            ResultSet rs = stt.executeQuery("select W."+GENERAL_COLUMN_ID+",W."+WATCHLIST_COLUMN_EPISODESWATCHED+",W."+WATCHLIST_COLUMN_CURRENTEPISODE+",W."+WATCHLIST_COLUMN_LASTUPDATED+",Info."+AP_ANIMEINFO_COLUMN_TITLE+",COALESCE(Dls."+DOWNLOADS_COLUMN_DOWNLOADED+",-1) as "+DOWNLOADS_COLUMN_DOWNLOADED+",COALESCE(Dls."+DOWNLOADS_COLUMN_AVAILABLE+",-1) as "+DOWNLOADS_COLUMN_AVAILABLE+",Dls."+DOWNLOADS_COLUMN_SAVEPATH+",Dls."+DOWNLOADS_COLUMN_TRNAMEPREFIX+",Dls."+DOWNLOADS_COLUMN_LINKS+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_AP_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" left join "+TABLE_DOWNLOADS+" Dls on W."+GENERAL_COLUMN_ID+"=Dls."+DOWNLOADS_COLUMN_WATCHLISTID);
             while(rs.next()){
             	//System.out.println(rs.getInt(GENERAL_COLUMN_ID)+" "+rs.getString(ANIMEINFO_COLUMN_TITLE)+" "+rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED)+" "+rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE)+" "+rs.getString(WATCHLIST_COLUMN_LASTUPDATED)+" "+rs.getString(DOWNLOADS_COLUMN_AVAILABLE));
-            	WatchlistAnime temp = new WatchlistAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED),rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE),rs.getString(WATCHLIST_COLUMN_LASTUPDATED));
+            	WatchlistAnime temp = new WatchlistAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getInt(WATCHLIST_COLUMN_EPISODESWATCHED),rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE),rs.getString(WATCHLIST_COLUMN_LASTUPDATED));
             	temp.setDownloaded(rs.getInt(DOWNLOADS_COLUMN_DOWNLOADED));
             	temp.setAvailable(rs.getInt(DOWNLOADS_COLUMN_AVAILABLE));
             	temp.setSavepath(rs.getString(DOWNLOADS_COLUMN_SAVEPATH));
@@ -2354,6 +2366,43 @@ public class dbControl {
             	temp.setLinks(rs.getString(DOWNLOADS_COLUMN_LINKS));
             	temp.initialize();
             	//System.out.println("temp "+temp.getDownloaded()+" "+temp.getAvailable());
+                wlist.add(temp);          
+            }
+            rs.close();
+            stt.close();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NullPointerException npex){
+                //do nothing (SQLite)
+            }
+        }
+        return wlist;
+    }
+    
+    public ArrayList<WatchlistUpdaterModel> getWatchlistUpdaterData(){
+    	ArrayList<WatchlistUpdaterModel> wlist = new ArrayList<>();
+        Connection con = null;
+        Statement stt;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+
+            stt = con.createStatement();
+            ResultSet rs = stt.executeQuery("select W."+GENERAL_COLUMN_ID+",Info."+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+",Info."+AP_ANIMEINFO_COLUMN_SEASON+",W."+WATCHLIST_COLUMN_CURRENTEPISODE+",W."+WATCHLIST_COLUMN_LASTUPDATED+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_AP_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID);
+            while(rs.next()){
+            	WatchlistUpdaterModel temp = new WatchlistUpdaterModel();
+            	temp.setId(rs.getInt(GENERAL_COLUMN_ID));
+            	temp.setAnimeplanetID(rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID));
+            	temp.setSeason(rs.getString(AP_ANIMEINFO_COLUMN_SEASON));
+            	temp.setCurrentEpisode(rs.getInt(WATCHLIST_COLUMN_CURRENTEPISODE));
+            	temp.setLastupdated(rs.getString(WATCHLIST_COLUMN_LASTUPDATED));
                 wlist.add(temp);          
             }
             rs.close();
@@ -2383,9 +2432,9 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + ANIMEINFO_COLUMN_TITLE + ",Info." + ANIMEINFO_COLUMN_IMGURL + ",Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
+            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
             while (rs.next()) {
-                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getString(ANIMEINFO_COLUMN_IMGURL),rs.getString(ANIMEINFO_COLUMN_GENRE)));
+                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
             rs.close();
             stt.close();
@@ -2414,9 +2463,9 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + ANIMEINFO_COLUMN_TITLE + ",Info." + ANIMEINFO_COLUMN_IMGURL + ",Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
+            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
             while (rs.next()) {
-                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getString(ANIMEINFO_COLUMN_IMGURL),rs.getString(ANIMEINFO_COLUMN_GENRE)));
+                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
             rs.close();
             stt.close();

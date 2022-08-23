@@ -25,7 +25,7 @@ public class Configuration {
 	private boolean specificUpdaters = true;
 	private boolean watchlistUpdater = false;
 	private boolean downloadsUpdater = false;
-	private boolean databaseUpdater = true;
+	private boolean databaseUpdater = false;
 	private boolean seasonsUpdater = true;
 	private boolean topanimeUpdater = true;
 	private boolean hotanimeUpdater = false;

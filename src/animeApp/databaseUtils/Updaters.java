@@ -4,6 +4,7 @@ import animeApp.assets.Dialogs.customDialogs;
 import animeApp.controllers.Controller;
 import animeApp.model.Configuration;
 import animeApp.model.WatchlistAnime;
+import animeApp.model.WatchlistUpdaterModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -487,12 +488,25 @@ public class Updaters {
 
     private void watchlistUpdater(boolean showDialogs){
         dbControl dbinstance = dbControl.getInstance();
+        
+        //getWatchlistData
+        final ArrayList<WatchlistUpdaterModel> wlistData = dbinstance.getWatchlistUpdaterData();
+        final ArrayList<String> watchlistSeasons = new ArrayList<>();
+        final ArrayList<Integer> wlistApIds = new ArrayList<>();
+        
+        for(int i=0;i<wlistData.size();i++) {
+        	if(!watchlistSeasons.contains(wlistData.get(i).getSeason())) {
+        		watchlistSeasons.add(wlistData.get(i).getSeason());
+        	}
+        	wlistApIds.add(wlistData.get(i).getAnimeplanetID());
+        }
+        
         //HttpRequests.getWatchlistData();
         JSONArray jarr = null;
         if(Configuration.getInstance().isWatchlistUpdateMT()) {
-        	jarr = JsoupToAnimefreak.getWatchlistInfoMultithreaded();
+        	jarr = JsoupToAnimePlanet.getWatchlistInfoMultithreaded(watchlistSeasons,wlistApIds);
         }else {
-        	jarr = JsoupToAnimefreak.getWatchlistInfo();
+        	jarr = JsoupToAnimePlanet.getWatchlistInfo(watchlistSeasons,wlistApIds);
         }
         
 
@@ -501,38 +515,38 @@ public class Updaters {
             return;
         }
 
-        ArrayList<Integer> ids = new ArrayList<>();
-        ArrayList<Integer> episodes = new ArrayList<>();
-        ArrayList<String> lastupdated = new ArrayList<>();
+        //int watchlistCount = dbinstance.getRowCount(5);
+        Controller.maxUpdateProgress = jarr.length()-1;
+        Controller.updateProgress = 0;
 
         for(int i=0; i<jarr.length(); i++){
             try {
                 JSONObject job = jarr.getJSONObject(i);
-                int id = dbinstance.getAnimeID(job.getString("title"));
-                if(id!=-1){
-                    if(dbinstance.checkIfExistsInWatchlist(id)){
-                        ids.add(id);
-                        episodes.add(job.getInt("currentepisode"));
-                        lastupdated.add(job.getString("lastupdated"));
-                    }
+                final int apIdIndex = wlistApIds.indexOf(job.getInt("id"));
+                if(apIdIndex!=-1) {
+                	if(job.getInt("currentepisode")!=-1&&job.getInt("currentepisode")!=wlistData.get(apIdIndex).getCurrentEpisode()) {
+                		dbinstance.updateWatchlist(wlistData.get(apIdIndex).getId(), job.getInt("currentepisode"), job.getString("lastupdated"));
+                	}
                 }
-
+                Controller.updateProgress = i;
             } catch (JSONException e) {
                 e.printStackTrace();
                 System.out.println("WatchlistUpdater - JSON exception trying to parse array index to json object");
             }
         }
 
+        /*
         //telos jsoup arxi SQLite
         int watchlistCount = dbinstance.getRowCount(5);
-        Controller.maxUpdateProgress = watchlistCount - ids.size()-1;
+        Controller.maxUpdateProgress = watchlistCount - jarr.length()-1;
         Controller.updateProgress = 0;
         for(int i=0; i<ids.size(); i++){
             dbinstance.updateWatchlist(ids.get(i), episodes.get(i), lastupdated.get(i));
             Controller.updateProgress = i;
         }
+        */
 
-        dbinstance.handleWatchlistRemainingUpdate(ids);
+        //dbinstance.handleWatchlistRemainingUpdate(ids);
     }
     
     /**
