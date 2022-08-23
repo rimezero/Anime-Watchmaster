@@ -91,7 +91,8 @@ public class SeasonsController implements Initializable {
         System.gc();
     }
 
-    private void reloadListWithImages(){
+    @SuppressWarnings("unchecked")
+	private void reloadListWithImages(){
         seasonListView.setCellFactory(new Callback<ListView<SeasonModel>, ListCell<SeasonModel>>() {
 
             @Override
@@ -126,7 +127,9 @@ public class SeasonsController implements Initializable {
                                     else {
                                         try {
                                             URLConnection con = new URL(t.getImgurl()).openConnection();
-                                            con.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+                                            con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
+                                            image.setFitHeight(265);
+                                            image.setFitWidth(190);
                                             image.setImage(new Image(con.getInputStream()));
                                         } catch (IOException e) {
                                             if(!t.getName().equals("Loading data...")){

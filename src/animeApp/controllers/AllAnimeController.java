@@ -152,7 +152,8 @@ public class AllAnimeController implements Initializable{
         setAllAnimeTableWithImages(letter);
     }
 
-    private void reloadListWithImages(){
+    @SuppressWarnings("unchecked")
+	private void reloadListWithImages(){
         listview.setCellFactory(new Callback<ListView<NewAnime>, ListCell<NewAnime>>() {
 
             @Override
@@ -168,6 +169,8 @@ public class AllAnimeController implements Initializable{
                             HBox box = new HBox(20);
                             box.setStyle("-fx-alignment: center;");
                             ImageView image = new ImageView("animeApp/assets/icons/spinnerR.gif");
+                            image.setFitHeight(265);
+                            image.setFitWidth(190);
                             box.getChildren().addAll(t.getButton(),image);
                             setGraphic(box);
                             new Thread(new Runnable() {

@@ -70,10 +70,10 @@
             <Insets left="10.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" fitToWidth="true">
               <content>
                      
-                  <TextFlow fx:id="text" maxWidth="491.0" prefWidth="491.0" prefHeight="386.0"/>
+                  <TextFlow fx:id="text" maxWidth="591.0" prefWidth="590.0" prefHeight="436.0"/>
                      
 
               </content>

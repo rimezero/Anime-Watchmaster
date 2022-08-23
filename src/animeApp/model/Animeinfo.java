@@ -2,14 +2,16 @@ package animeApp.model;
 
 public class Animeinfo {
 
-   private int id;
-   private String title, imgurl, genre, episodes, animetype, agerating, description, season;
+   private int id, animeplanetId;
+   private String title, alt_titles, imgurl, genre, episodes, animetype, agerating, description, season;
    private double rating;
 
 
     public Animeinfo(){
         this.id = -1;
+        this.animeplanetId = -1;
         this.title = "";
+        this.alt_titles = "";
         this.imgurl = "";
         this.genre = "";
         this.episodes = "";
@@ -23,9 +25,11 @@ public class Animeinfo {
 
 
 
-    public Animeinfo(int id, String title, String imgurl, String genre, String animetype, String description) {
+    public Animeinfo(int id, int animeplanetId, String title,String alt_titles, String imgurl, String genre, String animetype, String description) {
         this.id = id;
+        this.animeplanetId = animeplanetId;
         this.title = title;
+        this.alt_titles = alt_titles;
         this.imgurl = imgurl;
         this.genre = genre;
         this.animetype = animetype;
@@ -55,6 +59,14 @@ public class Animeinfo {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public int getAnimeplanetId() {
+        return animeplanetId;
+    }
+
+    public void setAnimeplanetId(int animeplanetId) {
+        this.animeplanetId = animeplanetId;
+    }
 
     public String getTitle() {
         return title;
@@ -62,6 +74,14 @@ public class Animeinfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public String getAltTitles() {
+    	return alt_titles;
+    }
+    
+    public void setAltTitles(String alt_titles) {
+    	this.alt_titles = alt_titles;
     }
 
     public String getImgurl() {

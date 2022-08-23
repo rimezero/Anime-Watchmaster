@@ -237,12 +237,15 @@ public class Updaters {
                                 lastVersion=currentVersion;
                             }
 
-                            int animeinfo_id = dbinstance.getAnimeID(job.getString("frtitle"));
-                            id = dbinstance.getAPAnimeID(job.getString("title"));
+                            if(job.getInt("id")>0) {
+                            	id = dbinstance.getAPAnimeID(job.getInt("id"));
+                            }else {
+                            	id = dbinstance.getAPAnimeID(job.getString("title"));
+                            }                         
                             if(id==-1){
-                                boolean s = dbinstance.insertIntoAPAnimeinfo(animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("annimgurl"));
+                                boolean s = dbinstance.insertIntoAPAnimeinfo(job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                             } else {
-                                boolean s = dbinstance.updateAPAnimeinfo(dbinstance.getAPAnimeID(job.getString("title")),animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("annimgurl"));
+                                boolean s = dbinstance.updateAPAnimeinfo(id,job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                             }
                             Controller.updateProgress = i;
                         }

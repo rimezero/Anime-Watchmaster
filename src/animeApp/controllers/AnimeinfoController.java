@@ -1,6 +1,7 @@
 package animeApp.controllers;
 
 import animeApp.assets.Dialogs.customDialogs;
+import animeApp.databaseUtils.StringUtils;
 import animeApp.databaseUtils.Updaters;
 import animeApp.databaseUtils.dbControl;
 import animeApp.model.Animeinfo;
@@ -126,14 +127,8 @@ public class AnimeinfoController implements Initializable {
                     e.printStackTrace();
                 }*/
 
-                if(fromAP) {
-                    baddtowlist.setVisible(false);
-                    btnAddWatched.setVisible(false);
-                    btnAddWLater.setVisible(false);
-                    btnWatchOnline.setVisible(false);
-                    anime = dbControl.getInstance().getAPAnimeInfo(id);
-                }else
-                    anime = dbControl.getInstance().getAnimeInfo(id);
+                
+                anime = dbControl.getInstance().getAPAnimeInfo(id);
 
                 loadImageFormUrl(anime.getImgurl());
                 Platform.runLater(new Runnable() {
@@ -141,8 +136,31 @@ public class AnimeinfoController implements Initializable {
                     public void run() {
 
                         title.setText(anime.getTitle());
-
+                        
+                        
+                        
                         Text des = new Text("Description:");
+                        
+                        if(!anime.getAltTitles().equals("n/a")) {
+                        	if(anime.getAltTitles().contains("????")) {
+                        		des = new Text("Alt titles: ");
+                        		des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 13));
+                                text.getChildren().add(des);
+                                des = new Text(anime.getAltTitles().replace("????", ", "));
+                                des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
+                                text.getChildren().add(des);
+                        	}else {
+                        		des = new Text("Alt title: ");
+                        		des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 13));
+                                text.getChildren().add(des);
+                                des = new Text(anime.getAltTitles());
+                                des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
+                                text.getChildren().add(des);
+                        	}
+                        	                  
+                            des = new Text("\n\nDescription:");
+                        }
+                        
                         des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 13));
                         text.getChildren().add(des);
 
@@ -150,52 +168,38 @@ public class AnimeinfoController implements Initializable {
                         des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 13));
                         text.getChildren().add(des);
 
-                        des = new Text("\n\n Genre: ");
+                        des = new Text("\n\nGenre: ");
                         des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
                         text.getChildren().add(des);
                         des = new Text(anime.getGenre());
                         des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
                         text.getChildren().add(des);
 
-                        des = new Text("\n\n Anime Type: ");
+                        des = new Text("\n\nAnime Type: ");
                         des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
                         text.getChildren().add(des);
                         des = new Text(anime.getAnimetype());
                         des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
                         text.getChildren().add(des);
 
-                        if(!fromAP) {
-                            des = new Text("\n\n Episodes: ");
-                            des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
-                            text.getChildren().add(des);
-                            des = new Text(anime.getEpisodes());
-                            des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
-                            text.getChildren().add(des);
 
-                            des = new Text("\n\n Age rating: ");
-                            des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
-                            text.getChildren().add(des);
-                            des = new Text(anime.getAgerating());
-                            des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
-                            text.getChildren().add(des);
-                        }else{
-                            des = new Text("\n\n Season: ");
-                            des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
-                            text.getChildren().add(des);
-                            des = new Text(anime.getSeason());
-                            des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
-                            text.getChildren().add(des);
+						des = new Text("\n\nSeason: ");
+						des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
+						text.getChildren().add(des);
+						des = new Text(anime.getSeason());
+						des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
+						text.getChildren().add(des);
 
-                            if(anime.getRating()>=0) {
-                                DecimalFormat df = new DecimalFormat("#.#");
-                                des = new Text("\n\n Rating: ");
-                                des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
-                                text.getChildren().add(des);
-                                des = new Text(df.format(anime.getRating() * 2));
-                                des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
-                                text.getChildren().add(des);
-                            }
-                        }
+						if (anime.getRating() >= 0) {
+							DecimalFormat df = new DecimalFormat("#.#");
+							des = new Text("\n\nRating: ");
+							des.setFont(Font.font("FontAwesome", FontWeight.BOLD, 12));
+							text.getChildren().add(des);
+							des = new Text(df.format(anime.getRating() * 2));
+							des.setFont(Font.font("FontAwesome", FontWeight.NORMAL, 12));
+							text.getChildren().add(des);
+						}
+                        
 
                         leftlabel.setText(anime.getTitle());
                         leftlabel.setMaxWidth(170);
@@ -215,12 +219,12 @@ public class AnimeinfoController implements Initializable {
         if(!url.isEmpty()) {
             if(url.equals(" ")) {
 
-            } else if(url.equals("    ")) {
+            } else if(url.equals("n/a")) {
 
             } else {
                 try {
                     URLConnection con = new URL(url).openConnection();
-                    con.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+                    con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
                     image.setImage(new Image(con.getInputStream()));
                 }catch (IOException e) {
                     if(!url.equals("Loading data...")){
@@ -263,19 +267,10 @@ public class AnimeinfoController implements Initializable {
 
                 boolean isNotOnoing = true;
                 if(!dbControl.getInstance().checkIfExistsInWatchlist(anime.getId())) {
-                    try{
-                        int eps = Integer.valueOf(anime.getEpisodes());
-                        dbControl.getInstance().insertIntoWatchlist(anime.getId(),0,eps,"");
-                    }catch (NumberFormatException ex){
-                        if(anime.getEpisodes().contains("Ongoing")){
-                            isNotOnoing=false;
-                            System.out.println("Does contain ongoing executing update");
-                            dbControl.getInstance().insertIntoWatchlist(anime.getId(), 0, 0, "");
-                            Updaters.getInstance().watchlistUpdater(false,true);
-                        }else{
-                            dbControl.getInstance().insertIntoWatchlist(anime.getId(),0,0,"");
-                        }
-                    }
+                    
+					int eps = StringUtils.getEpisodesFromAptype(anime.getAnimetype());
+					dbControl.getInstance().insertIntoWatchlist(anime.getId(), 0, eps, "");
+                    
 
                     Platform.runLater(new Runnable() {
                         @Override
@@ -330,6 +325,18 @@ public class AnimeinfoController implements Initializable {
     @FXML
     public void download() {
         String title = anime.getTitle().replace(' ', '+');
+        if(!anime.getAltTitles().equals("n/a")) {
+        	if(anime.getAltTitles().contains("????")) {
+        		try {
+        			title = anime.getAltTitles().split("????")[0].replace(' ', '+');
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        		
+        	}else {
+        		title = anime.getAltTitles().replace(' ', '+');
+        	}
+        }
         String link = "http://www.nyaa.si/?f=0&c=0_0&q="+title+"&s=seeders&o=desc";
         URL url = null;
         try {

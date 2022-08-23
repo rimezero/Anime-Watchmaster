@@ -67,15 +67,10 @@ public class SeasonModel implements Comparable<SeasonModel>{
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/animeinfo.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     AnimeinfoController controller = (AnimeinfoController) fxmlLoader.getController();
-                    if(animeinfo_id!=-1) {
-                        controller.setId(animeinfo_id);
-                        controller.setFromAP(false);
-                    }else{
-                        controller.setId(id);
-                        controller.setFromAP(true);
-                    }
+                    
+                    controller.setId(id);
 
-                    Scene scene = new Scene(root, 750, 550);
+                    Scene scene = new Scene(root, 850, 600);
                     window.initStyle(StageStyle.DECORATED);
                     window.setScene(scene);
                     window.setTitle("Anime Information");

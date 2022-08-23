@@ -69,7 +69,8 @@ public class NewAnime implements Comparable<NewAnime>{
                     AnimeinfoController controller = (AnimeinfoController)fxmlLoader.getController();
                     controller.setId(id);
 
-                    Scene scene = new Scene(root,750,550);
+                    //Scene scene = new Scene(root,750,550);
+                    Scene scene = new Scene(root,850,600);
                     window.initStyle(StageStyle.DECORATED);
                     window.setScene(scene);
                     window.setTitle("Anime Information");

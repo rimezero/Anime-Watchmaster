@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
  */
 public class dbControl {
     private static final String dbName = "anime.db";
-    private static final int dbVersion = 3;
+    private static final int dbVersion = 4;
 
     //genaral
     private static final String GENERAL_COLUMN_ID = "id";
@@ -36,15 +36,16 @@ public class dbControl {
     private static final String ANIMEINFO_COLUMN_ANNIMGURL = "annimgurl";
 
     //APanimeinfo
-    private static final String AP_ANIMEINFO_COLUMN_ANIMEINFOID = "id_animeinfo";
+    private static final String AP_ANIMEINFO_COLUMN_ANIMEPLANETID = "id_animeplanet";
     private static final String AP_ANIMEINFO_COLUMN_TITLE = "title";
+    private static final String AP_ANIMEINFO_COLUMN_ALTTITLES = "alt_titles";
     private static final String AP_ANIMEINFO_COLUMN_SEASON = "season";
     private static final String AP_ANIMEINFO_COLUMN_IMGURL = "imgurl";
     private static final String AP_ANIMEINFO_COLUMN_GENRE = "genre";
     private static final String AP_ANIMEINFO_COLUMN_ANIMETYPE = "animetype";
     private static final String AP_ANIMEINFO_COLUMN_DESCRIPTION = "description";
     private static final String AP_ANIMEINFO_COLUMN_RATING = "rating";
-    private static final String AP_ANIMEINFO_COLUMN_ANNIMGURL = "annimgurl";
+    
     
     //Downloads
     private static final String DOWNLOADS_COLUMN_WATCHLISTID = "id_watchlist";
@@ -120,18 +121,18 @@ public class dbControl {
                     +ANIMEINFO_COLUMN_ANNIMGURL+ " text)";
             stt = con.createStatement();
             stt.executeUpdate(command);
-
+            
             command = "create table if not exists "+TABLE_AP_ANIMEINFO+"("
                     +GENERAL_COLUMN_ID+ " integer primary key autoincrement, "
-                    +AP_ANIMEINFO_COLUMN_ANIMEINFOID+ " int, "
+                    +AP_ANIMEINFO_COLUMN_ANIMEPLANETID+ " int, "
                     +AP_ANIMEINFO_COLUMN_TITLE+ " text, "
+                    +AP_ANIMEINFO_COLUMN_ALTTITLES+ " text, "
                     +AP_ANIMEINFO_COLUMN_SEASON+ " text, "
                     +AP_ANIMEINFO_COLUMN_IMGURL+ " text, "
                     +AP_ANIMEINFO_COLUMN_GENRE+ " text, "
                     +AP_ANIMEINFO_COLUMN_ANIMETYPE+ " text, "
                     +AP_ANIMEINFO_COLUMN_DESCRIPTION+ " text, "
-                    +AP_ANIMEINFO_COLUMN_RATING+ " real, "
-                    +AP_ANIMEINFO_COLUMN_ANNIMGURL+ " text)";
+                    +AP_ANIMEINFO_COLUMN_RATING+ " real)";
             stt = con.createStatement();
             stt.executeUpdate(command);
 
@@ -263,6 +264,27 @@ public class dbControl {
 	        command = "drop table if exists GlobalDownloads";
 			stt = con.createStatement();
 			stt.executeUpdate(command);
+		case 3:
+			con.close();
+	        Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+			command = "drop table if exists "+TABLE_AP_ANIMEINFO;
+			stt = con.createStatement();
+			stt.executeUpdate(command);
+			
+			command = "create table if not exists "+TABLE_AP_ANIMEINFO+"("
+                    +GENERAL_COLUMN_ID+ " integer primary key autoincrement, "
+                    +AP_ANIMEINFO_COLUMN_ANIMEPLANETID+ " int, "
+                    +AP_ANIMEINFO_COLUMN_TITLE+ " text, "
+                    +AP_ANIMEINFO_COLUMN_ALTTITLES+ " text, "
+                    +AP_ANIMEINFO_COLUMN_SEASON+ " text, "
+                    +AP_ANIMEINFO_COLUMN_IMGURL+ " text, "
+                    +AP_ANIMEINFO_COLUMN_GENRE+ " text, "
+                    +AP_ANIMEINFO_COLUMN_ANIMETYPE+ " text, "
+                    +AP_ANIMEINFO_COLUMN_DESCRIPTION+ " text, "
+                    +AP_ANIMEINFO_COLUMN_RATING+ " real)";
+            stt = con.createStatement();
+            stt.executeUpdate(command);
 		default:
 			this.updateDBVersion(dbVersion, con);
 			break;
@@ -309,7 +331,7 @@ public class dbControl {
         return returnflag;
     }
 
-    public boolean insertIntoAPAnimeinfo(int animeinfoid, String title, String season, String imgurl, String genre, String animetype, String descritpion, double rating, String annimgurl){
+    public boolean insertIntoAPAnimeinfo(int animeplanetid, String title, String season, String imgurl, String genre, String animetype, String descritpion, double rating, String alt_tiles){
         boolean returnflag = false;
         Connection con = null;
         PreparedStatement state;
@@ -317,8 +339,8 @@ public class dbControl {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
-            state = con.prepareStatement("insert into "+TABLE_AP_ANIMEINFO+"("+AP_ANIMEINFO_COLUMN_ANIMEINFOID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_SEASON+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_ANIMETYPE+","+AP_ANIMEINFO_COLUMN_DESCRIPTION+","+AP_ANIMEINFO_COLUMN_RATING+","+AP_ANIMEINFO_COLUMN_ANNIMGURL+") values(?,?,?,?,?,?,?,?,?)");
-            state.setInt(1, animeinfoid);
+            state = con.prepareStatement("insert into "+TABLE_AP_ANIMEINFO+"("+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_SEASON+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_ANIMETYPE+","+AP_ANIMEINFO_COLUMN_DESCRIPTION+","+AP_ANIMEINFO_COLUMN_RATING+","+AP_ANIMEINFO_COLUMN_ALTTITLES+") values(?,?,?,?,?,?,?,?,?)");
+            state.setInt(1, animeplanetid);
             state.setString(2,title);
             state.setString(3,season);
             state.setString(4,imgurl);
@@ -326,7 +348,7 @@ public class dbControl {
             state.setString(6,animetype);
             state.setString(7,descritpion);
             state.setDouble(8, rating);
-            state.setString(9,annimgurl);
+            state.setString(9,alt_tiles);
             state.executeUpdate();
 
             returnflag = true;
@@ -731,15 +753,15 @@ public class dbControl {
         return returnflag;
     }
 
-    public boolean updateAPAnimeinfo(int id, int animeinfoid, String title, String season, String imgurl, String genre, String animetype, String descritpion, double rating, String annimgurl){
+    public boolean updateAPAnimeinfo(int id, int animeplanetid, String title, String season, String imgurl, String genre, String animetype, String descritpion, double rating, String alt_titles){
         boolean returnflag = false;
         Connection con = null;
         PreparedStatement state;
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-            state = con.prepareStatement("update " + TABLE_AP_ANIMEINFO + " set " + AP_ANIMEINFO_COLUMN_ANIMEINFOID + "=?," + AP_ANIMEINFO_COLUMN_TITLE + "=?," + AP_ANIMEINFO_COLUMN_SEASON + "=?," + AP_ANIMEINFO_COLUMN_IMGURL + "=?," + AP_ANIMEINFO_COLUMN_GENRE + "=?," + AP_ANIMEINFO_COLUMN_ANIMETYPE + "=?," + AP_ANIMEINFO_COLUMN_DESCRIPTION + "=?," + AP_ANIMEINFO_COLUMN_RATING + "=?," + AP_ANIMEINFO_COLUMN_ANNIMGURL + "=? where " + GENERAL_COLUMN_ID + "=?");
-            state.setInt(1,animeinfoid);
+            state = con.prepareStatement("update " + TABLE_AP_ANIMEINFO + " set " + AP_ANIMEINFO_COLUMN_ANIMEPLANETID + "=?," + AP_ANIMEINFO_COLUMN_TITLE + "=?," + AP_ANIMEINFO_COLUMN_SEASON + "=?," + AP_ANIMEINFO_COLUMN_IMGURL + "=?," + AP_ANIMEINFO_COLUMN_GENRE + "=?," + AP_ANIMEINFO_COLUMN_ANIMETYPE + "=?," + AP_ANIMEINFO_COLUMN_DESCRIPTION + "=?," + AP_ANIMEINFO_COLUMN_RATING + "=?," + AP_ANIMEINFO_COLUMN_ALTTITLES + "=? where " + GENERAL_COLUMN_ID + "=?");
+            state.setInt(1,animeplanetid);
             state.setString(2,title);
             state.setString(3,season);
             state.setString(4,imgurl);
@@ -747,7 +769,7 @@ public class dbControl {
             state.setString(6,animetype);
             state.setString(7,descritpion);
             state.setDouble(8, rating);
-            state.setString(9,annimgurl);
+            state.setString(9,alt_titles);
             state.setInt(10,id);
             state.executeUpdate();
 
@@ -1859,7 +1881,7 @@ public class dbControl {
     /**
      *
      * @param title The title of the anime
-     * @return The id of the anime in animeinfo or -1 if the anime was not found
+     * @return The id of the anime in apanimeinfo or -1 if the anime was not found
      */
     public int getAPAnimeID(String title){
         int id = -1;
@@ -1871,6 +1893,43 @@ public class dbControl {
 
             state = con.prepareStatement("select "+GENERAL_COLUMN_ID+ " from "+TABLE_AP_ANIMEINFO+" where "+AP_ANIMEINFO_COLUMN_TITLE+"=?");
             state.setString(1,title);
+            ResultSet rs = state.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(GENERAL_COLUMN_ID);
+            }
+            rs.close();
+            state.close();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NullPointerException npex){
+                //do nothing (SQLite)
+            }
+        }
+        return id;
+    }
+    
+    /**
+    *
+    * @param animeplanetId - The id of the anime in the server database (animeplanet id)
+    * @return The id of the anime in apanimeinfo or -1 if the anime was not found
+    */
+    public int getAPAnimeID(int animeplanetId){
+        int id = -1;
+        Connection con = null;
+        PreparedStatement state;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+
+            state = con.prepareStatement("select "+GENERAL_COLUMN_ID+ " from "+TABLE_AP_ANIMEINFO+" where "+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+"=?");
+            state.setInt(1,animeplanetId);
             ResultSet rs = state.executeQuery();
             if(rs.next()){
                 id = rs.getInt(GENERAL_COLUMN_ID);
@@ -1910,7 +1969,7 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             StringBuilder command = new StringBuilder();
-            command.append("select " + GENERAL_COLUMN_ID + "," + ANIMEINFO_COLUMN_TITLE + "," + ANIMEINFO_COLUMN_IMGURL + "," + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_ANIMEINFO);
+            command.append("select " + GENERAL_COLUMN_ID + "," + AP_ANIMEINFO_COLUMN_TITLE + "," + AP_ANIMEINFO_COLUMN_IMGURL + "," + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_AP_ANIMEINFO);
 
             if(letter!=null||searchquery!=null||filterslist!=null){
                 command.append(" where ");
@@ -1919,28 +1978,28 @@ public class dbControl {
                     if(letter.equals("Other")){
                         String[] letters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
                         for(String lt : letters){
-                            command.append(ANIMEINFO_COLUMN_TITLE+" not like ? and ");
+                            command.append(AP_ANIMEINFO_COLUMN_TITLE+" not like ? and ");
                             whereArgs.add(lt+"%");
                         }
                     }else{
-                        command.append(ANIMEINFO_COLUMN_TITLE+" like ? and ");
+                        command.append(AP_ANIMEINFO_COLUMN_TITLE+" like ? and ");
                         whereArgs.add(letter+"%");
                     }
 
                 }
                 if(searchquery!=null){
-                    command.append(ANIMEINFO_COLUMN_TITLE+" like ? and ");
+                    command.append(AP_ANIMEINFO_COLUMN_TITLE+" like ? and ");
                     whereArgs.add("%"+searchquery+"%");
                 }
                 if(filterslist!=null){
                     for(String filter : filterslist){
-                        command.append(ANIMEINFO_COLUMN_GENRE+" like ? and ");
+                        command.append(AP_ANIMEINFO_COLUMN_TITLE+" like ? and ");
                         whereArgs.add("%"+filter+"%");
                     }
                 }
                 command.delete(command.length()-5,command.length());
             }
-            command.append(" order by "+ANIMEINFO_COLUMN_TITLE+" collate nocase asc");
+            command.append(" order by "+AP_ANIMEINFO_COLUMN_TITLE+" collate nocase asc");
             //System.out.println(command.toString());
             state = con.prepareStatement(command.toString());
             for(int i=1; i<=whereArgs.size(); i++){
@@ -1948,7 +2007,7 @@ public class dbControl {
             }
             ResultSet rs = state.executeQuery();
             while(rs.next()){
-                animelist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getString(ANIMEINFO_COLUMN_IMGURL),rs.getString(ANIMEINFO_COLUMN_GENRE)));
+                animelist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -1974,11 +2033,11 @@ public class dbControl {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
-            state = con.prepareStatement("select "+GENERAL_COLUMN_ID+","+AP_ANIMEINFO_COLUMN_ANIMEINFOID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_RATING+ " from "+TABLE_AP_ANIMEINFO+" where "+AP_ANIMEINFO_COLUMN_SEASON+"=? order by "+AP_ANIMEINFO_COLUMN_TITLE+" collate nocase asc");
+            state = con.prepareStatement("select "+GENERAL_COLUMN_ID+","+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_RATING+ " from "+TABLE_AP_ANIMEINFO+" where "+AP_ANIMEINFO_COLUMN_SEASON+"=? order by "+AP_ANIMEINFO_COLUMN_TITLE+" collate nocase asc");
             state.setString(1,season);
             ResultSet rs = state.executeQuery();
             while (rs.next()){
-                seasonDataList.add(new SeasonModel(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEINFOID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE),rs.getDouble(AP_ANIMEINFO_COLUMN_RATING)));
+                seasonDataList.add(new SeasonModel(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE),rs.getDouble(AP_ANIMEINFO_COLUMN_RATING)));
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -2169,12 +2228,14 @@ public class dbControl {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
-            state = con.prepareStatement("select "+GENERAL_COLUMN_ID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_ANIMETYPE+","+AP_ANIMEINFO_COLUMN_SEASON+","+AP_ANIMEINFO_COLUMN_DESCRIPTION+","+AP_ANIMEINFO_COLUMN_RATING+" from "+TABLE_AP_ANIMEINFO+" where "+GENERAL_COLUMN_ID+"=?");
+            state = con.prepareStatement("select "+GENERAL_COLUMN_ID+","+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+","+AP_ANIMEINFO_COLUMN_TITLE+","+AP_ANIMEINFO_COLUMN_ALTTITLES+","+AP_ANIMEINFO_COLUMN_IMGURL+","+AP_ANIMEINFO_COLUMN_GENRE+","+AP_ANIMEINFO_COLUMN_ANIMETYPE+","+AP_ANIMEINFO_COLUMN_SEASON+","+AP_ANIMEINFO_COLUMN_DESCRIPTION+","+AP_ANIMEINFO_COLUMN_RATING+" from "+TABLE_AP_ANIMEINFO+" where "+GENERAL_COLUMN_ID+"=?");
             state.setInt(1,id);
             ResultSet rs = state.executeQuery();
             if(rs.next()){
                 info.setId(rs.getInt(GENERAL_COLUMN_ID));
+                info.setAnimeplanetId(rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID));
                 info.setTitle(rs.getString(AP_ANIMEINFO_COLUMN_TITLE));
+                info.setAltTitles(rs.getString(AP_ANIMEINFO_COLUMN_ALTTITLES));
                 info.setImgurl(rs.getString(AP_ANIMEINFO_COLUMN_IMGURL));
                 info.setGenre(rs.getString(AP_ANIMEINFO_COLUMN_GENRE));
                 info.setSeason(rs.getString(AP_ANIMEINFO_COLUMN_SEASON));
