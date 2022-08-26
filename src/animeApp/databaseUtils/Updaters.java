@@ -2,7 +2,9 @@ package animeApp.databaseUtils;
 
 import animeApp.assets.Dialogs.customDialogs;
 import animeApp.controllers.Controller;
+import animeApp.model.AnimeAP;
 import animeApp.model.Configuration;
+import animeApp.model.NewAnime;
 import animeApp.model.WatchlistAnime;
 import animeApp.model.WatchlistUpdaterModel;
 
@@ -34,9 +36,9 @@ public class Updaters {
 
     public static Thread databaseUpdaterThread;
     public static Thread apUpdaterThread;
+    public static Thread imagesUpdaterThread;
     public static Thread topanimeUpdaterThread;
     public static Thread watchlistUpdaterThread;
-    public static Thread hotanimeUpdaterThread;
     public static Thread downloadsUpdaterThread;
 
     public void databaseUpdater(boolean showDialogs, boolean async, boolean doSync){
@@ -189,6 +191,7 @@ public class Updaters {
 
     private void apUpdater(boolean showDialogs, boolean doSync){
         final String prefix = "apUpdater - ";
+        final String serverUrl = "http://"+Configuration.getInstance().getServerIp()+"/animedraw/images/";
         dbControl dbinstance = dbControl.getInstance();
         JSONObject versionjob = HttpRequests.getVersion();
         if(versionjob!=null){
@@ -245,6 +248,7 @@ public class Updaters {
                             }                         
                             if(id==-1){
                                 boolean s = dbinstance.insertIntoAPAnimeinfo(job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
+                                HttpRequests.downloadDataToFileV(serverUrl+job.getInt("id"), "images/"+job.getInt("id"));
                             } else {
                                 boolean s = dbinstance.updateAPAnimeinfo(id,job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                             }
@@ -274,6 +278,106 @@ public class Updaters {
                 }
             }
         }
+    }
+    
+    public void imagesUpdater(boolean showDialogs, boolean async, boolean doSync){
+    	if((imagesUpdaterThread!=null&&imagesUpdaterThread.isAlive())||(apUpdaterThread!=null&&apUpdaterThread.isAlive())||(databaseUpdaterThread!=null&&databaseUpdaterThread.isAlive())){
+            if(showDialogs){
+                customDialogs.displayInformationDialog("ImagesUpdater","Update already running","Please wait until update finishes");
+                Controller.updateProgress = 10;
+                Controller.maxUpdateProgress = 10;
+                return;
+            }
+            Controller.updateProgress = 10;
+            Controller.maxUpdateProgress = 10;
+            return;
+        }
+
+        if(async){
+            imagesUpdaterThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    imagesUpdater(showDialogs,doSync);
+                }
+            });
+            imagesUpdaterThread.start();
+        }else{
+            apUpdater(showDialogs,doSync);
+        }
+    }
+    
+    private void imagesUpdater(boolean showDialogs, boolean doSync){
+    	dbControl dbinstance = dbControl.getInstance();
+    	final int numberOfThreads = 200;
+    	final String serverUrl = "http://"+Configuration.getInstance().getServerIp()+"/animedraw/images/";
+    	
+    	final ArrayList<NewAnime> animelist = dbinstance.getAnimeData(null, null, null);
+    	
+    	Controller.updateProgress = 0;
+    	Controller.maxUpdateProgress = animelist.size();
+    	
+    	System.out.println("List size: "+animelist.size());
+    	
+    	ArrayList<Thread> threadsList = new ArrayList<>();
+    	
+    	int reqPerThread = animelist.size()/numberOfThreads;
+    	System.out.println("Requests per thread: "+reqPerThread);
+    	int lowerLimit = 0;
+    	int higherLimit = animelist.size();
+    	
+    	for(int i=0; i<=numberOfThreads; i++) {
+    		final int innerLowerLimit = lowerLimit;
+    		if(innerLowerLimit+reqPerThread<higherLimit) {
+        		final int innerHigherLimit = innerLowerLimit + reqPerThread;
+        		System.out.println("Thread id="+i+" Lower Limit: "+innerLowerLimit+", Higher limit: "+innerHigherLimit);
+        		//new thread
+        		Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                    	for(int j=innerLowerLimit; j<innerHigherLimit; j++) {
+                    		int apId = animelist.get(j).getapId();
+                    		HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		Controller.updateProgress++;
+                    	}
+                    }
+                });
+    			threadsList.add(t);
+    			t.start();
+    		}else {
+    			final int innerHigherLimit = higherLimit;
+    			System.out.println("Thread id="+i+" Lower Limit: "+innerLowerLimit+", Higher limit: "+innerHigherLimit);
+    			//last thread
+    			Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                    	for(int j=innerLowerLimit; j<innerHigherLimit; j++) {
+                    		int apId = animelist.get(j).getapId();
+                    		HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		Controller.updateProgress++;
+                    	}
+                    }
+                });
+    			threadsList.add(t);
+    			t.start();
+    		}
+    			
+    		
+    		lowerLimit = innerLowerLimit + reqPerThread;
+    	}
+    	
+    	//wait for every thread to finish
+    	for(Thread thread : threadsList){
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    	
+    	System.out.println("Images update has finished sucessfully. No explosions!");
+    	
+    	
     }
 
     public void topanimeUpdater(boolean showDialogs, boolean async, boolean doSync){
@@ -368,95 +472,6 @@ public class Updaters {
         dbinstance.updateTOPVersion(onlineversion);
         if(jarr.length()==1){
             Controller.updateProgress=10;
-        }
-    }
-
-    public void hotanimeUpdater(boolean showDialogs, boolean async){
-        if((databaseUpdaterThread!=null&&databaseUpdaterThread.isAlive())||(hotanimeUpdaterThread!=null&&hotanimeUpdaterThread.isAlive())){
-            if(showDialogs){
-                customDialogs.displayInformationDialog("HotanimeUpdater","Update already running","Please wait until update finishes");
-                Controller.updateProgress = 10;
-                Controller.maxUpdateProgress = 10;
-                return;
-            }
-            Controller.updateProgress = 10;
-            Controller.maxUpdateProgress = 10;
-            return;
-        }
-
-        if(async){
-            hotanimeUpdaterThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    hotanimeUpdater(showDialogs);
-                }
-            });
-            hotanimeUpdaterThread.start();
-        }else{
-            hotanimeUpdater(showDialogs);
-        }
-    }
-
-    private void hotanimeUpdater(boolean showDialogs){
-        dbControl dbinstance = dbControl.getInstance();
-        JSONArray hotanimedata = HttpRequests.getHotanimeData();
-
-        if(hotanimedata.length()==0){
-            System.out.println("hotanimeUpdater - Empty array");
-            return;
-        }
-
-        List<String> titlelist = new ArrayList<>();
-
-        for(int i=0; i<hotanimedata.length(); i++){
-            try {
-                JSONObject hotanime = (JSONObject) hotanimedata.get(i);
-                String title = hotanime.getString("title");
-                titlelist.add(title);
-            } catch (JSONException e) {
-                System.out.println("hotanimeUpdater - Unable to cast imported data to json object");
-                e.printStackTrace();
-            }
-        }
-
-        handleHotAnimeUpdate(titlelist);
-    }
-
-    private void handleHotAnimeUpdate(List<String> titlestrings){
-        dbControl dbinstance = dbControl.getInstance();
-
-        ArrayList<Integer> hotanimeids = (ArrayList<Integer>)dbinstance.getHotanime();
-        ArrayList<Integer> jsoupids = new ArrayList<>();
-        ArrayList<Integer> idstodelete = new ArrayList<>();
-        ArrayList<Integer> idstoinsert = new ArrayList<>();
-
-        for(String titlestring: titlestrings){
-            int id = dbinstance.getAnimeID(titlestring);
-            if(id!=-1){
-                jsoupids.add(id);
-            }
-        }
-        for(int id : jsoupids){
-            if(!hotanimeids.contains(id)){
-                idstoinsert.add(id);
-            }
-        }
-        for(int id : hotanimeids){
-            if(!jsoupids.contains(id)){
-                idstodelete.add(id);
-            }
-        }
-        int cc = 0;
-        Controller.maxUpdateProgress = idstoinsert.size()+idstodelete.size()-1;
-        for(int id : idstoinsert){
-            Controller.updateProgress = cc;
-            dbinstance.insertIntoHotanime(id);
-            cc++;
-        }
-        for(int id : idstodelete){
-            Controller.updateProgress = cc;
-            dbinstance.deleteFromHotanime(id);
-            cc++;
         }
     }
 

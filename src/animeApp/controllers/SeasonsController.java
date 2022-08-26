@@ -1,6 +1,7 @@
 package animeApp.controllers;
 
 import animeApp.databaseUtils.dbControl;
+import animeApp.model.Configuration;
 import animeApp.model.SeasonModel;
 import animeApp.model.SeasonsSortModel;
 import javafx.application.Platform;
@@ -42,7 +43,8 @@ public class SeasonsController implements Initializable {
     private List seasonsList;
     private List seasonDataList;
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void initialize(URL location, ResourceBundle resources) {
         seasonListView.setStyle("/animeApp/assets/css/listview.css");
         seasonsList = new ArrayList<String>();
@@ -64,7 +66,8 @@ public class SeasonsController implements Initializable {
 
     }
 
-    private void setSeasonDataList(){
+    @SuppressWarnings("unchecked")
+	private void setSeasonDataList(){
         seasonDataList = new ArrayList<>();
         SeasonModel anime = new SeasonModel(-1,-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","",-1);
         seasonDataList.add(anime);
@@ -122,15 +125,27 @@ public class SeasonsController implements Initializable {
                                             "-fx-padding: 10;\n" +
                                             "-fx-background-color: firebrick;\n" +
                                             "-fx-background-radius: 15;");
+                                    image.setFitHeight(265);
+                                    image.setFitWidth(190);
                                     if(t.getImgurl()==null||t.getImgurl().trim().equals(""))
                                         image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
                                     else {
                                         try {
-                                            URLConnection con = new URL(t.getImgurl()).openConnection();
-                                            con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
-                                            image.setFitHeight(265);
-                                            image.setFitWidth(190);
-                                            image.setImage(new Image(con.getInputStream()));
+                                        	if(Configuration.getInstance().getUseLocalImages()) {
+                                        		if(t.getAnimeinfo_id()==-1) {
+                                        			image.setImage(new Image("animeApp/assets/icons/spinnerR.gif"));
+                                        		}else {
+                                        			//get local image from images folder
+                                            		String imagePath = "file:\\\\\\"+System.getProperty("user.dir")+"\\images\\"+t.getAnimeinfo_id();
+                                                	image.setImage(new Image(imagePath));
+                                        		}
+                                        	}else {
+                                        		URLConnection con = new URL(t.getImgurl()).openConnection();
+                                                con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
+                                                image.setImage(new Image(con.getInputStream()));
+                                        	}
+                                        	
+                                            
                                         } catch (IOException e) {
                                             if(!t.getName().equals("Loading data...")){
                                                 e.printStackTrace();

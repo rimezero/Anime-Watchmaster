@@ -73,7 +73,7 @@
             <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" fitToWidth="true">
               <content>
                      
-                  <TextFlow fx:id="text" maxWidth="591.0" prefWidth="590.0" prefHeight="436.0"/>
+                  <TextFlow fx:id="text" maxWidth="591.0" prefWidth="591.0" prefHeight="436.0"/>
                      
 
               </content>

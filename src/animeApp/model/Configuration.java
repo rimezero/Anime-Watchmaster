@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 public class Configuration {
 	private String serverIp = "127.0.0.1";
 	private boolean enableDownloads = true;
+	private boolean useLocalImages = true;
 	private String globalDownloadsPath = " ";
 	private boolean enableWatchnext = false;
 	private boolean incrementEpisodesWatched = true;
@@ -27,8 +28,8 @@ public class Configuration {
 	private boolean downloadsUpdater = false;
 	private boolean databaseUpdater = false;
 	private boolean seasonsUpdater = true;
+	private boolean imagesUpdater = false;
 	private boolean topanimeUpdater = true;
-	private boolean hotanimeUpdater = false;
 	public String getServerIp() {
 		return serverIp;
 	}
@@ -62,6 +63,12 @@ public class Configuration {
 	}
 	public String getGlobalDownloadsPath() {
 		return globalDownloadsPath;
+	}
+	public void setUseLocalImages(boolean useLocalImages) {
+		this.useLocalImages = useLocalImages;
+	}
+	public boolean getUseLocalImages() {
+		return useLocalImages;
 	}
 	public void setGlobalDownloadsPath(String globalDownloadsPath) {
 		this.globalDownloadsPath = globalDownloadsPath;
@@ -156,6 +163,14 @@ public class Configuration {
 	public void setSeasonsUpdater(boolean seasonsUpdater) {
 		this.seasonsUpdater = seasonsUpdater;
 	}
+	
+	public boolean isImagesUdater() {
+		return imagesUpdater;
+	}
+	
+	public void setImagesUpdater(boolean imagesUpdater) {
+		this.imagesUpdater = imagesUpdater;
+	}
 
 	public boolean isTopanimeUpdater() {
 		return topanimeUpdater;
@@ -165,13 +180,6 @@ public class Configuration {
 		this.topanimeUpdater = topanimeUpdater;
 	}
 
-	public boolean isHotanimeUpdater() {
-		return hotanimeUpdater;
-	}
-
-	public void setHotanimeUpdater(boolean hotanimeUpdater) {
-		this.hotanimeUpdater = hotanimeUpdater;
-	}
 
 	public void saveConfiguration() {
 		File configFile = new File("config.ini");

@@ -1,20 +1,19 @@
 package animeApp.assets.Dialogs;
 
 
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
+
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.util.Pair;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import animeApp.databaseUtils.StartUpLocation;
 
 public class customDialogs {
 
@@ -23,6 +22,8 @@ public class customDialogs {
         alert.setTitle(title);
         alert.setHeaderText(message);
         alert.setContentText(question);
+        
+        alertOnCurrentScreen(alert);
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get()==ButtonType.OK)
@@ -40,6 +41,8 @@ public class customDialogs {
         dialog.setTitle("Site choice");
         dialog.setHeaderText("Which site do you prefer?");
         dialog.setContentText("Choose a site:");
+        
+        dialogOnCurrentScreen(dialog, 200, 100);
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -57,6 +60,8 @@ public class customDialogs {
         dialog.setTitle("Local database type");
         dialog.setHeaderText("Which type will you use?");
         dialog.setContentText("Choose a database:");
+        
+        dialogOnCurrentScreen(dialog, 200, 100);
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -74,6 +79,8 @@ public class customDialogs {
         dialog.setTitle("Image Display");
         dialog.setHeaderText("Should the program display images on anime lists?");
         dialog.setContentText("Displaying images will use more memory (you can change this anytime)");
+        
+        dialogOnCurrentScreen(dialog, 200, 100);
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -86,6 +93,8 @@ public class customDialogs {
         alert.setTitle(title);
         alert.setHeaderText(mainmessage);
         alert.setContentText(secondarymessage);
+        
+        alertOnCurrentScreen(alert);
 
         alert.showAndWait();
     }
@@ -94,6 +103,9 @@ public class customDialogs {
         alert.setTitle(title);
         alert.setHeaderText(mainmessage);
         alert.setContentText(secondarymessage);
+        
+        alertOnCurrentScreen(alert);
+        
 
         alert.showAndWait();
     }
@@ -109,6 +121,8 @@ public class customDialogs {
     	dialog.setTitle(title);
     	dialog.setHeaderText(headerText);
     	dialog.setContentText(contentText);
+    	
+    	dialogOnCurrentScreen(dialog, 200, 100);
     	
     	Optional<String> tmpresult = dialog.showAndWait();
     	
@@ -158,6 +172,30 @@ public class customDialogs {
     	alert.getDialogPane().setExpandableContent(expContent);
 
     	alert.showAndWait();
+    }
+    
+    public static void alertOnCurrentScreen(Alert alert) {
+    	//set on active screen
+        StartUpLocation startupLoc = new StartUpLocation(200, 100);
+        double xPos = startupLoc.getXPos();
+        double yPos = startupLoc.getYPos();
+        // Set Only if X and Y are not zero and were computed correctly
+        if (xPos != 0 && yPos != 0) {
+        	alert.setX(xPos);
+        	alert.setY(yPos);
+        } 
+    }
+    
+    public static void dialogOnCurrentScreen(Dialog<String> dialog, int width, int height) {
+    	//set on active screen
+        StartUpLocation startupLoc = new StartUpLocation(width, height);
+        double xPos = startupLoc.getXPos();
+        double yPos = startupLoc.getYPos();
+        // Set Only if X and Y are not zero and were computed correctly
+        if (xPos != 0 && yPos != 0) {
+        	dialog.setX(xPos);
+        	dialog.setY(yPos);
+        } 
     }
     /*
     public static String[] displayLoginDialog(){

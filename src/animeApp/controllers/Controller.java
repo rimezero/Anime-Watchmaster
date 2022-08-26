@@ -1,6 +1,7 @@
 package animeApp.controllers;
 
 import animeApp.databaseUtils.HttpRequests;
+import animeApp.databaseUtils.StartUpLocation;
 import animeApp.databaseUtils.Updaters;
 import animeApp.databaseUtils.dbControl;
 import animeApp.model.Configuration;
@@ -74,7 +75,7 @@ public class Controller implements Initializable{
             @Override
             protected Void call() throws Exception {
             	boolean noUpdatersSelected = false;
-            	if(Configuration.getInstance().isSpecificUpdaters() && !(Configuration.getInstance().isWatchlistUpdater() || Configuration.getInstance().isDownloadsUpdater() || Configuration.getInstance().isDatabaseUpdater() || Configuration.getInstance().isSeasonsUpdater() || Configuration.getInstance().isTopanimeUpdater() || Configuration.getInstance().isHotanimeUpdater())) {
+            	if(Configuration.getInstance().isSpecificUpdaters() && !(Configuration.getInstance().isWatchlistUpdater() || Configuration.getInstance().isDownloadsUpdater() || Configuration.getInstance().isDatabaseUpdater() || Configuration.getInstance().isSeasonsUpdater() || Configuration.getInstance().isImagesUdater() ||Configuration.getInstance().isTopanimeUpdater())) {
             		noUpdatersSelected = true;
             	}
             	
@@ -147,6 +148,23 @@ public class Controller implements Initializable{
 
                     }
             	}
+            	
+            	if(!Configuration.getInstance().isSpecificUpdaters() || Configuration.getInstance().isImagesUdater() || noUpdatersSelected) {
+            		resetProgress("Updating images...");
+                    Updaters.imagesUpdaterThread = null;
+                    Updaters.getInstance().imagesUpdater(false, true, doSync);
+
+                    while (Updaters.imagesUpdaterThread.isAlive()) {
+                        Thread.sleep(100);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateProgress(updateProgress, maxUpdateProgress);
+                            }
+                        });
+
+                    }
+            	}
                 
 
             	if(!Configuration.getInstance().isSpecificUpdaters() || Configuration.getInstance().isTopanimeUpdater() || noUpdatersSelected) {
@@ -166,23 +184,6 @@ public class Controller implements Initializable{
                     }
             	}
                 
-
-            	if(!Configuration.getInstance().isSpecificUpdaters() || Configuration.getInstance().isHotanimeUpdater() || noUpdatersSelected) {
-            		resetProgress("Updating hotanime...");
-                    Updaters.hotanimeUpdaterThread = null;
-                    Updaters.getInstance().hotanimeUpdater(false, true);
-
-                    while (Updaters.hotanimeUpdaterThread.isAlive()) {
-                        Thread.sleep(100);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateProgress(updateProgress, maxUpdateProgress);
-                            }
-                        });
-
-                    }
-            	}
                 
                 
 
@@ -244,6 +245,19 @@ public class Controller implements Initializable{
             window.setScene(scene);
             window.setTitle(title);
             window.getIcons().add(new Image(Controller.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+            
+            //set on active screen
+            StartUpLocation startupLoc = new StartUpLocation(width, height);
+            double xPos = startupLoc.getXPos();
+            double yPos = startupLoc.getYPos();
+            // Set Only if X and Y are not zero and were computed correctly
+            if (xPos != 0 && yPos != 0) {
+            	window.setX(xPos);
+            	window.setY(yPos);
+            } else {
+            	window.centerOnScreen();
+            }
+            
             window.show();
         } catch (IOException e) {
             e.printStackTrace();

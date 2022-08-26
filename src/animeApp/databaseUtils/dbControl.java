@@ -1981,7 +1981,7 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             StringBuilder command = new StringBuilder();
-            command.append("select " + GENERAL_COLUMN_ID + "," + AP_ANIMEINFO_COLUMN_TITLE + "," + AP_ANIMEINFO_COLUMN_IMGURL + "," + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_AP_ANIMEINFO);
+            command.append("select " + GENERAL_COLUMN_ID + "," + AP_ANIMEINFO_COLUMN_ANIMEPLANETID + "," + AP_ANIMEINFO_COLUMN_TITLE + "," + AP_ANIMEINFO_COLUMN_IMGURL + "," + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_AP_ANIMEINFO);
 
             if(letter!=null||searchquery!=null||filterslist!=null){
                 command.append(" where ");
@@ -2019,7 +2019,7 @@ public class dbControl {
             }
             ResultSet rs = state.executeQuery();
             while(rs.next()){
-                animelist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
+                animelist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -2282,9 +2282,9 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select "+"T."+GENERAL_COLUMN_ID+","+"T."+MAL_TOPANIME_COLUMN_SPOT+","+"Info."+ANIMEINFO_COLUMN_TITLE+","+"Info."+ANIMEINFO_COLUMN_IMGURL+","+"Info."+ANIMEINFO_COLUMN_GENRE+","+"T."+MAL_TOPANIME_COLUMN_SCORE+" from "+TABLE_MAL_TOPANIME+" T inner join "+TABLE_ANIMEINFO+" Info on T."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" order by T."+MAL_TOPANIME_COLUMN_SPOT+" asc");
+            ResultSet rs = stt.executeQuery("select "+"T."+GENERAL_COLUMN_ID+","+"T."+MAL_TOPANIME_COLUMN_SPOT+","+"Info."+AP_ANIMEINFO_COLUMN_ANIMEPLANETID+","+"Info."+AP_ANIMEINFO_COLUMN_TITLE+","+"Info."+AP_ANIMEINFO_COLUMN_IMGURL+","+"Info."+AP_ANIMEINFO_COLUMN_GENRE+","+"T."+MAL_TOPANIME_COLUMN_SCORE+" from "+TABLE_MAL_TOPANIME+" T inner join "+TABLE_AP_ANIMEINFO+" Info on T."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID+" order by T."+MAL_TOPANIME_COLUMN_SPOT+" asc");
             while(rs.next()){
-                NewAnime anime = new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getString(ANIMEINFO_COLUMN_IMGURL),rs.getString(ANIMEINFO_COLUMN_GENRE));
+                NewAnime anime = new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID),rs.getString(ANIMEINFO_COLUMN_TITLE),rs.getString(ANIMEINFO_COLUMN_IMGURL),rs.getString(ANIMEINFO_COLUMN_GENRE));
                 anime.setSpot(rs.getInt(MAL_TOPANIME_COLUMN_SPOT));
                 anime.setRating(rs.getDouble(MAL_TOPANIME_COLUMN_SCORE));
                 topanimeData.add(anime);
@@ -2432,9 +2432,9 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
+            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_ANIMEPLANETID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
             while (rs.next()) {
-                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
+                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
             rs.close();
             stt.close();
@@ -2463,9 +2463,9 @@ public class dbControl {
             con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
             stt = con.createStatement();
-            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
+            ResultSet rs = stt.executeQuery("select W." + GENERAL_COLUMN_ID + ",Info." + AP_ANIMEINFO_COLUMN_ANIMEPLANETID + ",Info." + AP_ANIMEINFO_COLUMN_TITLE + ",Info." + AP_ANIMEINFO_COLUMN_IMGURL + ",Info." + AP_ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_AP_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID);
             while (rs.next()) {
-                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
+                wlist.add(new NewAnime(rs.getInt(GENERAL_COLUMN_ID),rs.getInt(AP_ANIMEINFO_COLUMN_ANIMEPLANETID),rs.getString(AP_ANIMEINFO_COLUMN_TITLE),rs.getString(AP_ANIMEINFO_COLUMN_IMGURL),rs.getString(AP_ANIMEINFO_COLUMN_GENRE)));
             }
             rs.close();
             stt.close();

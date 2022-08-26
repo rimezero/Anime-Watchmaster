@@ -1,6 +1,7 @@
 package animeApp.model;
 
 import animeApp.controllers.AnimeinfoController;
+import animeApp.databaseUtils.StartUpLocation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -113,12 +114,25 @@ public class WatchlistAnime  {
                     AnimeinfoController controller = (AnimeinfoController)fxmlLoader.getController();
                     controller.setId(id);
 
-                    Scene scene = new Scene(root,750,550);
+                    Scene scene = new Scene(root,850,600);
                     window.initStyle(StageStyle.DECORATED);
                     window.setScene(scene);
                     window.setTitle("Anime Information");
                     window.getIcons().add(new javafx.scene.image.Image(WatchlistAnime.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
                     window.setResizable(false);
+                    
+                    //set on active screen
+                    StartUpLocation startupLoc = new StartUpLocation(850, 600);
+                    double xPos = startupLoc.getXPos();
+                    double yPos = startupLoc.getYPos();
+                    // Set Only if X and Y are not zero and were computed correctly
+                    if (xPos != 0 && yPos != 0) {
+                    	window.setX(xPos);
+                    	window.setY(yPos);
+                    } else {
+                    	window.centerOnScreen();
+                    }
+                    
                     window.show();
 
                 } catch (IOException e) {

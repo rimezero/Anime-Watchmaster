@@ -1,6 +1,8 @@
 package animeApp.controllers;
 
+import animeApp.databaseUtils.StartUpLocation;
 import animeApp.databaseUtils.dbControl;
+import animeApp.model.Configuration;
 import animeApp.model.NewAnime;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -28,6 +30,8 @@ import javafx.util.Callback;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -180,10 +184,25 @@ public class AllAnimeController implements Initializable{
                                             "-fx-padding: 10;\n" +
                                             "-fx-background-color: firebrick;\n" +
                                             "-fx-background-radius: 15;");
-                                    if(t.getImgurl()==null||t.getImgurl().trim().equals(""))
-                                        image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
-                                    else
-                                        image.setImage(new Image(t.getImgurl()));
+                                    if(Configuration.getInstance().getUseLocalImages()) {
+                                    	if(t.getapId()==-1) {
+                                    		image.setImage(new Image("animeApp/assets/icons/spinnerR.gif"));
+                                    	}else {
+                                    		//get local image from images folder
+                                    		String imagePath = "file:\\\\\\"+System.getProperty("user.dir")+"\\images\\"+t.getapId();
+                                        	image.setImage(new Image(imagePath));
+                                    	}                      	
+                                    }else {
+                                    	if(t.getImgurl()==null||t.getImgurl().trim().equals(""))
+                                            image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
+                                        else
+                                            image.setImage(new Image(t.getImgurl()));
+                                    }
+                                    
+                              
+                                    
+                                    
+                                    
                                 }
                             }).start();
                             //setGraphic(t.getBox());
@@ -200,7 +219,7 @@ public class AllAnimeController implements Initializable{
 
     private void setAllAnimeTableWithImages(String letter){
         list = new ArrayList<>();
-        NewAnime anime = new NewAnime(-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
+        NewAnime anime = new NewAnime(-1,-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
         list.add(anime);
         ObservableList<NewAnime> data1 = FXCollections.observableArrayList(list);
         listview.setItems(data1);
@@ -241,6 +260,17 @@ public class AllAnimeController implements Initializable{
             windownew.setScene(scene);
             windownew.setTitle("Filters by Genre");
             windownew.getIcons().add(new javafx.scene.image.Image(AllAnimeController.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+            //set on active screen
+            StartUpLocation startupLoc = new StartUpLocation(600, 300);
+            double xPos = startupLoc.getXPos();
+            double yPos = startupLoc.getYPos();
+            // Set Only if X and Y are not zero and were computed correctly
+            if (xPos != 0 && yPos != 0) {
+            	windownew.setX(xPos);
+            	windownew.setY(yPos);
+            } else {
+            	windownew.centerOnScreen();
+            }
             windownew.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -255,7 +285,7 @@ public class AllAnimeController implements Initializable{
         String titlesearch = searchField.getText();
 
         list = new ArrayList<>();
-        NewAnime anime = new NewAnime(-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
+        NewAnime anime = new NewAnime(-1,-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
         list.add(anime);
         ObservableList<NewAnime> data = FXCollections.observableArrayList(list);
         listview.setItems(data);

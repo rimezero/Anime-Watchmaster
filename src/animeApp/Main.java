@@ -1,5 +1,6 @@
 package animeApp;
 
+import animeApp.databaseUtils.StartUpLocation;
 import animeApp.model.Configuration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,19 @@ public class Main extends Application {
 
         primaryStage.setScene(mainscene);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("assets/icons/animeWmIcon.png")));
+        
+      //set on active screen
+        StartUpLocation startupLoc = new StartUpLocation(1198, 695);
+        double xPos = startupLoc.getXPos();
+        double yPos = startupLoc.getYPos();
+        // Set Only if X and Y are not zero and were computed correctly
+        if (xPos != 0 && yPos != 0) {
+        	primaryStage.setX(xPos);
+        	primaryStage.setY(yPos);
+        } else {
+        	primaryStage.centerOnScreen();
+        }
+        
         primaryStage.show();
     }
 

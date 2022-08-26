@@ -220,4 +220,53 @@ public class HttpRequests {
             }
         }
     }
+    
+    public static void downloadDataToFileV(String targetURL, String filename) {
+    	HttpURLConnection connection = null;
+
+        try {
+            //Create connection
+            URL url = new URL(targetURL);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            connection.setUseCaches(false);
+            connection.setDoOutput(true);
+
+            /*
+            //Send request
+            DataOutputStream wr = new DataOutputStream(
+                    connection.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.close();*/
+            int responseCode = connection.getResponseCode();
+
+            //Get Response
+            InputStream is = connection.getInputStream();
+            
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            byte[] data = new byte[16384];
+
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+              buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+            
+            byte[] ress = buffer.toByteArray();
+            
+            FileOutputStream fos = new FileOutputStream(filename);
+            fos.write(ress);
+            fos.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
 }

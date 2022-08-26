@@ -20,7 +20,7 @@ public class ConfigurationController implements Initializable{
 	@FXML
 	private TextField tbGlobalDownloadsPath;
 	@FXML
-	private CheckBox cbDownloads,cbWatchNextButtons,cbIncrementEpisodesWatched,cbChooseBestQuality,cbAutocreate,cbSpecificUpdaters,cbWatchlistUpdater,cbDownloadsUpdater,cbDatabaseUpdater,cbSeasonsUpdater,cbTopanimeUpdater,cbHotanimeUpdater,cbDownloadsMT,cbWatchlistUpdateMT;
+	private CheckBox cbUseLocalImages, cbDownloads,cbWatchNextButtons,cbIncrementEpisodesWatched,cbChooseBestQuality,cbAutocreate,cbSpecificUpdaters,cbWatchlistUpdater,cbDownloadsUpdater,cbDatabaseUpdater,cbSeasonsUpdater,cbImagesUpdater,cbTopanimeUpdater,cbDownloadsMT,cbWatchlistUpdateMT;
 	@FXML
 	private ChoiceBox<String> cmbQuality;
 	
@@ -33,6 +33,8 @@ public class ConfigurationController implements Initializable{
 		tbServerIp.setText(Configuration.getInstance().getServerIp());
 		tbGlobalDownloadsPath.setText(Configuration.getInstance().getGlobalDownloadsPath());
 		
+		cbUseLocalImages.setSelected(Configuration.getInstance().getUseLocalImages());
+		
 		cbDownloads.setSelected(Configuration.getInstance().isEnableDownloads());
 		cbWatchNextButtons.setSelected(Configuration.getInstance().isEnableWatchnext());
 		cbIncrementEpisodesWatched.setSelected(Configuration.getInstance().isIncrementEpisodesWatched());
@@ -43,8 +45,8 @@ public class ConfigurationController implements Initializable{
 		cbDownloadsUpdater.setSelected(Configuration.getInstance().isDownloadsUpdater());
 		cbDatabaseUpdater.setSelected(Configuration.getInstance().isDatabaseUpdater());
 		cbSeasonsUpdater.setSelected(Configuration.getInstance().isSeasonsUpdater());
+		cbImagesUpdater.setSelected(Configuration.getInstance().isImagesUdater());
 		cbTopanimeUpdater.setSelected(Configuration.getInstance().isTopanimeUpdater());
-		cbHotanimeUpdater.setSelected(Configuration.getInstance().isHotanimeUpdater());
 		cbWatchlistUpdateMT.setSelected(Configuration.getInstance().isWatchlistUpdateMT());
 		cbDownloadsMT.setSelected(Configuration.getInstance().isDownloadsUpdateMT());
 		
@@ -53,8 +55,8 @@ public class ConfigurationController implements Initializable{
 			cbDownloadsUpdater.setDisable(true);
 			cbDatabaseUpdater.setDisable(true);
 			cbSeasonsUpdater.setDisable(true);
+			cbImagesUpdater.setDisable(true);
 			cbTopanimeUpdater.setDisable(true);
-			cbHotanimeUpdater.setDisable(true);
 		}
 		
 		if(!cbWatchNextButtons.isSelected()) {
@@ -79,15 +81,15 @@ public class ConfigurationController implements Initializable{
 			cbDownloadsUpdater.setDisable(true);
 			cbDatabaseUpdater.setDisable(true);
 			cbSeasonsUpdater.setDisable(true);
+			cbImagesUpdater.setDisable(true);
 			cbTopanimeUpdater.setDisable(true);
-			cbHotanimeUpdater.setDisable(true);
 		}else {
 			cbWatchlistUpdater.setDisable(false);
 			cbDownloadsUpdater.setDisable(false);
 			cbDatabaseUpdater.setDisable(false);
 			cbSeasonsUpdater.setDisable(false);
+			cbImagesUpdater.setDisable(false);
 			cbTopanimeUpdater.setDisable(false);
-			cbHotanimeUpdater.setDisable(false);
 		}
 	}
 	
@@ -140,6 +142,7 @@ public class ConfigurationController implements Initializable{
 	private void saveConfig() {
 		Configuration.getInstance().setServerIp(tbServerIp.getText());
 		Configuration.getInstance().setGlobalDownloadsPath(tbGlobalDownloadsPath.getText());
+		Configuration.getInstance().setUseLocalImages(cbUseLocalImages.isSelected());
 		Configuration.getInstance().setEnableDownloads(cbDownloads.isSelected());
 		Configuration.getInstance().setEnableWatchnext(cbWatchNextButtons.isSelected());
 		Configuration.getInstance().setIncrementEpisodesWatched(cbIncrementEpisodesWatched.isSelected());
@@ -153,8 +156,8 @@ public class ConfigurationController implements Initializable{
 		Configuration.getInstance().setDownloadsUpdater(cbDownloadsUpdater.isSelected());
 		Configuration.getInstance().setDatabaseUpdater(cbDatabaseUpdater.isSelected());
 		Configuration.getInstance().setSeasonsUpdater(cbSeasonsUpdater.isSelected());
+		Configuration.getInstance().setImagesUpdater(cbImagesUpdater.isSelected());
 		Configuration.getInstance().setTopanimeUpdater(cbTopanimeUpdater.isSelected());
-		Configuration.getInstance().setHotanimeUpdater(cbHotanimeUpdater.isSelected());
 		Configuration.getInstance().saveConfiguration();
 		((Stage) tbServerIp.getScene().getWindow()).close();
 	}	

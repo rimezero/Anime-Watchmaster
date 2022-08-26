@@ -39,7 +39,7 @@ public class TopanimeController implements Initializable{
 
     private void setTopAnimeList(){
         list = new ArrayList<>();
-        NewAnime anime = new NewAnime(-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
+        NewAnime anime = new NewAnime(-1,-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
         list.add(anime);
         ObservableList<NewAnime> data1 = FXCollections.observableArrayList(list);
         listview.setItems(data1);
@@ -64,7 +64,8 @@ public class TopanimeController implements Initializable{
         System.gc();
     }
 
-    private void reloadListWithImages(){
+    @SuppressWarnings("unchecked")
+	private void reloadListWithImages(){
         listview.setCellFactory(new Callback<ListView<NewAnime>, ListCell<NewAnime>>() {
 
             @Override

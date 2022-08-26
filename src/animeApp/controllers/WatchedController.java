@@ -1,6 +1,7 @@
 package animeApp.controllers;
 
 import animeApp.databaseUtils.dbControl;
+import animeApp.model.Configuration;
 import animeApp.model.NewAnime;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class WatchedController implements Initializable {
 
     private void initializeWithImages(){
         list = new ArrayList<>();
-        NewAnime anime = new NewAnime(1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
+        NewAnime anime = new NewAnime(1,-1,"Loading data...","animeApp/assets/icons/spinnerR.gif","");
         list.add(anime);
         ObservableList<NewAnime> data1 = FXCollections.observableArrayList(list);
         listview1.setItems(data1);
@@ -62,7 +63,8 @@ public class WatchedController implements Initializable {
         System.gc();
     }
 
-    private void reloadListWithImages(){
+    @SuppressWarnings("unchecked")
+	private void reloadListWithImages(){
         listview1.setCellFactory(new Callback<ListView<NewAnime>, ListCell<NewAnime>>() {
 
             @Override
@@ -78,6 +80,8 @@ public class WatchedController implements Initializable {
                             HBox box = new HBox(20);
                             box.setStyle("-fx-alignment: center;");
                             ImageView image = new ImageView("animeApp/assets/icons/spinnerR.gif");
+                            image.setFitHeight(265);
+                            image.setFitWidth(190);
                             box.getChildren().addAll(t.getButton(), image);
                             setGraphic(box);
                             new Thread(new Runnable() {
@@ -87,10 +91,20 @@ public class WatchedController implements Initializable {
                                             "-fx-padding: 10;\n" +
                                             "-fx-background-color: firebrick;\n" +
                                             "-fx-background-radius: 15;");
-                                    if (t.getImgurl() == null || t.getImgurl().trim().equals(""))
-                                        image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
-                                    else
-                                        image.setImage(new Image(t.getImgurl()));
+                                    if(Configuration.getInstance().getUseLocalImages()) {
+                                    	if(t.getapId()==-1) {
+                                    		image.setImage(new Image("animeApp/assets/icons/spinnerR.gif"));
+                                    	}else {
+                                    		//get local image from images folder
+                                    		String imagePath = "file:\\\\\\"+System.getProperty("user.dir")+"\\images\\"+t.getapId();
+                                        	image.setImage(new Image(imagePath));
+                                    	}                      	
+                                    }else {
+                                    	if(t.getImgurl()==null||t.getImgurl().trim().equals(""))
+                                            image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
+                                        else
+                                            image.setImage(new Image(t.getImgurl()));
+                                    }
                                 }
                             }).start();
                             setPadding(new Insets(15, 10, 15, 10));

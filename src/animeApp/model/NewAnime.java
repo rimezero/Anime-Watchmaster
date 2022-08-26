@@ -1,6 +1,7 @@
 package animeApp.model;
 
 import animeApp.controllers.AnimeinfoController;
+import animeApp.databaseUtils.StartUpLocation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ import java.io.IOException;
  */
 public class NewAnime implements Comparable<NewAnime>{
     private int id;
+    private int apId;
     private String name;
     private String imgurl;
     private Button button;
@@ -50,8 +52,9 @@ public class NewAnime implements Comparable<NewAnime>{
         return name.compareTo(other.name);
     }
 
-    public NewAnime(int id, String name, String imgurl,String genre) {
+    public NewAnime(int id, int apId, String name, String imgurl,String genre) {
         this.id = id;
+        this.apId = apId;
         this.name = name;
         this.imgurl = imgurl;
         this.genre=genre;
@@ -76,6 +79,19 @@ public class NewAnime implements Comparable<NewAnime>{
                     window.setTitle("Anime Information");
                     window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
                     window.setResizable(false);
+                    
+                    //set on active screen
+                    StartUpLocation startupLoc = new StartUpLocation(850, 600);
+                    double xPos = startupLoc.getXPos();
+                    double yPos = startupLoc.getYPos();
+                    // Set Only if X and Y are not zero and were computed correctly
+                    if (xPos != 0 && yPos != 0) {
+                    	window.setX(xPos);
+                    	window.setY(yPos);
+                    } else {
+                    	window.centerOnScreen();
+                    }
+                    
                     window.show();
 
                 } catch (IOException e) {
@@ -112,6 +128,14 @@ public class NewAnime implements Comparable<NewAnime>{
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getapId() {
+        return apId;
+    }
+
+    public void setapId(int apId) {
+        this.apId = apId;
     }
 
     public String getGenre() {

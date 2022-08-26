@@ -1,6 +1,7 @@
 package animeApp.model;
 
 import animeApp.controllers.AnimeinfoController;
+import animeApp.databaseUtils.StartUpLocation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -76,6 +77,19 @@ public class SeasonModel implements Comparable<SeasonModel>{
                     window.setTitle("Anime Information");
                     window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
                     window.setResizable(false);
+                    
+                    //set on active screen
+                    StartUpLocation startupLoc = new StartUpLocation(850, 600);
+                    double xPos = startupLoc.getXPos();
+                    double yPos = startupLoc.getYPos();
+                    // Set Only if X and Y are not zero and were computed correctly
+                    if (xPos != 0 && yPos != 0) {
+                    	window.setX(xPos);
+                    	window.setY(yPos);
+                    } else {
+                    	window.centerOnScreen();
+                    }
+                    
                     window.show();
 
                 } catch (IOException e) {

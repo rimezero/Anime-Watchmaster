@@ -5,6 +5,7 @@ import animeApp.databaseUtils.StringUtils;
 import animeApp.databaseUtils.Updaters;
 import animeApp.databaseUtils.dbControl;
 import animeApp.model.Animeinfo;
+import animeApp.model.Configuration;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -130,7 +131,7 @@ public class AnimeinfoController implements Initializable {
                 
                 anime = dbControl.getInstance().getAPAnimeInfo(id);
 
-                loadImageFormUrl(anime.getImgurl());
+                loadImageFormUrl(anime);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -214,26 +215,39 @@ public class AnimeinfoController implements Initializable {
     }
 
 
-    private void loadImageFormUrl(String url) {
+    private void loadImageFormUrl(Animeinfo anime) {
 
-        if(!url.isEmpty()) {
-            if(url.equals(" ")) {
-
-            } else if(url.equals("n/a")) {
-
-            } else {
-                try {
-                    URLConnection con = new URL(url).openConnection();
-                    con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
-                    image.setImage(new Image(con.getInputStream()));
-                }catch (IOException e) {
-                    if(!url.equals("Loading data...")){
-                        e.printStackTrace();
+    	if(Configuration.getInstance().getUseLocalImages()) {
+    		if(anime.getAnimeplanetId()==-1) {
+        		image.setImage(new Image("animeApp/assets/icons/spinnerR.gif"));
+        	}else {
+        		//get local image from images folder
+        		String imagePath = "file:\\\\\\"+System.getProperty("user.dir")+"\\images\\"+anime.getAnimeplanetId();
+            	image.setImage(new Image(imagePath));
+        	}   
+    	}else {
+    		if(!anime.getImgurl().isEmpty()) {
+                if(anime.getImgurl().equals(" ")) {
+                	image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
+                } else if(anime.getImgurl().equals("n/a")) {
+                	image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
+                } else {
+                    try {
+                        URLConnection con = new URL(anime.getImgurl()).openConnection();
+                        con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
+                        image.setImage(new Image(con.getInputStream()));
+                    }catch (IOException e) {
+                        if(!anime.getImgurl().equals("Loading data...")){
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-        }
+            }else {
+            	image.setImage(new Image("animeApp/assets/icons/noimage.jpg"));
+            }
+    	}
+        
 
     }
 
