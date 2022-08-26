@@ -41,6 +41,7 @@ public class Updaters {
     public static Thread topanimeUpdaterThread;
     public static Thread watchlistUpdaterThread;
     public static Thread downloadsUpdaterThread;
+    private LinkedList<Integer> newAnimeIDS;
 
     public void databaseUpdater(boolean showDialogs, boolean async, boolean doSync){
         if(databaseUpdaterThread!=null&&databaseUpdaterThread.isAlive()){
@@ -163,6 +164,17 @@ public class Updaters {
             }
         }
     }
+    private synchronized int getIdFromList() {
+    	if(newAnimeIDS.isEmpty()) {
+    		return -5;
+    	}
+    	int id = newAnimeIDS.get(0);
+    	if(id==-10) {
+    		return -10;
+    	}
+    	newAnimeIDS.remove(0);
+    	return id;
+    }
 
     public void apUpdater(boolean showDialogs, boolean async, boolean doSync){
         if((databaseUpdaterThread!=null&&databaseUpdaterThread.isAlive())||(apUpdaterThread!=null&&apUpdaterThread.isAlive())){
@@ -196,6 +208,9 @@ public class Updaters {
         dbControl dbinstance = dbControl.getInstance();
         JSONObject versionjob = HttpRequests.getVersion();
         IDReassign idReassign = null;
+        int numberOfThreads = Configuration.getInstance().getNumberOfThreadsImagesUpdater();
+        Controller.updateProgress=0;
+        newAnimeIDS = new LinkedList<>();
         
         if(!fileSystemUtils.checkIfFileIsDirectory("Images")) {
     		fileSystemUtils.createFolder("Images");
@@ -219,33 +234,47 @@ public class Updaters {
 
             System.out.println(prefix+"localversion: "+localversion+" onlineversion: "+onlineversion);
             JSONArray jarr = new JSONArray();
-            LinkedList<Integer> newAnimeIDS = new LinkedList<>();
+            
+            ArrayList<Thread> threadsList = new ArrayList<>();
             
             
 
             if (onlineversion > localversion) {
                 jarr = HttpRequests.getAPanimeinfoData(localversion);
-                
+                System.out.println("Number of threads: "+numberOfThreads);
               //Images downloader thread
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                    	int id = 0;
-                    	System.out.println("h1");
-                    	while(id!=-10) {
-                    		if(!newAnimeIDS.isEmpty()) {
-                    			id = newAnimeIDS.get(0);
-                    			if(id!=-10) {
-                    				//System.out.println("Server url: "+serverUrl+id);
-                    				HttpRequests.downloadDataToFileV(serverUrl+id, "images/"+id);
-                    				newAnimeIDS.remove(newAnimeIDS.indexOf(id));
-                    			}            			
-                    		}
-                    	}
-                    }
-                });
-                t.start();
-                //Images downloader thread
+                for(int i=0; i<numberOfThreads; i++) {
+     	
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                        	int id = 0;
+                        	System.out.println("h1");
+                        	while(id!=-10) {
+                        		try {
+    								Thread.sleep(10);
+    							} catch (InterruptedException e) {
+    								e.printStackTrace();
+    							}
+								id = getIdFromList();
+								if (id != -10 && id != -5) {
+									// System.out.println("Server url: "+serverUrl+id);
+									HttpRequests.downloadDataToFileV(serverUrl + id, "images/" + id);
+									Controller.updateProgress++;
+								}
+
+                        	}
+                        }
+                    });
+                    
+                    threadsList.add(t);
+                    
+                    t.start();              
+                    
+                    
+                }
+              //Images downloader thread
+                
 
                 if(jarr != null && jarr.length() > 0) {
                     if(jarr.length()==1){
@@ -281,11 +310,12 @@ public class Updaters {
                             if(id==-1){
                                 boolean s = dbinstance.insertIntoAPAnimeinfo(job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                                 newAnimeIDS.add(job.getInt("id"));
+                                Controller.maxUpdateProgress++;
                                 //HttpRequests.downloadDataToFileV(serverUrl+job.getInt("id"), "images/"+job.getInt("id"));
                             } else {
                                 boolean s = dbinstance.updateAPAnimeinfo(id,job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                             }
-                            Controller.updateProgress = i;
+                            Controller.updateProgress++;
                         }
                         dbinstance.updateAPVersion(onlineversion);
                         newAnimeIDS.add(-10);
@@ -301,6 +331,16 @@ public class Updaters {
                 	idReassign.reassignIDS();            	
                 }
 
+                //wait for image threads to finish
+                try {
+					for(Thread t : threadsList) {
+						t.join();
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                
 
             } else {
                 System.out.println(prefix + "Up to date update not needed");
