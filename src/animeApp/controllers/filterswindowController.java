@@ -38,7 +38,6 @@ public class filterswindowController {
                 CheckBox ckbox = (CheckBox)node;
                 if(ckbox.isSelected()) {
                     AllAnimeController.filterslist.add(ckbox.getText());
-                    System.out.println(ckbox.getText());
                 }
             }
         }
