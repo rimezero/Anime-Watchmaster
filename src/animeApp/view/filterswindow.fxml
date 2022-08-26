@@ -5,75 +5,645 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.filterswindowController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animeApp.controllers.filterswindowController" alignment="CENTER">
    <children>
-      <HBox fx:id="hbox" spacing="20.0">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <CheckBox fx:id="c11" mnemonicParsing="false" text="Action" />
-                  <CheckBox fx:id="c12" mnemonicParsing="false" text="Comedy" />
-                  <CheckBox fx:id="c13" mnemonicParsing="false" text="Fantasy" />
-                  <CheckBox fx:id="c14" mnemonicParsing="false" text="Kids" />
-                  <CheckBox fx:id="c15" mnemonicParsing="false" text="Military" />
-                  <CheckBox fx:id="c16" mnemonicParsing="false" text="Police" />
-                  <CheckBox fx:id="c17" mnemonicParsing="false" text="Seinen" />
-                  <CheckBox fx:id="c18" mnemonicParsing="false" text="Space" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <CheckBox fx:id="c21" mnemonicParsing="false" text="Adventure" />
-                  <CheckBox fx:id="c22" mnemonicParsing="false" text="Demons" />
-                  <CheckBox fx:id="c23" mnemonicParsing="false" text="Game" />
-                  <CheckBox fx:id="c24" mnemonicParsing="false" text="Love-Romance" />
-                  <CheckBox fx:id="c25" mnemonicParsing="false" text="Movie" />
-                  <CheckBox fx:id="c26" mnemonicParsing="false" text="Psychological" />
-                  <CheckBox fx:id="c27" mnemonicParsing="false" text="Shoujo" />
-                  <CheckBox fx:id="c28" mnemonicParsing="false" text="Sports" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <CheckBox fx:id="c31" mnemonicParsing="false" text="Animation" />
-                  <CheckBox fx:id="c32" mnemonicParsing="false" text="Drama" />
-                  <CheckBox fx:id="c33" mnemonicParsing="false" text="Harem" />
-                  <CheckBox fx:id="c34" mnemonicParsing="false" text="Magic" />
-                  <CheckBox fx:id="c35" mnemonicParsing="false" text="Music" />
-                  <CheckBox fx:id="c36" mnemonicParsing="false" text="Samurai" />
-                  <CheckBox fx:id="c37" mnemonicParsing="false" text="Shounen" />
-                  <CheckBox fx:id="c38" mnemonicParsing="false" text="Super Power" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <CheckBox fx:id="c41" mnemonicParsing="false" text="Bishounen" />
-                  <CheckBox fx:id="c42" mnemonicParsing="false" text="Ecchi" />
-                  <CheckBox fx:id="c43" mnemonicParsing="false" text="Historical" />
-                  <CheckBox fx:id="c44" mnemonicParsing="false" text="Martial Arts" />
-                  <CheckBox fx:id="c45" mnemonicParsing="false" text="Mystery" />
-                  <CheckBox fx:id="c46" mnemonicParsing="false" text="School" />
-                  <CheckBox fx:id="c47" mnemonicParsing="false" text="Shounen Ai" />
-                  <CheckBox fx:id="c48" mnemonicParsing="false" text="Supernatural" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <CheckBox fx:id="c51" mnemonicParsing="false" text="Cartoon" />
-                  <CheckBox fx:id="c52" mnemonicParsing="false" text="English" />
-                  <CheckBox fx:id="c53" mnemonicParsing="false" text="Horror" />
-                  <CheckBox fx:id="c54" mnemonicParsing="false" text="Mecha" />
-                  <CheckBox fx:id="c55" mnemonicParsing="false" text="Parody" />
-                  <CheckBox fx:id="c56" mnemonicParsing="false" text="Sci-Fi" />
-                  <CheckBox fx:id="c57" mnemonicParsing="false" text="Slice of Life" />
-                  <CheckBox fx:id="c58" mnemonicParsing="false" text="Vampire" />
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </HBox>
+	   <Label text="Basic Filters" alignment="CENTER" style="-fx-font-weight: bold"/>
+			<HBox fx:id="hbox" spacing="20.0" alignment="CENTER">
+				<children>
+					<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+						<children>
+							<CheckBox fx:id="c11" mnemonicParsing="false" text="Action" />
+							<CheckBox fx:id="c11" mnemonicParsing="false" text="Adventure" />
+							<CheckBox fx:id="c12" mnemonicParsing="false" text="BL" />
+							<CheckBox fx:id="c13" mnemonicParsing="false" text="Comedy" />
+							<CheckBox fx:id="c14" mnemonicParsing="false" text="Drama" />
+							<CheckBox fx:id="c15" mnemonicParsing="false" text="Ecchi" />
+						</children>
+					</VBox>
+					<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+						<children>
+							<CheckBox fx:id="c16" mnemonicParsing="false" text="Fantasy" />
+							<CheckBox fx:id="c17" mnemonicParsing="false" text="GL" />
+							<CheckBox fx:id="c18" mnemonicParsing="false" text="Harem" />
+							<CheckBox fx:id="c19" mnemonicParsing="false" text="Horror" />
+							<CheckBox fx:id="c20" mnemonicParsing="false" text="Josei" />
+						</children>
+					</VBox>
+					<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+						<children>
+							<CheckBox fx:id="c21" mnemonicParsing="false" text="Magical Girl" />
+							<CheckBox fx:id="c22" mnemonicParsing="false" text="Mecha" />
+							<CheckBox fx:id="c23" mnemonicParsing="false" text="Mystery" />
+							<CheckBox fx:id="c24" mnemonicParsing="false" text="Reverse Harem" />
+							<CheckBox fx:id="c25" mnemonicParsing="false" text="Romance" />
+						</children>
+					</VBox>
+					<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+						<children>
+							<CheckBox fx:id="c26" mnemonicParsing="false" text="Sci Fi" />
+							<CheckBox fx:id="c27" mnemonicParsing="false" text="Seinen" />
+							<CheckBox fx:id="c28" mnemonicParsing="false" text="Shoujo" />
+							<CheckBox fx:id="c29" mnemonicParsing="false" text="Shoujo-ai" />
+							<CheckBox fx:id="c30" mnemonicParsing="false" text="Shounen" />
+						</children>
+					</VBox>
+					<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+						<children>
+							<CheckBox fx:id="c31" mnemonicParsing="false" text="Shounen-ai" />
+							<CheckBox fx:id="c32" mnemonicParsing="false" text="Slice of Life" />
+							<CheckBox fx:id="c33" mnemonicParsing="false" text="Sports" />
+							<CheckBox fx:id="c34" mnemonicParsing="false" text="Yaoi" />
+							<CheckBox fx:id="c35" mnemonicParsing="false" text="Yuri" />
+						</children>
+					</VBox>
+				</children>
+				<padding>
+					<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+				</padding>
+			</HBox>
+			<Label text="Advanced Filters" alignment="CENTER" style="-fx-font-weight: bold"/>
+   <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="200.0" fitToWidth="true">
+              <content>
+		
+		
+		<HBox fx:id="hbox2" spacing="20.0" alignment="CENTER">
+			<children>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c36" mnemonicParsing="false" text="15th Century" />
+						<CheckBox fx:id="c37" mnemonicParsing="false" text="16th Century" />
+						<CheckBox fx:id="c38" mnemonicParsing="false" text="17th Century" />
+						<CheckBox fx:id="c39" mnemonicParsing="false" text="18th Century" />
+						<CheckBox fx:id="c40" mnemonicParsing="false" text="19th Century" />
+						<CheckBox fx:id="c41" mnemonicParsing="false" text="Abstract" />
+						<CheckBox fx:id="c42" mnemonicParsing="false" text="Acting" />
+						<CheckBox fx:id="c43" mnemonicParsing="false" text="Adult Couples" />
+						<CheckBox fx:id="c44" mnemonicParsing="false" text="Adult Industry" />
+						<CheckBox fx:id="c45" mnemonicParsing="false" text="Africa" />
+						<CheckBox fx:id="c46" mnemonicParsing="false" text="Afterlife" />
+						<CheckBox fx:id="c47" mnemonicParsing="false" text="Age Gap" />
+						<CheckBox fx:id="c48" mnemonicParsing="false" text="Age Transformation" />
+						<CheckBox fx:id="c49" mnemonicParsing="false" text="Aging" />
+						<CheckBox fx:id="c50" mnemonicParsing="false" text="Agriculture" />
+						<CheckBox fx:id="c51" mnemonicParsing="false" text="Alcohol" />
+						<CheckBox fx:id="c52" mnemonicParsing="false" text="Alice in Wonderland" />
+						<CheckBox fx:id="c53" mnemonicParsing="false" text="Aliens" />
+						<CheckBox fx:id="c54" mnemonicParsing="false" text="All-Boys School" />
+						<CheckBox fx:id="c55" mnemonicParsing="false" text="All-Girls School" />
+						<CheckBox fx:id="c56" mnemonicParsing="false" text="America" />
+						<CheckBox fx:id="c57" mnemonicParsing="false" text="Amnesia" />
+						<CheckBox fx:id="c58" mnemonicParsing="false" text="Amusement Park" />
+						<CheckBox fx:id="c59" mnemonicParsing="false" text="Ancient China" />
+						<CheckBox fx:id="c60" mnemonicParsing="false" text="Androids" />
+						<CheckBox fx:id="c61" mnemonicParsing="false" text="Androphobia" />
+						<CheckBox fx:id="c62" mnemonicParsing="false" text="Angels" />
+						<CheckBox fx:id="c63" mnemonicParsing="false" text="Animal Abuse" />
+						<CheckBox fx:id="c64" mnemonicParsing="false" text="Animal Characteristics" />
+						<CheckBox fx:id="c65" mnemonicParsing="false" text="Animal Protagonists" />
+						<CheckBox fx:id="c66" mnemonicParsing="false" text="Animal Transformation" />
+						<CheckBox fx:id="c67" mnemonicParsing="false" text="Anime Bancho" />
+						<CheckBox fx:id="c68" mnemonicParsing="false" text="Anime Industry" />
+						<CheckBox fx:id="c69" mnemonicParsing="false" text="Animeism" />
+						<CheckBox fx:id="c70" mnemonicParsing="false" text="Anime no Chikara" />
+						<CheckBox fx:id="c71" mnemonicParsing="false" text="Anime no Me" />
+						<CheckBox fx:id="c72" mnemonicParsing="false" text="Anime Tamago" />
+						<CheckBox fx:id="c73" mnemonicParsing="false" text="Antarctica" />
+						<CheckBox fx:id="c74" mnemonicParsing="false" text="Anthropomorphic" />
+						<CheckBox fx:id="c75" mnemonicParsing="false" text="Apartment Life" />
+						<CheckBox fx:id="c76" mnemonicParsing="false" text="Apocalypse" />
+						<CheckBox fx:id="c77" mnemonicParsing="false" text="Apprenticeship" />
+						<CheckBox fx:id="c78" mnemonicParsing="false" text="Archery" />
+						<CheckBox fx:id="c79" mnemonicParsing="false" text="Arranged Marriage" />
+						<CheckBox fx:id="c80" mnemonicParsing="false" text="Art" />
+						<CheckBox fx:id="c81" mnemonicParsing="false" text="Art School" />
+						<CheckBox fx:id="c82" mnemonicParsing="false" text="Assassins" />
+						<CheckBox fx:id="c83" mnemonicParsing="false" text="Astronauts" />
+						<CheckBox fx:id="c84" mnemonicParsing="false" text="Astronomy" />
+						<CheckBox fx:id="c85" mnemonicParsing="false" text="Australia" />
+						<CheckBox fx:id="c86" mnemonicParsing="false" text="Autobiographies" />
+						<CheckBox fx:id="c87" mnemonicParsing="false" text="Aviation" />
+						<CheckBox fx:id="c88" mnemonicParsing="false" text="Badminton" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c89" mnemonicParsing="false" text="Baking" />
+						<CheckBox fx:id="c90" mnemonicParsing="false" text="Ballet Dancing" />
+						<CheckBox fx:id="c91" mnemonicParsing="false" text="Banter" />
+						<CheckBox fx:id="c92" mnemonicParsing="false" text="Bar" />
+						<CheckBox fx:id="c93" mnemonicParsing="false" text="Baseball" />
+						<CheckBox fx:id="c94" mnemonicParsing="false" text="Based on a 4-Koma Manga" />
+						<CheckBox fx:id="c95" mnemonicParsing="false" text="Based on a Card Game" />
+						<CheckBox fx:id="c96" mnemonicParsing="false" text="Based on a Cartoon" />
+						<CheckBox fx:id="c97" mnemonicParsing="false" text="Based on a Comic Book" />
+						<CheckBox fx:id="c98" mnemonicParsing="false" text="Based on a Doujinshi" />
+						<CheckBox fx:id="c99" mnemonicParsing="false" text="Based on a Fairy Tale" />
+						<CheckBox fx:id="c100" mnemonicParsing="false" text="Based on a Light Novel" />
+						<CheckBox fx:id="c101" mnemonicParsing="false" text="Based on a Manga" />
+						<CheckBox fx:id="c102" mnemonicParsing="false" text="Based on a Mobile Game" />
+						<CheckBox fx:id="c103" mnemonicParsing="false" text="Based on a Movie" />
+						<CheckBox fx:id="c104" mnemonicParsing="false" text="Based on an Eroge" />
+						<CheckBox fx:id="c105" mnemonicParsing="false" text="Based on an Otome Game" />
+						<CheckBox fx:id="c106" mnemonicParsing="false" text="Based on a Novel" />
+						<CheckBox fx:id="c107" mnemonicParsing="false" text="Based on a Picture Book" />
+						<CheckBox fx:id="c108" mnemonicParsing="false" text="Based on a Play" />
+						<CheckBox fx:id="c109" mnemonicParsing="false" text="Based on a Religious Text" />
+						<CheckBox fx:id="c110" mnemonicParsing="false" text="Based on a Song" />
+						<CheckBox fx:id="c111" mnemonicParsing="false" text="Based on a TV Series" />
+						<CheckBox fx:id="c112" mnemonicParsing="false" text="Based on a Video Game" />
+						<CheckBox fx:id="c113" mnemonicParsing="false" text="Based on a Visual Novel" />
+						<CheckBox fx:id="c114" mnemonicParsing="false" text="Based on a Web Novel" />
+						<CheckBox fx:id="c115" mnemonicParsing="false" text="Based on a Webtoon" />
+						<CheckBox fx:id="c116" mnemonicParsing="false" text="Basketball" />
+						<CheckBox fx:id="c117" mnemonicParsing="false" text="Bathhouse" />
+						<CheckBox fx:id="c118" mnemonicParsing="false" text="Battle Royale" />
+						<CheckBox fx:id="c119" mnemonicParsing="false" text="BDSM" />
+						<CheckBox fx:id="c120" mnemonicParsing="false" text="Bears" />
+						<CheckBox fx:id="c121" mnemonicParsing="false" text="Betrayal" />
+						<CheckBox fx:id="c122" mnemonicParsing="false" text="Billiards" />
+						<CheckBox fx:id="c123" mnemonicParsing="false" text="Biographies" />
+						<CheckBox fx:id="c124" mnemonicParsing="false" text="Birds" />
+						<CheckBox fx:id="c125" mnemonicParsing="false" text="Black and White" />
+						<CheckBox fx:id="c126" mnemonicParsing="false" text="Blackmail" />
+						<CheckBox fx:id="c127" mnemonicParsing="false" text="Board Games" />
+						<CheckBox fx:id="c128" mnemonicParsing="false" text="Boarding House" />
+						<CheckBox fx:id="c129" mnemonicParsing="false" text="Boarding School" />
+						<CheckBox fx:id="c130" mnemonicParsing="false" text="Bodyguards" />
+						<CheckBox fx:id="c131" mnemonicParsing="false" text="Body Sharing" />
+						<CheckBox fx:id="c132" mnemonicParsing="false" text="Body Swapping" />
+						<CheckBox fx:id="c133" mnemonicParsing="false" text="Bookstore" />
+						<CheckBox fx:id="c134" mnemonicParsing="false" text="Borderline H" />
+						<CheckBox fx:id="c135" mnemonicParsing="false" text="Boss-Employee Relationship" />
+						<CheckBox fx:id="c136" mnemonicParsing="false" text="Bounty Hunters" />
+						<CheckBox fx:id="c137" mnemonicParsing="false" text="Boxing" />
+						<CheckBox fx:id="c138" mnemonicParsing="false" text="Breaking the Fourth Wall" />
+						<CheckBox fx:id="c139" mnemonicParsing="false" text="Brothel" />
+						<CheckBox fx:id="c140" mnemonicParsing="false" text="Brother Complex" />
+						<CheckBox fx:id="c141" mnemonicParsing="false" text="Buddhism" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c142" mnemonicParsing="false" text="Bullying" />
+						<CheckBox fx:id="c143" mnemonicParsing="false" text="Butlers" />
+						<CheckBox fx:id="c144" mnemonicParsing="false" text="Cafe" />
+						<CheckBox fx:id="c145" mnemonicParsing="false" text="Canada" />
+						<CheckBox fx:id="c146" mnemonicParsing="false" text="Cannibalism" />
+						<CheckBox fx:id="c147" mnemonicParsing="false" text="Card Battles" />
+						<CheckBox fx:id="c148" mnemonicParsing="false" text="Cars" />
+						<CheckBox fx:id="c149" mnemonicParsing="false" text="Catholic School" />
+						<CheckBox fx:id="c150" mnemonicParsing="false" text="Cats" />
+						<CheckBox fx:id="c151" mnemonicParsing="false" text="Centaurs" />
+						<CheckBox fx:id="c152" mnemonicParsing="false" text="CEOs" />
+						<CheckBox fx:id="c153" mnemonicParsing="false" text="CG Animation" />
+						<CheckBox fx:id="c154" mnemonicParsing="false" text="Cheats" />
+						<CheckBox fx:id="c155" mnemonicParsing="false" text="Cheerleaders" />
+						<CheckBox fx:id="c156" mnemonicParsing="false" text="Chibi" />
+						<CheckBox fx:id="c157" mnemonicParsing="false" text="Childcare" />
+						<CheckBox fx:id="c158" mnemonicParsing="false" text="Childhood Friends" />
+						<CheckBox fx:id="c159" mnemonicParsing="false" text="Childhood Promise" />
+						<CheckBox fx:id="c160" mnemonicParsing="false" text="Child Protagonists" />
+						<CheckBox fx:id="c161" mnemonicParsing="false" text="Chinese Animation" />
+						<CheckBox fx:id="c162" mnemonicParsing="false" text="Christianity" />
+						<CheckBox fx:id="c163" mnemonicParsing="false" text="Christmas" />
+						<CheckBox fx:id="c164" mnemonicParsing="false" text="Circus" />
+						<CheckBox fx:id="c165" mnemonicParsing="false" text="Classical Music" />
+						<CheckBox fx:id="c166" mnemonicParsing="false" text="Cocktails" />
+						<CheckBox fx:id="c167" mnemonicParsing="false" text="Codependency" />
+						<CheckBox fx:id="c168" mnemonicParsing="false" text="Cohabitation" />
+						<CheckBox fx:id="c169" mnemonicParsing="false" text="Collections" />
+						<CheckBox fx:id="c170" mnemonicParsing="false" text="College" />
+						<CheckBox fx:id="c171" mnemonicParsing="false" text="Combining Mecha" />
+						<CheckBox fx:id="c172" mnemonicParsing="false" text="Coming of Age" />
+						<CheckBox fx:id="c173" mnemonicParsing="false" text="Commercials" />
+						<CheckBox fx:id="c174" mnemonicParsing="false" text="Concubines" />
+						<CheckBox fx:id="c175" mnemonicParsing="false" text="Conspiracy" />
+						<CheckBox fx:id="c176" mnemonicParsing="false" text="Contemporary Fantasy" />
+						<CheckBox fx:id="c177" mnemonicParsing="false" text="Convenience Store" />
+						<CheckBox fx:id="c178" mnemonicParsing="false" text="Cooking" />
+						<CheckBox fx:id="c179" mnemonicParsing="false" text="Countryside" />
+						<CheckBox fx:id="c180" mnemonicParsing="false" text="Coworkers" />
+						<CheckBox fx:id="c181" mnemonicParsing="false" text="Crime" />
+						<CheckBox fx:id="c182" mnemonicParsing="false" text="Criminals" />
+						<CheckBox fx:id="c183" mnemonicParsing="false" text="Crossdressing" />
+						<CheckBox fx:id="c184" mnemonicParsing="false" text="Crossover" />
+						<CheckBox fx:id="c185" mnemonicParsing="false" text="Crude" />
+						<CheckBox fx:id="c186" mnemonicParsing="false" text="Culinary School" />
+						<CheckBox fx:id="c187" mnemonicParsing="false" text="Cultivation" />
+						<CheckBox fx:id="c188" mnemonicParsing="false" text="Curse" />
+						<CheckBox fx:id="c189" mnemonicParsing="false" text="Cyberpunk" />
+						<CheckBox fx:id="c190" mnemonicParsing="false" text="Cyborgs" />
+						<CheckBox fx:id="c191" mnemonicParsing="false" text="Cycling" />
+						<CheckBox fx:id="c192" mnemonicParsing="false" text="Dancing" />
+						<CheckBox fx:id="c193" mnemonicParsing="false" text="Dark Comedy" />
+						<CheckBox fx:id="c194" mnemonicParsing="false" text="Dark Fantasy" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c195" mnemonicParsing="false" text="Deal with the Devil" />
+						<CheckBox fx:id="c196" mnemonicParsing="false" text="Death of a Loved One" />
+						<CheckBox fx:id="c197" mnemonicParsing="false" text="Debt" />
+						<CheckBox fx:id="c198" mnemonicParsing="false" text="Delinquents" />
+						<CheckBox fx:id="c199" mnemonicParsing="false" text="Demon King" />
+						<CheckBox fx:id="c200" mnemonicParsing="false" text="Demons" />
+						<CheckBox fx:id="c201" mnemonicParsing="false" text="Desert" />
+						<CheckBox fx:id="c202" mnemonicParsing="false" text="Detectives" />
+						<CheckBox fx:id="c203" mnemonicParsing="false" text="Dinosaurs" />
+						<CheckBox fx:id="c204" mnemonicParsing="false" text="Disability" />
+						<CheckBox fx:id="c205" mnemonicParsing="false" text="Disney" />
+						<CheckBox fx:id="c206" mnemonicParsing="false" text="Divorce" />
+						<CheckBox fx:id="c207" mnemonicParsing="false" text="Doctors" />
+						<CheckBox fx:id="c208" mnemonicParsing="false" text="Dodgeball" />
+						<CheckBox fx:id="c209" mnemonicParsing="false" text="Dogs" />
+						<CheckBox fx:id="c210" mnemonicParsing="false" text="Domestic Abuse" />
+						<CheckBox fx:id="c211" mnemonicParsing="false" text="Doujinshi Industry" />
+						<CheckBox fx:id="c212" mnemonicParsing="false" text="Dragon Quest" />
+						<CheckBox fx:id="c213" mnemonicParsing="false" text="Dragons" />
+						<CheckBox fx:id="c214" mnemonicParsing="false" text="Dream World" />
+						<CheckBox fx:id="c215" mnemonicParsing="false" text="Drug Use" />
+						<CheckBox fx:id="c216" mnemonicParsing="false" text="Dungeon" />
+						<CheckBox fx:id="c217" mnemonicParsing="false" text="Dysfunctional Families" />
+						<CheckBox fx:id="c218" mnemonicParsing="false" text="Dystopia" />
+						<CheckBox fx:id="c219" mnemonicParsing="false" text="Earthquake" />
+						<CheckBox fx:id="c220" mnemonicParsing="false" text="Economics" />
+						<CheckBox fx:id="c221" mnemonicParsing="false" text="Editors" />
+						<CheckBox fx:id="c222" mnemonicParsing="false" text="Educational" />
+						<CheckBox fx:id="c223" mnemonicParsing="false" text="Egyptian Mythology" />
+						<CheckBox fx:id="c224" mnemonicParsing="false" text="Elemental Powers" />
+						<CheckBox fx:id="c225" mnemonicParsing="false" text="Elves" />
+						<CheckBox fx:id="c226" mnemonicParsing="false" text="Emotional Abuse" />
+						<CheckBox fx:id="c227" mnemonicParsing="false" text="England" />
+						<CheckBox fx:id="c228" mnemonicParsing="false" text="Environmental" />
+						<CheckBox fx:id="c229" mnemonicParsing="false" text="Episodic" />
+						<CheckBox fx:id="c230" mnemonicParsing="false" text="Espionage" />
+						<CheckBox fx:id="c231" mnemonicParsing="false" text="Europe" />
+						<CheckBox fx:id="c232" mnemonicParsing="false" text="Exorcists" />
+						<CheckBox fx:id="c233" mnemonicParsing="false" text="Explicit Sex" />
+						<CheckBox fx:id="c234" mnemonicParsing="false" text="Explicit Violence" />
+						<CheckBox fx:id="c235" mnemonicParsing="false" text="Fake Romance" />
+						<CheckBox fx:id="c236" mnemonicParsing="false" text="Family Friendly" />
+						<CheckBox fx:id="c237" mnemonicParsing="false" text="Family Life" />
+						<CheckBox fx:id="c238" mnemonicParsing="false" text="Fashion" />
+						<CheckBox fx:id="c239" mnemonicParsing="false" text="Fated Lovers" />
+						<CheckBox fx:id="c240" mnemonicParsing="false" text="Fetish" />
+						<CheckBox fx:id="c241" mnemonicParsing="false" text="Feudal Japan" />
+						<CheckBox fx:id="c242" mnemonicParsing="false" text="Finland" />
+						<CheckBox fx:id="c243" mnemonicParsing="false" text="Firefighters" />
+						<CheckBox fx:id="c244" mnemonicParsing="false" text="Fishing" />
+						<CheckBox fx:id="c245" mnemonicParsing="false" text="Flash Animation" />
+						<CheckBox fx:id="c246" mnemonicParsing="false" text="Food and Beverage" />
+						<CheckBox fx:id="c247" mnemonicParsing="false" text="Food Protagonists" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c248" mnemonicParsing="false" text="Football" />
+						<CheckBox fx:id="c249" mnemonicParsing="false" text="Forest" />
+						<CheckBox fx:id="c250" mnemonicParsing="false" text="Framed for a Crime" />
+						<CheckBox fx:id="c251" mnemonicParsing="false" text="France" />
+						<CheckBox fx:id="c252" mnemonicParsing="false" text="French Revolution" />
+						<CheckBox fx:id="c253" mnemonicParsing="false" text="Frogs" />
+						<CheckBox fx:id="c254" mnemonicParsing="false" text="Fudanshi" />
+						<CheckBox fx:id="c255" mnemonicParsing="false" text="Fujoshi" />
+						<CheckBox fx:id="c256" mnemonicParsing="false" text="Gag" />
+						<CheckBox fx:id="c257" mnemonicParsing="false" text="Gambling" />
+						<CheckBox fx:id="c258" mnemonicParsing="false" text="Gangs" />
+						<CheckBox fx:id="c259" mnemonicParsing="false" text="Ga-nime" />
+						<CheckBox fx:id="c260" mnemonicParsing="false" text="Gender Bender" />
+						<CheckBox fx:id="c261" mnemonicParsing="false" text="Genies" />
+						<CheckBox fx:id="c262" mnemonicParsing="false" text="Germany" />
+						<CheckBox fx:id="c263" mnemonicParsing="false" text="Ghibli Museum Shorts" />
+						<CheckBox fx:id="c264" mnemonicParsing="false" text="Ghost Hunters" />
+						<CheckBox fx:id="c265" mnemonicParsing="false" text="Ghosts" />
+						<CheckBox fx:id="c266" mnemonicParsing="false" text="God-Human Relationship" />
+						<CheckBox fx:id="c267" mnemonicParsing="false" text="Gods" />
+						<CheckBox fx:id="c268" mnemonicParsing="false" text="Golf" />
+						<CheckBox fx:id="c269" mnemonicParsing="false" text="Greece" />
+						<CheckBox fx:id="c270" mnemonicParsing="false" text="Greek Mythology" />
+						<CheckBox fx:id="c271" mnemonicParsing="false" text="Guilds" />
+						<CheckBox fx:id="c272" mnemonicParsing="false" text="Guns" />
+						<CheckBox fx:id="c273" mnemonicParsing="false" text="Gyaru" />
+						<CheckBox fx:id="c274" mnemonicParsing="false" text="Gymnastics" />
+						<CheckBox fx:id="c275" mnemonicParsing="false" text="Gynophobia" />
+						<CheckBox fx:id="c276" mnemonicParsing="false" text="Hacking" />
+						<CheckBox fx:id="c277" mnemonicParsing="false" text="Hamsters" />
+						<CheckBox fx:id="c278" mnemonicParsing="false" text="Hand to Hand Combat" />
+						<CheckBox fx:id="c279" mnemonicParsing="false" text="Happy Science" />
+						<CheckBox fx:id="c280" mnemonicParsing="false" text="Heaven" />
+						<CheckBox fx:id="c281" mnemonicParsing="false" text="Hell" />
+						<CheckBox fx:id="c282" mnemonicParsing="false" text="Henshin Heroes" />
+						<CheckBox fx:id="c283" mnemonicParsing="false" text="High Stakes Games" />
+						<CheckBox fx:id="c284" mnemonicParsing="false" text="Historical" />
+						<CheckBox fx:id="c285" mnemonicParsing="false" text="Hockey" />
+						<CheckBox fx:id="c286" mnemonicParsing="false" text="Horse Racing" />
+						<CheckBox fx:id="c287" mnemonicParsing="false" text="Hosts" />
+						<CheckBox fx:id="c288" mnemonicParsing="false" text="Hotels and Inns" />
+						<CheckBox fx:id="c289" mnemonicParsing="false" text="Human Experimentation" />
+						<CheckBox fx:id="c290" mnemonicParsing="false" text="Ice Skating" />
+						<CheckBox fx:id="c291" mnemonicParsing="false" text="Idols" />
+						<CheckBox fx:id="c292" mnemonicParsing="false" text="Illness" />
+						<CheckBox fx:id="c293" mnemonicParsing="false" text="Impersonation" />
+						<CheckBox fx:id="c294" mnemonicParsing="false" text="Incest" />
+						<CheckBox fx:id="c295" mnemonicParsing="false" text="India" />
+						<CheckBox fx:id="c296" mnemonicParsing="false" text="Infidelity" />
+						<CheckBox fx:id="c297" mnemonicParsing="false" text="Inheritance" />
+						<CheckBox fx:id="c298" mnemonicParsing="false" text="Insects" />
+						<CheckBox fx:id="c299" mnemonicParsing="false" text="Interspecies Relationship" />
+						<CheckBox fx:id="c300" mnemonicParsing="false" text="Isekai" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c301" mnemonicParsing="false" text="Island" />
+						<CheckBox fx:id="c302" mnemonicParsing="false" text="Isolated Society" />
+						<CheckBox fx:id="c303" mnemonicParsing="false" text="Italy" />
+						<CheckBox fx:id="c304" mnemonicParsing="false" text="Iyashikei" />
+						<CheckBox fx:id="c305" mnemonicParsing="false" text="Japan Animator's Exhibition" />
+						<CheckBox fx:id="c306" mnemonicParsing="false" text="Japanese Anime Classic Collection" />
+						<CheckBox fx:id="c307" mnemonicParsing="false" text="Japanese Mythology" />
+						<CheckBox fx:id="c308" mnemonicParsing="false" text="Journalism" />
+						<CheckBox fx:id="c309" mnemonicParsing="false" text="Journey to the West" />
+						<CheckBox fx:id="c310" mnemonicParsing="false" text="Jungle" />
+						<CheckBox fx:id="c311" mnemonicParsing="false" text="Kaijuu" />
+						<CheckBox fx:id="c312" mnemonicParsing="false" text="Kendo" />
+						<CheckBox fx:id="c313" mnemonicParsing="false" text="Kickboxing" />
+						<CheckBox fx:id="c314" mnemonicParsing="false" text="Kidnapping" />
+						<CheckBox fx:id="c315" mnemonicParsing="false" text="Kingdom Building" />
+						<CheckBox fx:id="c316" mnemonicParsing="false" text="Koalas" />
+						<CheckBox fx:id="c317" mnemonicParsing="false" text="Korean Animation" />
+						<CheckBox fx:id="c318" mnemonicParsing="false" text="Landlords" />
+						<CheckBox fx:id="c319" mnemonicParsing="false" text="Lawyers" />
+						<CheckBox fx:id="c320" mnemonicParsing="false" text="Leijiverse" />
+						<CheckBox fx:id="c321" mnemonicParsing="false" text="LGBT Themes" />
+						<CheckBox fx:id="c322" mnemonicParsing="false" text="Library" />
+						<CheckBox fx:id="c323" mnemonicParsing="false" text="Lifestyle Change" />
+						<CheckBox fx:id="c324" mnemonicParsing="false" text="Loneliness" />
+						<CheckBox fx:id="c325" mnemonicParsing="false" text="Love Confession" />
+						<CheckBox fx:id="c326" mnemonicParsing="false" text="Love Triangle" />
+						<CheckBox fx:id="c327" mnemonicParsing="false" text="Mafia" />
+						<CheckBox fx:id="c328" mnemonicParsing="false" text="Magic" />
+						<CheckBox fx:id="c329" mnemonicParsing="false" text="Magic School" />
+						<CheckBox fx:id="c330" mnemonicParsing="false" text="Mahjong" />
+						<CheckBox fx:id="c331" mnemonicParsing="false" text="Maids" />
+						<CheckBox fx:id="c332" mnemonicParsing="false" text="Management" />
+						<CheckBox fx:id="c333" mnemonicParsing="false" text="Manga Industry" />
+						<CheckBox fx:id="c334" mnemonicParsing="false" text="Mansion" />
+						<CheckBox fx:id="c335" mnemonicParsing="false" text="Married Life" />
+						<CheckBox fx:id="c336" mnemonicParsing="false" text="Mars" />
+						<CheckBox fx:id="c337" mnemonicParsing="false" text="Martial Arts" />
+						<CheckBox fx:id="c338" mnemonicParsing="false" text="Martial Arts School" />
+						<CheckBox fx:id="c339" mnemonicParsing="false" text="Marvel Comics" />
+						<CheckBox fx:id="c340" mnemonicParsing="false" text="Master-Servant Relationship" />
+						<CheckBox fx:id="c341" mnemonicParsing="false" text="Mature Romance" />
+						<CheckBox fx:id="c342" mnemonicParsing="false" text="Mature Themes" />
+						<CheckBox fx:id="c343" mnemonicParsing="false" text="Medical" />
+						<CheckBox fx:id="c344" mnemonicParsing="false" text="Medieval" />
+						<CheckBox fx:id="c345" mnemonicParsing="false" text="Melancholy" />
+						<CheckBox fx:id="c346" mnemonicParsing="false" text="Mental Illness" />
+						<CheckBox fx:id="c347" mnemonicParsing="false" text="Mercenaries" />
+						<CheckBox fx:id="c348" mnemonicParsing="false" text="Mermaids" />
+						<CheckBox fx:id="c349" mnemonicParsing="false" text="Metal Heroes" />
+						<CheckBox fx:id="c350" mnemonicParsing="false" text="Middle Eastern" />
+						<CheckBox fx:id="c351" mnemonicParsing="false" text="Military" />
+						<CheckBox fx:id="c352" mnemonicParsing="false" text="Military School" />
+						<CheckBox fx:id="c353" mnemonicParsing="false" text="Mind Games" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c354" mnemonicParsing="false" text="Minna no Uta" />
+						<CheckBox fx:id="c355" mnemonicParsing="false" text="MMORPG" />
+						<CheckBox fx:id="c356" mnemonicParsing="false" text="Modelling" />
+						<CheckBox fx:id="c357" mnemonicParsing="false" text="Modern Knowledge" />
+						<CheckBox fx:id="c358" mnemonicParsing="false" text="Monster Girls" />
+						<CheckBox fx:id="c359" mnemonicParsing="false" text="Monster-of-the-week" />
+						<CheckBox fx:id="c360" mnemonicParsing="false" text="Monsters" />
+						<CheckBox fx:id="c361" mnemonicParsing="false" text="Monster School" />
+						<CheckBox fx:id="c362" mnemonicParsing="false" text="Motorcycles" />
+						<CheckBox fx:id="c363" mnemonicParsing="false" text="Mountain Climbing" />
+						<CheckBox fx:id="c364" mnemonicParsing="false" text="Music" />
+						<CheckBox fx:id="c365" mnemonicParsing="false" text="Music School" />
+						<CheckBox fx:id="c366" mnemonicParsing="false" text="Mysterious Benefactor" />
+						<CheckBox fx:id="c367" mnemonicParsing="false" text="Mysterious Shop" />
+						<CheckBox fx:id="c368" mnemonicParsing="false" text="Natural Disaster" />
+						<CheckBox fx:id="c369" mnemonicParsing="false" text="NEET" />
+						<CheckBox fx:id="c370" mnemonicParsing="false" text="Neighbors" />
+						<CheckBox fx:id="c371" mnemonicParsing="false" text="Newly Co-ed School" />
+						<CheckBox fx:id="c372" mnemonicParsing="false" text="Ninja" />
+						<CheckBox fx:id="c373" mnemonicParsing="false" text="Nobility" />
+						<CheckBox fx:id="c374" mnemonicParsing="false" text="No Dialogue" />
+						<CheckBox fx:id="c375" mnemonicParsing="false" text="Noir" />
+						<CheckBox fx:id="c376" mnemonicParsing="false" text="noitaminA" />
+						<CheckBox fx:id="c377" mnemonicParsing="false" text="Non-Human Protagonists" />
+						<CheckBox fx:id="c378" mnemonicParsing="false" text="Norse Mythology" />
+						<CheckBox fx:id="c379" mnemonicParsing="false" text="Novel Industry" />
+						<CheckBox fx:id="c380" mnemonicParsing="false" text="Nudity" />
+						<CheckBox fx:id="c381" mnemonicParsing="false" text="Nurses" />
+						<CheckBox fx:id="c382" mnemonicParsing="false" text="Obsessive Love" />
+						<CheckBox fx:id="c383" mnemonicParsing="false" text="Ocean" />
+						<CheckBox fx:id="c384" mnemonicParsing="false" text="Opening Animation" />
+						<CheckBox fx:id="c385" mnemonicParsing="false" text="Opposites Attract" />
+						<CheckBox fx:id="c386" mnemonicParsing="false" text="Original Work" />
+						<CheckBox fx:id="c387" mnemonicParsing="false" text="Orphanage" />
+						<CheckBox fx:id="c388" mnemonicParsing="false" text="Orphans" />
+						<CheckBox fx:id="c389" mnemonicParsing="false" text="Otaku Culture" />
+						<CheckBox fx:id="c390" mnemonicParsing="false" text="Outer Space" />
+						<CheckBox fx:id="c391" mnemonicParsing="false" text="Outside World" />
+						<CheckBox fx:id="c392" mnemonicParsing="false" text="Overpowered Main Characters" />
+						<CheckBox fx:id="c393" mnemonicParsing="false" text="Pandas" />
+						<CheckBox fx:id="c394" mnemonicParsing="false" text="Pandemic" />
+						<CheckBox fx:id="c395" mnemonicParsing="false" text="Panty Shots" />
+						<CheckBox fx:id="c396" mnemonicParsing="false" text="Parody" />
+						<CheckBox fx:id="c397" mnemonicParsing="false" text="Past Memories" />
+						<CheckBox fx:id="c398" mnemonicParsing="false" text="Penguins" />
+						<CheckBox fx:id="c399" mnemonicParsing="false" text="Person in a Strange World" />
+						<CheckBox fx:id="c400" mnemonicParsing="false" text="Pets" />
+						<CheckBox fx:id="c401" mnemonicParsing="false" text="Photography" />
+						<CheckBox fx:id="c402" mnemonicParsing="false" text="Physical Abuse" />
+						<CheckBox fx:id="c403" mnemonicParsing="false" text="Picture Drama" />
+						<CheckBox fx:id="c404" mnemonicParsing="false" text="Pigs" />
+						<CheckBox fx:id="c405" mnemonicParsing="false" text="Ping Pong" />
+						<CheckBox fx:id="c406" mnemonicParsing="false" text="Pirates" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c407" mnemonicParsing="false" text="Playboys" />
+						<CheckBox fx:id="c408" mnemonicParsing="false" text="Play or Die" />
+						<CheckBox fx:id="c409" mnemonicParsing="false" text="Police" />
+						<CheckBox fx:id="c410" mnemonicParsing="false" text="Political" />
+						<CheckBox fx:id="c411" mnemonicParsing="false" text="Possessive Lovers" />
+						<CheckBox fx:id="c412" mnemonicParsing="false" text="Post-apocalyptic" />
+						<CheckBox fx:id="c413" mnemonicParsing="false" text="POV" />
+						<CheckBox fx:id="c414" mnemonicParsing="false" text="Poverty" />
+						<CheckBox fx:id="c415" mnemonicParsing="false" text="Power Suits" />
+						<CheckBox fx:id="c416" mnemonicParsing="false" text="Pregnancy" />
+						<CheckBox fx:id="c417" mnemonicParsing="false" text="Prehistoric" />
+						<CheckBox fx:id="c418" mnemonicParsing="false" text="Prison" />
+						<CheckBox fx:id="c419" mnemonicParsing="false" text="Promotional" />
+						<CheckBox fx:id="c420" mnemonicParsing="false" text="Prophecy" />
+						<CheckBox fx:id="c421" mnemonicParsing="false" text="Prostitution" />
+						<CheckBox fx:id="c422" mnemonicParsing="false" text="Proxy Battles" />
+						<CheckBox fx:id="c423" mnemonicParsing="false" text="Psychic Powers" />
+						<CheckBox fx:id="c424" mnemonicParsing="false" text="Psychological" />
+						<CheckBox fx:id="c425" mnemonicParsing="false" text="Psychopaths" />
+						<CheckBox fx:id="c426" mnemonicParsing="false" text="PVE" />
+						<CheckBox fx:id="c427" mnemonicParsing="false" text="PVP" />
+						<CheckBox fx:id="c428" mnemonicParsing="false" text="Rabbits" />
+						<CheckBox fx:id="c429" mnemonicParsing="false" text="Racing" />
+						<CheckBox fx:id="c430" mnemonicParsing="false" text="Rakugo" />
+						<CheckBox fx:id="c431" mnemonicParsing="false" text="Real Robot" />
+						<CheckBox fx:id="c432" mnemonicParsing="false" text="Rebellions" />
+						<CheckBox fx:id="c433" mnemonicParsing="false" text="Recap" />
+						<CheckBox fx:id="c434" mnemonicParsing="false" text="Recipes" />
+						<CheckBox fx:id="c435" mnemonicParsing="false" text="Reincarnation" />
+						<CheckBox fx:id="c436" mnemonicParsing="false" text="Religion" />
+						<CheckBox fx:id="c437" mnemonicParsing="false" text="Remarriage" />
+						<CheckBox fx:id="c438" mnemonicParsing="false" text="Restaurants" />
+						<CheckBox fx:id="c439" mnemonicParsing="false" text="Revenge" />
+						<CheckBox fx:id="c440" mnemonicParsing="false" text="Reverse Isekai" />
+						<CheckBox fx:id="c441" mnemonicParsing="false" text="Rivalries" />
+						<CheckBox fx:id="c442" mnemonicParsing="false" text="Robots" />
+						<CheckBox fx:id="c443" mnemonicParsing="false" text="Rock Music" />
+						<CheckBox fx:id="c444" mnemonicParsing="false" text="Romance of the Three Kingdoms" />
+						<CheckBox fx:id="c445" mnemonicParsing="false" text="Romantic Comedy" />
+						<CheckBox fx:id="c446" mnemonicParsing="false" text="Roommates" />
+						<CheckBox fx:id="c447" mnemonicParsing="false" text="Royalty" />
+						<CheckBox fx:id="c448" mnemonicParsing="false" text="RPG" />
+						<CheckBox fx:id="c449" mnemonicParsing="false" text="Rugby" />
+						<CheckBox fx:id="c450" mnemonicParsing="false" text="Running" />
+						<CheckBox fx:id="c451" mnemonicParsing="false" text="Russia" />
+						<CheckBox fx:id="c452" mnemonicParsing="false" text="Salaryman" />
+						<CheckBox fx:id="c453" mnemonicParsing="false" text="Samurai" />
+						<CheckBox fx:id="c454" mnemonicParsing="false" text="Sanrio Characters" />
+						<CheckBox fx:id="c455" mnemonicParsing="false" text="San-X Characters" />
+						<CheckBox fx:id="c456" mnemonicParsing="false" text="Satire" />
+						<CheckBox fx:id="c457" mnemonicParsing="false" text="School Club" />
+						<CheckBox fx:id="c458" mnemonicParsing="false" text="School Life" />
+						<CheckBox fx:id="c459" mnemonicParsing="false" text="Scuba Diving" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c460" mnemonicParsing="false" text="Secret Identity" />
+						<CheckBox fx:id="c461" mnemonicParsing="false" text="Self-Harm" />
+						<CheckBox fx:id="c462" mnemonicParsing="false" text="Senpai-Kouhai Relationship" />
+						<CheckBox fx:id="c463" mnemonicParsing="false" text="Sentai" />
+						<CheckBox fx:id="c464" mnemonicParsing="false" text="Sentient Mecha" />
+						<CheckBox fx:id="c465" mnemonicParsing="false" text="Serial Killers" />
+						<CheckBox fx:id="c466" mnemonicParsing="false" text="Sexual Abuse" />
+						<CheckBox fx:id="c467" mnemonicParsing="false" text="Sexual Content" />
+						<CheckBox fx:id="c468" mnemonicParsing="false" text="Sherlock Holmes" />
+						<CheckBox fx:id="c469" mnemonicParsing="false" text="Shinigami" />
+						<CheckBox fx:id="c470" mnemonicParsing="false" text="Ship" />
+						<CheckBox fx:id="c471" mnemonicParsing="false" text="Short Episodes" />
+						<CheckBox fx:id="c472" mnemonicParsing="false" text="Shorts" />
+						<CheckBox fx:id="c473" mnemonicParsing="false" text="Showbiz" />
+						<CheckBox fx:id="c474" mnemonicParsing="false" text="Siblings" />
+						<CheckBox fx:id="c475" mnemonicParsing="false" text="Single Parent" />
+						<CheckBox fx:id="c476" mnemonicParsing="false" text="Sister Complex" />
+						<CheckBox fx:id="c477" mnemonicParsing="false" text="Skateboarding" />
+						<CheckBox fx:id="c478" mnemonicParsing="false" text="Skeletons" />
+						<CheckBox fx:id="c479" mnemonicParsing="false" text="Skiing" />
+						<CheckBox fx:id="c480" mnemonicParsing="false" text="Slapstick" />
+						<CheckBox fx:id="c481" mnemonicParsing="false" text="Slimes" />
+						<CheckBox fx:id="c482" mnemonicParsing="false" text="Slow Life" />
+						<CheckBox fx:id="c483" mnemonicParsing="false" text="Smut" />
+						<CheckBox fx:id="c484" mnemonicParsing="false" text="Soccer" />
+						<CheckBox fx:id="c485" mnemonicParsing="false" text="Social Gap" />
+						<CheckBox fx:id="c486" mnemonicParsing="false" text="Social Media" />
+						<CheckBox fx:id="c487" mnemonicParsing="false" text="Space Opera" />
+						<CheckBox fx:id="c488" mnemonicParsing="false" text="Space Pirates" />
+						<CheckBox fx:id="c489" mnemonicParsing="false" text="Split Personality" />
+						<CheckBox fx:id="c490" mnemonicParsing="false" text="Stalkers" />
+						<CheckBox fx:id="c491" mnemonicParsing="false" text="Star-Crossed Lovers" />
+						<CheckBox fx:id="c492" mnemonicParsing="false" text="Station Identifications" />
+						<CheckBox fx:id="c493" mnemonicParsing="false" text="Steampunk" />
+						<CheckBox fx:id="c494" mnemonicParsing="false" text="Stockholm Syndrome" />
+						<CheckBox fx:id="c495" mnemonicParsing="false" text="Stop Motion Animation" />
+						<CheckBox fx:id="c496" mnemonicParsing="false" text="Student Council" />
+						<CheckBox fx:id="c497" mnemonicParsing="false" text="Student-Teacher Relationship" />
+						<CheckBox fx:id="c498" mnemonicParsing="false" text="Submarine" />
+						<CheckBox fx:id="c499" mnemonicParsing="false" text="Sudden Girlfriend Appearance" />
+						<CheckBox fx:id="c500" mnemonicParsing="false" text="Suicide" />
+						<CheckBox fx:id="c501" mnemonicParsing="false" text="Summoned Into Another World" />
+						<CheckBox fx:id="c502" mnemonicParsing="false" text="Sumo Wrestling" />
+						<CheckBox fx:id="c503" mnemonicParsing="false" text="Superheroes" />
+						<CheckBox fx:id="c504" mnemonicParsing="false" text="Supernatural" />
+						<CheckBox fx:id="c505" mnemonicParsing="false" text="Superpowers" />
+						<CheckBox fx:id="c506" mnemonicParsing="false" text="Super Robot" />
+						<CheckBox fx:id="c507" mnemonicParsing="false" text="Surfing" />
+						<CheckBox fx:id="c508" mnemonicParsing="false" text="Survival" />
+						<CheckBox fx:id="c509" mnemonicParsing="false" text="Swimming" />
+						<CheckBox fx:id="c510" mnemonicParsing="false" text="Switzerland" />
+						<CheckBox fx:id="c511" mnemonicParsing="false" text="Swordplay" />
+						<CheckBox fx:id="c512" mnemonicParsing="false" text="Teaching" />
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+					<children>
+						<CheckBox fx:id="c513" mnemonicParsing="false" text="Tennis" />
+						<CheckBox fx:id="c514" mnemonicParsing="false" text="Terrorism" />
+						<CheckBox fx:id="c515" mnemonicParsing="false" text="The Great Outdoors" />
+						<CheckBox fx:id="c516" mnemonicParsing="false" text="Thieves" />
+						<CheckBox fx:id="c517" mnemonicParsing="false" text="Thriller" />
+						<CheckBox fx:id="c518" mnemonicParsing="false" text="Time Travel" />
+						<CheckBox fx:id="c519" mnemonicParsing="false" text="Tokusatsu" />
+						<CheckBox fx:id="c520" mnemonicParsing="false" text="Tourism" />
+						<CheckBox fx:id="c521" mnemonicParsing="false" text="Tournaments" />
+						<CheckBox fx:id="c522" mnemonicParsing="false" text="Track and Field" />
+						<CheckBox fx:id="c523" mnemonicParsing="false" text="Trains" />
+						<CheckBox fx:id="c524" mnemonicParsing="false" text="Transfer Students" />
+						<CheckBox fx:id="c525" mnemonicParsing="false" text="Transforming Mecha" />
+						<CheckBox fx:id="c526" mnemonicParsing="false" text="Trapped in a Video Game" />
+						<CheckBox fx:id="c527" mnemonicParsing="false" text="Treasure Hunters" />
+						<CheckBox fx:id="c528" mnemonicParsing="false" text="Tsundere" />
+						<CheckBox fx:id="c529" mnemonicParsing="false" text="Tutors" />
+						<CheckBox fx:id="c530" mnemonicParsing="false" text="Unicorns" />
+						<CheckBox fx:id="c531" mnemonicParsing="false" text="Unrequited Love" />
+						<CheckBox fx:id="c532" mnemonicParsing="false" text="Urban Fantasy" />
+						<CheckBox fx:id="c533" mnemonicParsing="false" text="Urban Legend" />
+						<CheckBox fx:id="c534" mnemonicParsing="false" text="Valentine's Day" />
+						<CheckBox fx:id="c535" mnemonicParsing="false" text="Vampires" />
+						<CheckBox fx:id="c536" mnemonicParsing="false" text="Video Game Industry" />
+						<CheckBox fx:id="c537" mnemonicParsing="false" text="Vigilantes" />
+						<CheckBox fx:id="c538" mnemonicParsing="false" text="Villainess" />
+						<CheckBox fx:id="c539" mnemonicParsing="false" text="Violence" />
+						<CheckBox fx:id="c540" mnemonicParsing="false" text="Virtual Reality" />
+						<CheckBox fx:id="c541" mnemonicParsing="false" text="Vocaloid" />
+						<CheckBox fx:id="c542" mnemonicParsing="false" text="Voice Acting" />
+						<CheckBox fx:id="c543" mnemonicParsing="false" text="Volleyball" />
+						<CheckBox fx:id="c544" mnemonicParsing="false" text="Voyeurism" />
+						<CheckBox fx:id="c545" mnemonicParsing="false" text="VTubers" />
+						<CheckBox fx:id="c546" mnemonicParsing="false" text="War" />
+						<CheckBox fx:id="c547" mnemonicParsing="false" text="Water Polo" />
+						<CheckBox fx:id="c548" mnemonicParsing="false" text="Weak to Strong" />
+						<CheckBox fx:id="c549" mnemonicParsing="false" text="Werewolves" />
+						<CheckBox fx:id="c550" mnemonicParsing="false" text="Western" />
+						<CheckBox fx:id="c551" mnemonicParsing="false" text="Witches" />
+						<CheckBox fx:id="c552" mnemonicParsing="false" text="Work Life" />
+						<CheckBox fx:id="c553" mnemonicParsing="false" text="World Masterpiece Theater" />
+						<CheckBox fx:id="c554" mnemonicParsing="false" text="World War 2" />
+						<CheckBox fx:id="c555" mnemonicParsing="false" text="Wrestling" />
+						<CheckBox fx:id="c556" mnemonicParsing="false" text="Writers" />
+						<CheckBox fx:id="c557" mnemonicParsing="false" text="Wuxia" />
+						<CheckBox fx:id="c558" mnemonicParsing="false" text="Xianxia" />
+						<CheckBox fx:id="c559" mnemonicParsing="false" text="Yakuza" />
+						<CheckBox fx:id="c560" mnemonicParsing="false" text="Yaoi Hand Syndrome" />
+						<CheckBox fx:id="c561" mnemonicParsing="false" text="Youkai" />
+						<CheckBox fx:id="c562" mnemonicParsing="false" text="Zodiac" />
+						<CheckBox fx:id="c563" mnemonicParsing="false" text="Zombies" />
+						<CheckBox fx:id="c564" mnemonicParsing="false" text="Zoo" />
+					</children>
+				</VBox>
+			</children>
+			<padding>
+				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+			</padding>
+		</HBox>
+		</content>
+            </ScrollPane>
       <HBox alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#addFiltersToList" stylesheets="@../assets/css/buttonview.css" text="Apply" />

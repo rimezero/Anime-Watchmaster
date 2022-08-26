@@ -254,14 +254,14 @@ public class AllAnimeController implements Initializable{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/filterswindow.fxml"));
             Parent root = null;
             root = (Parent)fxmlLoader.load();
-            Scene scene = new Scene(root,600,300);
+            Scene scene = new Scene(root,1750,950);
             windownew.initStyle(StageStyle.DECORATED);
             windownew.initModality(Modality.APPLICATION_MODAL);
             windownew.setScene(scene);
             windownew.setTitle("Filters by Genre");
             windownew.getIcons().add(new javafx.scene.image.Image(AllAnimeController.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
             //set on active screen
-            StartUpLocation startupLoc = new StartUpLocation(600, 300);
+            StartUpLocation startupLoc = new StartUpLocation(1750, 950);
             double xPos = startupLoc.getXPos();
             double yPos = startupLoc.getYPos();
             // Set Only if X and Y are not zero and were computed correctly

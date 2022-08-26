@@ -279,10 +279,12 @@ public class AnimeinfoController implements Initializable {
             @Override
             public void run() {
 
-                boolean isNotOnoing = true;
                 if(!dbControl.getInstance().checkIfExistsInWatchlist(anime.getId())) {
                     
 					int eps = StringUtils.getEpisodesFromAptype(anime.getAnimetype());
+					if(eps==-1) {
+						eps=0;
+					}
 					dbControl.getInstance().insertIntoWatchlist(anime.getId(), 0, eps, "");
                     
 

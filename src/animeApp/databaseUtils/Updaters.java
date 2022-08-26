@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -194,11 +195,18 @@ public class Updaters {
         final String serverUrl = "http://"+Configuration.getInstance().getServerIp()+"/animedraw/images/";
         dbControl dbinstance = dbControl.getInstance();
         JSONObject versionjob = HttpRequests.getVersion();
+        IDReassign idReassign = null;
+        
+        if(!fileSystemUtils.checkIfFileIsDirectory("Images")) {
+    		fileSystemUtils.createFolder("Images");
+    	}
+        
         if(versionjob!=null){
             int localversion = 0;
             if(!doSync)
                 localversion = dbinstance.getAPVersion();
             else {
+            	idReassign = new IDReassign();
             	dbControl.getInstance().deleteFromAPanimeinfo(-5);
             }
             int onlineversion = -1;
@@ -211,9 +219,33 @@ public class Updaters {
 
             System.out.println(prefix+"localversion: "+localversion+" onlineversion: "+onlineversion);
             JSONArray jarr = new JSONArray();
+            LinkedList<Integer> newAnimeIDS = new LinkedList<>();
+            
+            
 
             if (onlineversion > localversion) {
                 jarr = HttpRequests.getAPanimeinfoData(localversion);
+                
+              //Images downloader thread
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                    	int id = 0;
+                    	System.out.println("h1");
+                    	while(id!=-10) {
+                    		if(!newAnimeIDS.isEmpty()) {
+                    			id = newAnimeIDS.get(0);
+                    			if(id!=-10) {
+                    				//System.out.println("Server url: "+serverUrl+id);
+                    				HttpRequests.downloadDataToFileV(serverUrl+id, "images/"+id);
+                    				newAnimeIDS.remove(newAnimeIDS.indexOf(id));
+                    			}            			
+                    		}
+                    	}
+                    }
+                });
+                t.start();
+                //Images downloader thread
 
                 if(jarr != null && jarr.length() > 0) {
                     if(jarr.length()==1){
@@ -248,19 +280,25 @@ public class Updaters {
                             }                         
                             if(id==-1){
                                 boolean s = dbinstance.insertIntoAPAnimeinfo(job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
-                                HttpRequests.downloadDataToFileV(serverUrl+job.getInt("id"), "images/"+job.getInt("id"));
+                                newAnimeIDS.add(job.getInt("id"));
+                                //HttpRequests.downloadDataToFileV(serverUrl+job.getInt("id"), "images/"+job.getInt("id"));
                             } else {
                                 boolean s = dbinstance.updateAPAnimeinfo(id,job.getInt("id"),job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("frtitle"));
                             }
                             Controller.updateProgress = i;
                         }
                         dbinstance.updateAPVersion(onlineversion);
+                        newAnimeIDS.add(-10);
                         if(jarr.length()==1){
-                            Controller.updateProgress=10;
+                            Controller.updateProgress=10;                           
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+                
+                if(doSync) {
+                	idReassign.reassignIDS();            	
                 }
 
 
@@ -308,8 +346,12 @@ public class Updaters {
     
     private void imagesUpdater(boolean showDialogs, boolean doSync){
     	dbControl dbinstance = dbControl.getInstance();
-    	final int numberOfThreads = 200;
+    	final int numberOfThreads = Configuration.getInstance().getNumberOfThreadsImagesUpdater();
     	final String serverUrl = "http://"+Configuration.getInstance().getServerIp()+"/animedraw/images/";
+    	
+    	if(!fileSystemUtils.checkIfFileIsDirectory("Images")) {
+    		fileSystemUtils.createFolder("Images");
+    	}
     	
     	final ArrayList<NewAnime> animelist = dbinstance.getAnimeData(null, null, null);
     	

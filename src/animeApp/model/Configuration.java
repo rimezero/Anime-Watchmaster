@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 
 public class Configuration {
 	private String serverIp = "127.0.0.1";
+	private int numberOfThreadsImagesUpdater = 10;
 	private boolean enableDownloads = true;
 	private boolean useLocalImages = true;
 	private String globalDownloadsPath = " ";
@@ -54,6 +55,12 @@ public class Configuration {
 	
 	public void setServerIp(String serverIp) {
 		this.serverIp = serverIp;
+	}
+	public void setNumberOfThreadsImagesUpdater(int numberOfThreadsImagesUpdater) {
+		this.numberOfThreadsImagesUpdater = numberOfThreadsImagesUpdater;
+	}
+	public int getNumberOfThreadsImagesUpdater() {
+		return numberOfThreadsImagesUpdater;
 	}
 	public boolean isEnableDownloads() {
 		return enableDownloads;

@@ -297,6 +297,7 @@ public class dbControl {
 			command = "delete from "+TABLE_DOWNLOADS;
             stt = con.createStatement();
 			stt.executeUpdate(command);
+			this.updateAPVersion(0);
 		default:
 			this.updateDBVersion(dbVersion, con);
 			break;
@@ -2005,7 +2006,7 @@ public class dbControl {
                 }
                 if(filterslist!=null){
                     for(String filter : filterslist){
-                        command.append(AP_ANIMEINFO_COLUMN_TITLE+" like ? and ");
+                        command.append(AP_ANIMEINFO_COLUMN_GENRE+" like ? and ");
                         whereArgs.add("%"+filter+"%");
                     }
                 }
