@@ -43,6 +43,10 @@ public class HttpRequests {
     public static JSONObject getVersion(){
         return getVData(serverurl+"/animedraw/drawclasses/drawversion.php");
     }
+    
+    public static JSONObject getSyncVersion(){
+        return getVData(serverurl+"/animedraw/drawclasses/drawSyncVersion.php");
+    }
 
     public static JSONObject getTOPVersion(){
         return getVData(serverurl+"/animedraw/drawclasses/drawMALtopanimeversion.php");
@@ -221,9 +225,10 @@ public class HttpRequests {
         }
     }
     
-    public static void downloadDataToFileV(String targetURL, String filename) {
+    public static boolean downloadDataToFileV(String targetURL, String filename) {
+    	boolean downloaded = false;
     	HttpURLConnection connection = null;
-
+    	
         try {
             //Create connection
             URL url = new URL(targetURL);
@@ -232,6 +237,7 @@ public class HttpRequests {
 
             connection.setUseCaches(false);
             connection.setDoOutput(true);
+            connection.setConnectTimeout(15000);
 
             /*
             //Send request
@@ -261,6 +267,7 @@ public class HttpRequests {
             fos.write(ress);
             fos.close();
 
+            downloaded = true;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -268,5 +275,6 @@ public class HttpRequests {
                 connection.disconnect();
             }
         }
+        return downloaded;
     }
 }

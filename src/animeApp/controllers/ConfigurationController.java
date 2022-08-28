@@ -11,10 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ConfigurationController implements Initializable{
 	
+	@FXML
+	private VBox updatersVbox;
 	@FXML
 	private TextField tbServerIp;	
 	@FXML
@@ -71,6 +75,19 @@ public class ConfigurationController implements Initializable{
 		
 		if(cbChooseBestQuality.isSelected()) {
 			cmbQuality.setDisable(true);
+		}
+		
+		if(Configuration.getInstance().getUseIndex()!=-320) {
+			
+			//((HBox)updatersVbox.getParent()).getChildren().remove(updatersVbox);
+			
+			((VBox)cbSpecificUpdaters.getParent()).getChildren().remove(cbSpecificUpdaters);
+			((VBox)cbWatchlistUpdater.getParent()).getChildren().remove(cbWatchlistUpdater);
+			((VBox)cbDownloadsUpdater.getParent()).getChildren().remove(cbDownloadsUpdater);
+			((VBox)cbDatabaseUpdater.getParent()).getChildren().remove(cbDatabaseUpdater);
+			((VBox)cbSeasonsUpdater.getParent()).getChildren().remove(cbSeasonsUpdater);
+			((VBox)cbImagesUpdater.getParent()).getChildren().remove(cbImagesUpdater);
+			((VBox)cbTopanimeUpdater.getParent()).getChildren().remove(cbTopanimeUpdater);
 		}
     }
 	

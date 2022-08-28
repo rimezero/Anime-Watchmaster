@@ -16,7 +16,7 @@
                 <Menu text="_Data">
                   <items>
                         <MenuItem fx:id="mi_update" mnemonicParsing="false" onAction="#mi_updateClicked" text="Full Database Update" />
-                        <MenuItem mnemonicParsing="false" onAction="#syncDatabases" text="Synchronize Databases" />
+                        <MenuItem fx:id="mi_doSync" mnemonicParsing="false" onAction="#syncDatabases" text="Synchronize Databases" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem onAction="#exit" text="Exit" />
                   </items>

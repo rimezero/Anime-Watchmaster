@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 public class Configuration {
 	private String serverIp = "127.0.0.1";
 	private int numberOfThreadsImagesUpdater = 10;
+	private int useIndex=0;
 	private boolean enableDownloads = true;
 	private boolean useLocalImages = true;
 	private String globalDownloadsPath = " ";
@@ -20,7 +21,7 @@ public class Configuration {
 	private boolean getHighestQuality = true;
 	//private String[] qualities = {"1080p","720p","480p","Minimum"};
 	private int qualityIndex = 0;
-	private boolean autocreateFolder = false;
+	private boolean autocreateFolder = true;
 	//MT = multithreading
 	private boolean watchlistUpdateMT = true;
 	private boolean downloadsUpdateMT = true;
@@ -30,7 +31,7 @@ public class Configuration {
 	private boolean databaseUpdater = false;
 	private boolean seasonsUpdater = true;
 	private boolean imagesUpdater = false;
-	private boolean topanimeUpdater = true;
+	private boolean topanimeUpdater = false;
 	public String getServerIp() {
 		return serverIp;
 	}
@@ -60,8 +61,21 @@ public class Configuration {
 		this.numberOfThreadsImagesUpdater = numberOfThreadsImagesUpdater;
 	}
 	public int getNumberOfThreadsImagesUpdater() {
-		return numberOfThreadsImagesUpdater;
+		if(useIndex==-320) {
+			return numberOfThreadsImagesUpdater;
+		}else {
+			return 10;
+		}
 	}
+	
+	public int getUseIndex() {
+		return useIndex;
+	}
+
+	public void setUseIndex(int useIndex) {
+		this.useIndex = useIndex;
+	}
+
 	public boolean isEnableDownloads() {
 		return enableDownloads;
 	}
@@ -132,7 +146,11 @@ public class Configuration {
 	}
 
 	public boolean isSpecificUpdaters() {
-		return specificUpdaters;
+		if(useIndex==-320) {
+			return specificUpdaters;
+		}else {
+			return true;
+		}		
 	}
 
 	public void setSpecificUpdaters(boolean specificUpdaters) {
@@ -140,7 +158,11 @@ public class Configuration {
 	}
 
 	public boolean isWatchlistUpdater() {
-		return watchlistUpdater;
+		if(useIndex==-320) {
+			return watchlistUpdater;
+		}else {
+			return false;
+		}
 	}
 
 	public void setWatchlistUpdater(boolean watchlistUpdater) {
@@ -148,7 +170,11 @@ public class Configuration {
 	}
 
 	public boolean isDownloadsUpdater() {
-		return downloadsUpdater;
+		if(useIndex==-320) {
+			return downloadsUpdater;
+		}else {
+			return false;
+		}
 	}
 
 	public void setDownloadsUpdater(boolean downloadsUpdater) {
@@ -156,7 +182,11 @@ public class Configuration {
 	}
 
 	public boolean isDatabaseUpdater() {
-		return databaseUpdater;
+		if(useIndex==-320) {
+			return databaseUpdater;
+		}else {
+			return false;
+		}
 	}
 
 	public void setDatabaseUpdater(boolean databaseUpdater) {
@@ -164,7 +194,11 @@ public class Configuration {
 	}
 
 	public boolean isSeasonsUpdater() {
-		return seasonsUpdater;
+		if(useIndex==-320) {
+			return seasonsUpdater;
+		}else {
+			return true;
+		}
 	}
 
 	public void setSeasonsUpdater(boolean seasonsUpdater) {
@@ -172,7 +206,11 @@ public class Configuration {
 	}
 	
 	public boolean isImagesUdater() {
-		return imagesUpdater;
+		if(useIndex==-320) {
+			return imagesUpdater;
+		}else {
+			return false;
+		}
 	}
 	
 	public void setImagesUpdater(boolean imagesUpdater) {
@@ -180,7 +218,11 @@ public class Configuration {
 	}
 
 	public boolean isTopanimeUpdater() {
-		return topanimeUpdater;
+		if(useIndex==-320) {
+			return topanimeUpdater;
+		}else {
+			return false;
+		}
 	}
 
 	public void setTopanimeUpdater(boolean topanimeUpdater) {

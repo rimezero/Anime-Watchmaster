@@ -207,6 +207,7 @@ public class Updaters {
         final String serverUrl = "http://"+Configuration.getInstance().getServerIp()+"/animedraw/images/";
         dbControl dbinstance = dbControl.getInstance();
         JSONObject versionjob = HttpRequests.getVersion();
+        JSONObject syncVersionJob = HttpRequests.getSyncVersion();
         IDReassign idReassign = null;
         int numberOfThreads = Configuration.getInstance().getNumberOfThreadsImagesUpdater();
         Controller.updateProgress=0;
@@ -217,10 +218,26 @@ public class Updaters {
     	}
         
         if(versionjob!=null){
+        	
+        	//sync version
+        	int onlineSyncVersion = -1;
+        	try {
+        		onlineSyncVersion = syncVersionJob.getInt("syncversion");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        	int localSyncVersion = dbinstance.getSyncVersion();
+        	if(localSyncVersion<onlineSyncVersion) {
+        		doSync=true;
+        	}
+        	System.out.println(prefix+"sync version - localversion: "+localSyncVersion+" onlineversion: "+onlineSyncVersion);
+        	
+        	//version
             int localversion = 0;
             if(!doSync)
                 localversion = dbinstance.getAPVersion();
             else {
+            	System.out.println("Performing database sync");
             	idReassign = new IDReassign();
             	dbControl.getInstance().deleteFromAPanimeinfo(-5);
             }
@@ -249,7 +266,6 @@ public class Updaters {
                         @Override
                         public void run() {
                         	int id = 0;
-                        	System.out.println("h1");
                         	while(id!=-10) {
                         		try {
     								Thread.sleep(10);
@@ -258,8 +274,17 @@ public class Updaters {
     							}
 								id = getIdFromList();
 								if (id != -10 && id != -5) {
+									boolean downloadedSuccessfully = false;
 									// System.out.println("Server url: "+serverUrl+id);
-									HttpRequests.downloadDataToFileV(serverUrl + id, "images/" + id);
+									downloadedSuccessfully = HttpRequests.downloadDataToFileV(serverUrl + id, "images/" + id);
+									if(!downloadedSuccessfully) {
+										System.out.println("Retrying to download image with id: "+id);
+										downloadedSuccessfully = HttpRequests.downloadDataToFileV(serverUrl + id, "images/" + id);
+									}
+									if(!downloadedSuccessfully) {
+										System.out.println("Retrying to download image with id: "+id);
+										downloadedSuccessfully = HttpRequests.downloadDataToFileV(serverUrl + id, "images/" + id);
+									}
 									Controller.updateProgress++;
 								}
 
@@ -318,6 +343,9 @@ public class Updaters {
                             Controller.updateProgress++;
                         }
                         dbinstance.updateAPVersion(onlineversion);
+                        if(doSync) {
+                        	dbinstance.updateSyncVersion(onlineSyncVersion);
+                        }
                         newAnimeIDS.add(-10);
                         if(jarr.length()==1){
                             Controller.updateProgress=10;                           

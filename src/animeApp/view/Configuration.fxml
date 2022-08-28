@@ -27,7 +27,20 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
                <children>
+               	  
                   <CheckBox fx:id="cbUseLocalImages" alignment="CENTER" mnemonicParsing="false" onAction="#enableSpecificUpdaters" text="Use local images" />
+                  
+               </children>
+               <padding>
+                        <Insets left="40.0" />
+               </padding>
+            </HBox>
+            
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="15">
+               <children>
+               	  
+                  <CheckBox fx:id="cbWatchlistUpdateMT" alignment="CENTER" layoutX="50.0" layoutY="10.0" mnemonicParsing="false" text="Enable multithreaded watchlist update" />
+                  
                </children>
                <padding>
                         <Insets left="40.0" />
@@ -36,10 +49,10 @@
             
             <HBox alignment="CENTER" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="updatersVbox" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <CheckBox fx:id="cbSpecificUpdaters" alignment="CENTER" mnemonicParsing="false" onAction="#enableSpecificUpdaters" text="Run specific updaters only" />
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                        <VBox prefHeight="200" prefWidth="100.0" spacing="5.0" >
                            <children>
                               <CheckBox fx:id="cbWatchlistUpdater" mnemonicParsing="false" onAction="#enableWatchnext" text="Watchlist Updater" />
                               <CheckBox fx:id="cbDownloadsUpdater" layoutX="40.0" layoutY="20.0" mnemonicParsing="false" onAction="#enableWatchnext" text="Downloads Updater" />
@@ -52,7 +65,7 @@
                               <Insets left="30.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <CheckBox fx:id="cbWatchlistUpdateMT" alignment="CENTER" layoutX="50.0" layoutY="10.0" mnemonicParsing="false" text="Enable multithreaded watchlist update" />
+                        
                      </children>
                      <padding>
                         <Insets left="40.0" />

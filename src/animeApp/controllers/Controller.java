@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import animeApp.Main;
@@ -40,6 +41,10 @@ public class Controller implements Initializable{
     @FXML
     private ProgressBar mainProgressBar;
     @FXML
+    private Button btnTopanime;
+    @FXML
+    private MenuItem mi_doSync;
+    @FXML
     public  Label statusLabel;
 
     public static Stage window;
@@ -54,7 +59,14 @@ public class Controller implements Initializable{
         shupic.fitHeightProperty().bind(shupicpane.heightProperty());
 
         dbControl.getInstance().initializeDatabase();
+        if(Configuration.getInstance().getUseIndex()!=-320) {
+        	((VBox)btnTopanime.getParent()).getChildren().remove(btnTopanime);
+        	mi_doSync.getParentMenu().getItems().remove(mi_doSync);
+        }
 
+        if(Configuration.getInstance().getUseIndex()!=-320) {
+        	runUpdaters(false);
+        }
         //runUpdaters(false);
     }
 

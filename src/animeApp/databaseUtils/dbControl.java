@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
  */
 public class dbControl {
     private static final String dbName = "anime.db";
-    private static final int dbVersion = 4;
+    private static final int dbVersion = 5;
 
     //genaral
     private static final String GENERAL_COLUMN_ID = "id";
@@ -72,7 +72,10 @@ public class dbControl {
 
     //APversion
     private static final String AP_VERSION_COLUMN_VERSION = "version";
-
+    
+    //SyncVersion
+    private static final String SYNC_VERSION_COLUMN_VERSION = "version";
+    
     //tables
     private static final String TABLE_ANIMELINKS = "animelinks";
     private static final String TABLE_ANIMEINFO = "animeinfo";
@@ -83,6 +86,7 @@ public class dbControl {
     private static final String TABLE_HOTANIME = "hotanime";
     private static final String TABLE_MAL_TOPANIME = "MALtopanime";
     private static final String TABLE_VERSION = "version";
+    private static final String TABLE_SYNC_VERSION = "syncversion";
     private static final String TABLE_AP_VERSION = "APversion";
     private static final String TABLE_TOP_VERSION ="TOPversion";
     private static final String TABLE_DATABASE_VERSION ="DBversion";
@@ -187,6 +191,16 @@ public class dbControl {
             ResultSet rs = stt.executeQuery("select "+VERSION_COLUMN_VERSION+" from "+TABLE_VERSION);
             if(!rs.next()){
                 this.insertIntoVersion(0,con);
+            }
+            
+            command = "create table if not exists "+TABLE_SYNC_VERSION+"("
+                    +SYNC_VERSION_COLUMN_VERSION+ " int primary key)";
+            stt = con.createStatement();
+            stt.executeUpdate(command);
+            stt = con.createStatement();
+            rs = stt.executeQuery("select "+SYNC_VERSION_COLUMN_VERSION+" from "+TABLE_SYNC_VERSION);
+            if(!rs.next()){
+                this.insertIntoSyncVersion(0,con);
             }
 
             command = "create table if not exists "+TABLE_AP_VERSION+"("
@@ -298,6 +312,17 @@ public class dbControl {
             stt = con.createStatement();
 			stt.executeUpdate(command);
 			this.updateAPVersion(0);
+		case 4:
+			command = "create table if not exists "+TABLE_SYNC_VERSION+"("
+                    +SYNC_VERSION_COLUMN_VERSION+ " int primary key)";
+            stt = con.createStatement();
+            stt.executeUpdate(command);
+            stt = con.createStatement();
+            ResultSet rs = stt.executeQuery("select "+SYNC_VERSION_COLUMN_VERSION+" from "+TABLE_SYNC_VERSION);
+            if(!rs.next()){
+                this.insertIntoSyncVersion(0,con);
+            }
+            
 		default:
 			this.updateDBVersion(dbVersion, con);
 			break;
@@ -598,6 +623,25 @@ public class dbControl {
 
             returnflag = true;
             System.out.println("insertIntoVersion - Inserted version: "+version);
+
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return returnflag;
+    }
+    
+    public boolean insertIntoSyncVersion(int version, Connection con){
+        boolean returnflag = false;
+        PreparedStatement state;
+        try {
+
+            state = con.prepareStatement("insert into "+TABLE_SYNC_VERSION+" values(?)");
+            state.setInt(1, version);
+            state.executeUpdate();
+
+            returnflag = true;
+            System.out.println("insertIntoSyncVersion - Inserted version: "+version);
 
             state.close();
         } catch (SQLException e) {
@@ -924,6 +968,38 @@ public class dbControl {
 
             returnflag = true;
             System.out.println("updateVersion - Updated version to: "+version);
+
+            state.close();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NullPointerException npex){
+                //do nothing (SQLite)
+            }
+        }
+        return returnflag;
+    }
+    
+    public boolean updateSyncVersion(int version){
+        boolean returnflag = false;
+        Connection con = null;
+        PreparedStatement state;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+
+            state = con.prepareStatement("update "+TABLE_SYNC_VERSION+" set "+SYNC_VERSION_COLUMN_VERSION+"=?");
+            state.setInt(1, version);
+            state.executeUpdate();
+
+            returnflag = true;
+            System.out.println("updateSyncVersion - Updated version to: "+version);
 
             state.close();
         }catch (ClassNotFoundException e) {
@@ -1515,6 +1591,37 @@ public class dbControl {
             ResultSet rs = stt.executeQuery("select "+VERSION_COLUMN_VERSION+ " from "+TABLE_VERSION);
             if(rs.next()){
                 version = rs.getInt(VERSION_COLUMN_VERSION);
+            }
+            rs.close();
+            stt.close();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NullPointerException npex){
+                //do nothing (SQLite)
+            }
+        }
+        return version;
+    }
+    
+    public int getSyncVersion(){
+        int version = 0;
+        Connection con = null;
+        Statement stt;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+
+            stt = con.createStatement();
+            ResultSet rs = stt.executeQuery("select "+SYNC_VERSION_COLUMN_VERSION+ " from "+TABLE_SYNC_VERSION);
+            if(rs.next()){
+                version = rs.getInt(SYNC_VERSION_COLUMN_VERSION);
             }
             rs.close();
             stt.close();
