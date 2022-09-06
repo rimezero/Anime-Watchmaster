@@ -24,8 +24,9 @@
                   <Insets top="5.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="filtersButton" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#popfilterWindow" stylesheets="@../assets/css/buttonviewabc.css" text="Filters" />
             <Button fx:id="searchButton1" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#searchForTitle" stylesheets="@../assets/css/buttonviewabc.css" text="Apply filters and search" />
+            <Button fx:id="filtersButton" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#popfilterWindow" stylesheets="@../assets/css/buttonviewabc.css" text="Add filters" />          
+            <Button fx:id="clearButton" layoutX="10.0" layoutY="10.0" minWidth="75.0" mnemonicParsing="false" onAction="#clearFilters" stylesheets="@../assets/css/buttonviewabc.css" text="Clear filters" />
          </children>
       </HBox>
       <HBox alignment="CENTER">

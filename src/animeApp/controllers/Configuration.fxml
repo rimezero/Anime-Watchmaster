@@ -13,16 +13,18 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
+            <HBox fx:id="ipHbox" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
                <children>
                   <Label text="Server Ip:" />
                   <TextField fx:id="tbServerIp" />
+                  <Button text="..." visible="false" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <Label text="Global downloads path:" />
-                  <TextField fx:id="tbGlobalDownloadsPath" />
+                  <Label text="Anime downloads folder:" />
+                  <TextField fx:id="tbGlobalDownloadsPath" disable="true" />
+                  <Button text="..." onAction="#chooseAnimeFolder" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="15.0">

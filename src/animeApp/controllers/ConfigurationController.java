@@ -1,5 +1,7 @@
 package animeApp.controllers;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,12 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class ConfigurationController implements Initializable{
 	
@@ -27,6 +32,8 @@ public class ConfigurationController implements Initializable{
 	private CheckBox cbUseLocalImages, cbDownloads,cbWatchNextButtons,cbIncrementEpisodesWatched,cbChooseBestQuality,cbAutocreate,cbSpecificUpdaters,cbWatchlistUpdater,cbDownloadsUpdater,cbDatabaseUpdater,cbSeasonsUpdater,cbImagesUpdater,cbTopanimeUpdater,cbDownloadsMT,cbWatchlistUpdateMT;
 	@FXML
 	private ChoiceBox<String> cmbQuality;
+	@FXML
+	private HBox ipHbox;
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +87,7 @@ public class ConfigurationController implements Initializable{
 		if(Configuration.getInstance().getUseIndex()!=-320) {
 			
 			//((HBox)updatersVbox.getParent()).getChildren().remove(updatersVbox);
+			((VBox)ipHbox.getParent()).getChildren().remove(ipHbox);
 			
 			((VBox)cbSpecificUpdaters.getParent()).getChildren().remove(cbSpecificUpdaters);
 			((VBox)cbWatchlistUpdater.getParent()).getChildren().remove(cbWatchlistUpdater);
@@ -107,6 +115,17 @@ public class ConfigurationController implements Initializable{
 			cbSeasonsUpdater.setDisable(false);
 			cbImagesUpdater.setDisable(false);
 			cbTopanimeUpdater.setDisable(false);
+		}
+	}
+	
+	@FXML
+	private void chooseAnimeFolder() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(new File(Configuration.getInstance().getGlobalDownloadsPath()));
+		File selectedDirectory = directoryChooser.showDialog(((Node) tbGlobalDownloadsPath).getScene().getWindow());
+		if(selectedDirectory.exists() && selectedDirectory.isDirectory()) {
+			Configuration.getInstance().setGlobalDownloadsPath(selectedDirectory.getAbsolutePath());
+			tbGlobalDownloadsPath.setText(selectedDirectory.getAbsolutePath());
 		}
 	}
 	
@@ -176,11 +195,11 @@ public class ConfigurationController implements Initializable{
 		Configuration.getInstance().setImagesUpdater(cbImagesUpdater.isSelected());
 		Configuration.getInstance().setTopanimeUpdater(cbTopanimeUpdater.isSelected());
 		Configuration.getInstance().saveConfiguration();
-		((Stage) tbServerIp.getScene().getWindow()).close();
+		((Stage) tbGlobalDownloadsPath.getScene().getWindow()).close();
 	}	
 	
 	@FXML
 	private void cancel() {
-		((Stage) tbServerIp.getScene().getWindow()).close();
+		((Stage) tbGlobalDownloadsPath.getScene().getWindow()).close();
 	}
 }

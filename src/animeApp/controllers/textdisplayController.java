@@ -28,7 +28,7 @@ public class textdisplayController implements Initializable {
             Text text1 = new Text("\n   About Anime Watchmaster:");
             text1.setFont(Font.font("FontAwesome", FontWeight.BOLD, 15));
 
-            Text text2 = new Text("\n       My nickname is Rimezero, I am a software engineer and also an anime fan. The main idea behind this project \n" +
+            Text text2 = new Text("\n       Hello Rimezero here. I am a software engineer and also an anime fan. The main idea behind this project \n" +
                     "   started back in 2014 like a small exercise to practise programming in java fx but at the same time on developing something useful for me and my friends. \n" +
                     "       I used to be a semi-hardcore anime fan standing at the borders of 'otaku', I've watched a ton of different anime and used to watch at least 3 ongoing anime every new season\n" +
                     "   so I wanted a tool that would save me some precious time going over websites, searching for anime and keeping track of the ones I watch, along with downlaoding them. I tried to develop this \n" +

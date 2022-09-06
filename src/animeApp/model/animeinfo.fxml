@@ -44,7 +44,7 @@
    <bottom>
       <HBox fx:id="hbox" alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="baddtowlist" mnemonicParsing="false" onAction="#addToWatchlist" stylesheets="@../assets/css/buttonviewabc.css" text="add to Watchlist">
+            <Button fx:id="baddtowlist" mnemonicParsing="false" onAction="#addToWatchlist" stylesheets="@../assets/css/buttonviewabc.css" text="Add to Watchlist">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
@@ -56,8 +56,8 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button fx:id="btnAddWLater" layoutX="129.0" layoutY="30.0" mnemonicParsing="false" onAction="#addToWatchlaterlist" stylesheets="@../assets/css/buttonviewabc.css" text="add to Watchlater list" />
-            <Button fx:id="btnAddWatched" mnemonicParsing="false" onAction="#addToWatchedList" stylesheets="@../assets/css/buttonviewabc.css" text="add to Watched list" />
+            <Button fx:id="btnAddWLater" layoutX="129.0" layoutY="30.0" mnemonicParsing="false" onAction="#addToWatchlaterlist" stylesheets="@../assets/css/buttonviewabc.css" text="Add to My List" />
+            <Button fx:id="btnAddWatched" mnemonicParsing="false" onAction="#addToWatchedList" stylesheets="@../assets/css/buttonviewabc.css" text="Add to History" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

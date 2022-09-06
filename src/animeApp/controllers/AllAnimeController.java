@@ -229,7 +229,7 @@ public class AllAnimeController implements Initializable{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                list = dbControl.getInstance().getAnimeData(letter,null,null);
+                list = dbControl.getInstance().getAnimeData(letter,null,filterslist);
                 //Collections.sort(list);
                 ObservableList<NewAnime> data = FXCollections.observableArrayList(list);
                 Platform.runLater(new Runnable() {
@@ -251,7 +251,7 @@ public class AllAnimeController implements Initializable{
     private void popfilterWindow(){
         try {
             windownew = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/filterswindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("filterswindow.fxml"));
             Parent root = null;
             root = (Parent)fxmlLoader.load();
             Scene scene = new Scene(root,1750,950);
@@ -259,7 +259,7 @@ public class AllAnimeController implements Initializable{
             windownew.initModality(Modality.APPLICATION_MODAL);
             windownew.setScene(scene);
             windownew.setTitle("Filters by Genre");
-            windownew.getIcons().add(new javafx.scene.image.Image(AllAnimeController.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+            windownew.getIcons().add(new javafx.scene.image.Image(AllAnimeController.class.getResourceAsStream("animeWmIcon.png")));
             //set on active screen
             StartUpLocation startupLoc = new StartUpLocation(1750, 950);
             double xPos = startupLoc.getXPos();
@@ -279,6 +279,10 @@ public class AllAnimeController implements Initializable{
     @FXML
     private void searchForTitle(){
         searchForTitleWithImages();
+    }
+    @FXML
+    private void clearFilters() {
+    	filterslist = new ArrayList<>();
     }
 
     private void searchForTitleWithImages(){
@@ -302,7 +306,7 @@ public class AllAnimeController implements Initializable{
                         listview.setItems(data);
                     }
                 });
-                filterslist = new ArrayList<>();
+                //filterslist = new ArrayList<>();
             }
         }).start();
         System.gc();

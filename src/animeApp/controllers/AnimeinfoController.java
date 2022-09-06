@@ -209,7 +209,10 @@ public class AnimeinfoController implements Initializable {
             }
         });
         loadThread.start();
-
+        
+        if(Configuration.getInstance().getUseIndex()!=-320) {
+        	((HBox)btnWatchOnline.getParent()).getChildren().remove(btnWatchOnline);
+        }
 
 
     }
@@ -255,9 +258,9 @@ public class AnimeinfoController implements Initializable {
     public void addToWatchlaterlist() {
         if(!dbControl.getInstance().checkIfExistsInWatchLaterlist(anime.getId())) {
             dbControl.getInstance().insertIntoWatchLater(anime.getId());
-            customDialogs.displayInformationDialog("Watch later list add", "Successfully added to watch later list!", "");
+            customDialogs.displayInformationDialog("Watch later list add", "Successfully added to My List!", "");
         }else{
-            customDialogs.displayErrorDialog("Already in watchlist","The anime is already in the watchlater list","");
+            customDialogs.displayErrorDialog("Already in list","The anime is already in the watchlater list","");
         }
     }
 
@@ -265,9 +268,9 @@ public class AnimeinfoController implements Initializable {
     public void addToWatchedList() {
         if(!dbControl.getInstance().checkIfExistsInWatchedlist(anime.getId())) {
             dbControl.getInstance().insertIntoWatched(anime.getId());
-            customDialogs.displayInformationDialog("Watch later list add", "Successfully added to watched list!", "");
+            customDialogs.displayInformationDialog("Watch later list add", "Successfully added to History!", "");
         }else{
-            customDialogs.displayErrorDialog("Already in watchlist","The anime is already in the watched list","");
+            customDialogs.displayErrorDialog("Already in list","The anime is already in History list","");
         }
     }
 

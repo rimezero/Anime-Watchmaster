@@ -148,15 +148,39 @@ public class WatchlistController implements Initializable {
         	final WatchlistAnime runtimeAnime = anime;
         	final int rindex = rowindex;
         	
+        	//System.out.println("here1: "+anime.getName()+ " "+anime.getSavepath());
         	new Thread(new Runnable() {
                 @Override
                 public void run() {
                 	
                 	ArrayList<String> filenameslist = fileSystemUtils.getDirectoryListing(runtimeAnime.getSavepath());
+                	//System.out.println(filenameslist.size());
             		ArrayList<Integer> episodenums = new ArrayList<>();
             		ArrayList<String> filenames = new ArrayList<>();
             		for(String filename : filenameslist) {
+            			//System.out.println(filename);
+            			//System.out.println("trnameprefix: "+runtimeAnime.getTrnameprefix());
+            			//System.out.println(filename.contains(runtimeAnime.getTrnameprefix()));
+            			
+            			//If the first two words on filename are the same with torrent prefix then it is considered the same anime file
+            			boolean sameFlag = false;
             			if(filename.contains(runtimeAnime.getTrnameprefix())) {
+            				sameFlag = true;
+            			}
+            			
+            			if(!sameFlag) {
+            				StringTokenizer tmptokenizer = new StringTokenizer(filename, " ");
+                			StringTokenizer tmptokenizer2 = new StringTokenizer(runtimeAnime.getTrnameprefix(), " ");
+                			
+                			if(tmptokenizer.countTokens()>1 && tmptokenizer2.countTokens()>1) {
+                				if(tmptokenizer.nextToken().equals(tmptokenizer2.nextToken()) && tmptokenizer.nextToken().equals(tmptokenizer2.nextToken())) {
+                					sameFlag = true;
+                				}
+                			}
+            			}
+            			
+            			
+            			if(sameFlag) {           				
             				String temp = filename.replace(runtimeAnime.getTrnameprefix(), "");
             				StringTokenizer tokenizer = new StringTokenizer(temp, " ");
             				temp = "";
@@ -164,12 +188,12 @@ public class WatchlistController implements Initializable {
                 			int tempvalue = 0;
                 			while (tokenizer.hasMoreElements() && temp.equals("")) {
         						String temp2 = tokenizer.nextToken();
+        						//System.out.println("tmp2: "+temp2);
         						try {
         							episodesNum = Integer.valueOf(temp2);
         							temp = temp2;
         							episodenums.add(episodesNum);
         							filenames.add(filename);
-        							
         						}catch (NumberFormatException e) {
         							// TODO: handle exception
         						}
@@ -181,15 +205,16 @@ public class WatchlistController implements Initializable {
             		//periptwsi p exei diaforetika noumera sta torrents
             		if(runtimeAnime.getAvailable()>runtimeAnime.getCurrentepisode()) {
             			int temp = runtimeAnime.getNewepisodes()-1;
-            			nextepisode = runtimeAnime.getDownloaded()-temp;
+            			nextepisode = runtimeAnime.getAvailable()-temp;
+            			//System.out.println("nextepisode: "+nextepisode);
             		}
             		
             		int animeindex = episodenums.indexOf(nextepisode);
             		
             		if(animeindex!=-1) {
-            			//System.out.println(anime.getSavepath()+"\\"+filenames.get(animeindex));			
+            			//System.out.println(runtimeAnime.getSavepath()+"/"+filenames.get(animeindex));			
             			try {
-            				Desktop.getDesktop().open(new File(runtimeAnime.getSavepath()+"\\"+filenames.get(animeindex)));
+            				Desktop.getDesktop().open(new File(runtimeAnime.getSavepath()+"/"+filenames.get(animeindex)));
             				if(Configuration.getInstance().isIncrementEpisodesWatched()) {
             					dbControl.getInstance().updateWatchlistEpisodes(runtimeAnime.getId(), runtimeAnime.getEpisodeswatched()+1, runtimeAnime.getCurrentepisode());
             					WatchlistAnime loadedanime = runtimeAnime;

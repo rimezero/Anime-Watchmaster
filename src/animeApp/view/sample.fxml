@@ -28,7 +28,7 @@
                   </Menu>
                 <Menu text="_Help">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showButtonInstructions" text="Button instructions" />
+                        <MenuItem mnemonicParsing="false" onAction="#showButtonInstructions" text="Button instructions" visible="false" />
                     <MenuItem mnemonicParsing="false" onAction="#helpabout" text="About" />
                   </items>
                 </Menu>
@@ -44,8 +44,8 @@
             <Button fx:id="btnSeasons" mnemonicParsing="false" onAction="#seasonsList" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="Seasons" textAlignment="CENTER" />
             <Button fx:id="btnTopanime" mnemonicParsing="false" onAction="#topanimeList" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="Topanime" textAlignment="CENTER" />
             <Button fx:id="watchlistbutton" mnemonicParsing="false" onAction="#watchlist" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="Watchlist" textAlignment="CENTER" />
-            <Button fx:id="watchlaterlistbutton1" layoutX="20.0" layoutY="67.0" mnemonicParsing="false" onAction="#watchlaterlist" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="To watch" textAlignment="CENTER" />
-            <Button fx:id="btnWatched" mnemonicParsing="false" onAction="#watchedlist" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="Watched" textAlignment="CENTER" />
+            <Button fx:id="watchlaterlistbutton1" layoutX="20.0" layoutY="67.0" mnemonicParsing="false" onAction="#watchlaterlist" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="My List" textAlignment="CENTER" />
+            <Button fx:id="btnWatched" mnemonicParsing="false" onAction="#watchedlist" prefHeight="37.0" prefWidth="71.0" stylesheets="@../assets/css/buttonviewabc.css" text="History" textAlignment="CENTER" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

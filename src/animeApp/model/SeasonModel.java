@@ -65,7 +65,7 @@ public class SeasonModel implements Comparable<SeasonModel>{
             public void handle(ActionEvent event) {
                 Stage window = new Stage();
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/animeinfo.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("animeinfo.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     AnimeinfoController controller = (AnimeinfoController) fxmlLoader.getController();
                     
@@ -75,7 +75,7 @@ public class SeasonModel implements Comparable<SeasonModel>{
                     window.initStyle(StageStyle.DECORATED);
                     window.setScene(scene);
                     window.setTitle("Anime Information");
-                    window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+                    window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("animeWmIcon.png")));
                     window.setResizable(false);
                     
                     //set on active screen

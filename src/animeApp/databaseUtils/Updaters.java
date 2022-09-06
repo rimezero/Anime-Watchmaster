@@ -446,7 +446,16 @@ public class Updaters {
                     public void run() {
                     	for(int j=innerLowerLimit; j<innerHigherLimit; j++) {
                     		int apId = animelist.get(j).getapId();
-                    		HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		boolean noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		if(!noRetryNeeded) {
+                    			noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		}
+                    		if(!noRetryNeeded) {
+                    			noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		}
+                    		if(!noRetryNeeded) {
+                    			System.err.println("Failed to download image for id: "+apId+" 3 times in a row.");
+                    		}
                     		Controller.updateProgress++;
                     	}
                     }
@@ -462,7 +471,16 @@ public class Updaters {
                     public void run() {
                     	for(int j=innerLowerLimit; j<innerHigherLimit; j++) {
                     		int apId = animelist.get(j).getapId();
-                    		HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		boolean noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		if(!noRetryNeeded) {
+                    			noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		}
+                    		if(!noRetryNeeded) {
+                    			noRetryNeeded = HttpRequests.downloadDataToFileV(serverUrl+apId, "images/"+apId);
+                    		}
+                    		if(!noRetryNeeded) {
+                    			System.err.println("Failed to download image for id: "+apId+" 3 times in a row.");
+                    		}
                     		Controller.updateProgress++;
                     	}
                     }

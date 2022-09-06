@@ -256,7 +256,7 @@ public class Controller implements Initializable{
             window.initStyle(StageStyle.DECORATED);
             window.setScene(scene);
             window.setTitle(title);
-            window.getIcons().add(new Image(Controller.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+            window.getIcons().add(new Image(Controller.class.getResourceAsStream("animeWmIcon.png")));
             
             //set on active screen
             StartUpLocation startupLoc = new StartUpLocation(width, height);
@@ -286,43 +286,43 @@ public class Controller implements Initializable{
     			width = 1843;
     		}        	
         }
-        loadWindow("../view/watchlist.fxml","Watchlist",width,730);
+        loadWindow("watchlist.fxml","Watchlist",width,730);
     }
 
     @FXML
     private void watchlaterlist(){
-        loadWindow("../view/watchlaterlist.fxml","Watchlater list",1240,730);
+        loadWindow("watchlaterlist.fxml","My List",1240,730);
     }
 
     @FXML
     private void watchedlist(){
-        loadWindow("../view/watched.fxml", "Watched list",1240,730);
+        loadWindow("watched.fxml", "History",1240,730);
     }
 
     @FXML
     private void seasonsList(){
-        loadWindow("../view/seasons.fxml","Seasons",1240,730);
+        loadWindow("seasons.fxml","Seasons",1240,730);
     }
 
     @FXML
     private void topanimeList(){
-        loadWindow("../view/topanime.fxml","Top anime",1240,730);
+        loadWindow("topanime.fxml","Top anime",1240,730);
     }
     
     @FXML
     private void showConfig(){
-        loadWindow("../view/Configuration.fxml","Configuration",800,500);
+        loadWindow("Configuration.fxml","Configuration",800,500);
     }
     
     @FXML
     private void helpabout(){
         textDisplay="about";
-        loadWindow("../view/textdisplay.fxml","About",1240,730);
+        loadWindow("textdisplay.fxml","About",1240,730);
     }
 
     @FXML
     private void showButtonInstructions(){
         textDisplay="button_instructions";
-        loadWindow("../view/textdisplay.fxml","Button instructions",1240,730);
+        loadWindow("textdisplay.fxml","Button instructions",1240,730);
     }
 }

@@ -67,7 +67,7 @@ public class NewAnime implements Comparable<NewAnime>{
                 Stage window = new Stage();
                 try {
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/animeinfo.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("animeinfo.fxml"));
                     Parent root = (Parent)fxmlLoader.load();
                     AnimeinfoController controller = (AnimeinfoController)fxmlLoader.getController();
                     controller.setId(id);
@@ -77,7 +77,7 @@ public class NewAnime implements Comparable<NewAnime>{
                     window.initStyle(StageStyle.DECORATED);
                     window.setScene(scene);
                     window.setTitle("Anime Information");
-                    window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("../assets/icons/animeWmIcon.png")));
+                    window.getIcons().add(new javafx.scene.image.Image(Anime.class.getResourceAsStream("animeWmIcon.png")));
                     window.setResizable(false);
                     
                     //set on active screen

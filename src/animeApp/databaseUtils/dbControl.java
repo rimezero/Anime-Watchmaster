@@ -2111,7 +2111,11 @@ public class dbControl {
                     command.append(AP_ANIMEINFO_COLUMN_TITLE+" like ? and ");
                     whereArgs.add("%"+searchquery+"%");
                 }
-                if(filterslist!=null){
+                if(filterslist!=null && !filterslist.isEmpty()){
+                	if(!Configuration.getInstance().isShowUpcomingWithFilters()) {
+                		command.append(AP_ANIMEINFO_COLUMN_SEASON+"<>'Upcoming' and ");
+                	}
+                	
                     for(String filter : filterslist){
                         command.append(AP_ANIMEINFO_COLUMN_GENRE+" like ? and ");
                         whereArgs.add("%"+filter+"%");

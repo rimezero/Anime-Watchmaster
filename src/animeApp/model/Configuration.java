@@ -9,15 +9,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import com.sun.deploy.Environment;
+
 public class Configuration {
-	private String serverIp = "127.0.0.1";
+	private String serverIp = "149.102.143.244";
 	private int numberOfThreadsImagesUpdater = 10;
 	private int useIndex=0;
 	private boolean enableDownloads = true;
 	private boolean useLocalImages = true;
+	private boolean showUpcomingWithFilters = false;
 	private String globalDownloadsPath = " ";
-	private boolean enableWatchnext = false;
-	private boolean incrementEpisodesWatched = true;
+	private boolean enableWatchnext = true;
+	private boolean incrementEpisodesWatched = false;
 	private boolean getHighestQuality = true;
 	//private String[] qualities = {"1080p","720p","480p","Minimum"};
 	private int qualityIndex = 0;
@@ -91,6 +94,15 @@ public class Configuration {
 	public boolean getUseLocalImages() {
 		return useLocalImages;
 	}
+	
+	public boolean isShowUpcomingWithFilters() {
+		return showUpcomingWithFilters;
+	}
+
+	public void setShowUpcomingWithFilters(boolean showUpcomingWithFilters) {
+		this.showUpcomingWithFilters = showUpcomingWithFilters;
+	}
+
 	public void setGlobalDownloadsPath(String globalDownloadsPath) {
 		this.globalDownloadsPath = globalDownloadsPath;
 	}
@@ -256,6 +268,18 @@ public class Configuration {
 		}
 	}
 	
+	private void setAnimeFolder() {
+		if(this.globalDownloadsPath.trim().isEmpty()) {
+			String userdir = System.getProperty("user.home");
+			userdir+="/Anime_Downloads";
+			globalDownloadsPath=userdir;
+			File file = new File(globalDownloadsPath);
+			if(!file.exists()) {
+				file.mkdirs();
+			}
+		}
+	}
+	
 	public void initialize() {
 		File configFile = new File("config.ini");
 		if(!configFile.exists()) {
@@ -293,6 +317,8 @@ public class Configuration {
 				e.printStackTrace();
 			}
 		}
+		setAnimeFolder();
+		
 	}
 	
 	private void assignValue(Field f, String value) {
