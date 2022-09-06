@@ -27,7 +27,7 @@ distribute content of any kind.
 - Click show on the anime in the list then click add to watchlist
 - Open watchlist from the main window
 - Click show button for the anime then click download. Opens nyaa page on your default browser searching for said anime
-- From nyaa copy desired torrent prefix example [SubsPlease] Spy x Family
+- From nyaa copy desired torrent prefix. For example: [SubsPlease] Spy x Family
 - Scroll the watchlist all the way to the right and double click to edit torrent name. Paste copied prefix and press enter
 - Create folder on your file system and paste path on save path column or leave blank to automatically create folder with anime title in default directory (set in config)
 - Click Update (black button that appears after setting torrent name). Automatically finds all available episodes.
