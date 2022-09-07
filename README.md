@@ -34,7 +34,7 @@ distribute content of any kind.
 - Click Download Next - Your default torrent opens the download tracker. Choose the folder set in previous steps. Wait for torrent to download. 
 - Click Watch Next - Your default video player plays the next episode. 
 - After watchling double click episodes watched number in the watchlist to manually change it. 
-- After first setup it is just open Watchlist > Update > Download Next > Watch next
+- After first setup it is just open Watchlist > Download Next > Watch next
 
 #### Return after a while and click update watchlist to see if new episodes are out
 
